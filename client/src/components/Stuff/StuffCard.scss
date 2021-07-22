@@ -1,0 +1,40 @@
+.stuffCard {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-family: "Poppins", sans-serif;
+  height: 56px;
+  width: 1369px;
+  background: #ffffff;
+  box-shadow: 0px 4px 20px rgba(178, 178, 233, 0.19);
+  border-radius: 20px 0px;
+  margin-bottom: 30px;
+  .doctor_number {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #6ac7be;
+    opacity: 0.3;
+    border-radius: 20px 0px;
+    height: 56px;
+    width: 36px;
+    margin-right: 50px;
+  }
+  .colors {
+    display: flex;
+    margin-right: 80px;
+    img {
+      margin-right: 10px;
+    }
+  }
+  .rooms_list {
+    margin-right: 120px;
+  }
+  .buttons {
+    display: flex;
+    align-items: center;
+    img {
+      margin-right: 30px;
+    }
+  }
+}
