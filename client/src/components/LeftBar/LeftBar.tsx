@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./LeftBar.scss";
 import dashboard from "../../img/dashboard.svg";
 import stuff from "../../img/stuff.svg";
@@ -11,26 +12,34 @@ function LeftBar() {
     <div className="left">
       <p className="logo">Logo</p>
       <div className="navigation">
-        <div className="dashboard">
+        <div className="navigation_dashboard">
           <img src={dashboard} alt="" />
-          <span className="dashboard_content">Dashboard</span>
+          <Link to="/dashboard">
+            <button className="dashboard_content">Dashboard</button>
+          </Link>
         </div>
-        <div className="stuff">
+        <div className="navigation_stuff">
           <img src={stuff} alt="" />
-          <span className="stuff_content">Stuff</span>
+          <Link to="/stuff">
+            <button className="stuff_content">Stuff</button>
+          </Link>
         </div>
-        <div className="alerts">
+        <div className="navigation_alerts">
           <img src={alerts} alt="" />
-          <span className="alerts_content">Alerts</span>
+          <Link to="/alerts">
+            <button className="alerts_content">Alerts</button>
+          </Link>
         </div>
-        <div className="sequence">
+        <div className="navigation_sequence">
           <img src={sequence} alt="" />
-          <span className="sequence_content">Sequence</span>
+          <Link to="/sequence">
+            <button className="sequence_content">Sequence</button>
+          </Link>
         </div>
       </div>
       <div className="sign-out">
         <img src={logout} alt="" />
-        <span className="logout">Logout</span>
+        <button className="logout">Logout</button>
       </div>
     </div>
   );
