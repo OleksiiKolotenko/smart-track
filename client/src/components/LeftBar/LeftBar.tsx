@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC } from "react";
 import { Link } from "react-router-dom";
 import "./LeftBar.scss";
 import dashboard from "../../img/dashboard.svg";
@@ -6,7 +6,6 @@ import stuff from "../../img/stuff.svg";
 import alerts from "../../img/alerts.svg";
 import sequence from "../../img/sequence.svg";
 import logout from "../../img/sign-out.svg";
-import { FC } from "react";
 
 type LeftBarProps = {
   activeBtn: number | null;

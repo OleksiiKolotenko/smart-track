@@ -37,6 +37,7 @@ export const Sequence = () => {
           <span className="create">Add a room</span>
         </div>
         <SequenceCard />
+        <SequenceCard /> <SequenceCard /> <SequenceCard /> <SequenceCard />{" "}
       </div>
     </div>
   );

@@ -7,7 +7,6 @@ export const Dashboard = () => {
     <div className="dashboard">
       <DashboardCard />
       <DashboardCard />
-      <DashboardCard />
     </div>
   );
 };

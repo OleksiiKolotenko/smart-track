@@ -1,8 +1,24 @@
 type User {
   id: ID!
   name: String!
+  role: String!
+  email: String!
+  phone: Float
+}
+
+type Alert {
+  number: ID!
+  status: String!
+  color: String!
+}
+
+type Room {
+  id: ID!
+  name: String!
 }
 
 type Query {
   getUsers: [User]
+  getAlerts: [Alert]
+  getRooms: [Room]
 }

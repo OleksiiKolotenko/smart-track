@@ -9,6 +9,7 @@ import "./app.scss";
 
 function App() {
   const [activeBtn, setActiveBtn] = useState<number | null>(0);
+  const [activePerson, setActivePerson] = useState<number | null>(0);
   return (
     <Router>
       <div className="app">
@@ -20,7 +21,10 @@ function App() {
           <Dashboard />
         </Route>
         <Route path="/stuff">
-          <Stuff />
+          <Stuff
+            activePerson={activePerson}
+            setActivePerson={setActivePerson}
+          />
         </Route>
         <Route path="/alerts">
           <Alerts />
