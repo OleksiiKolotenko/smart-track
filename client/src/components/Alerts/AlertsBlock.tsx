@@ -1,7 +1,6 @@
-import React from "react";
+import React, { FC } from "react";
 import "./AlertsBlock.scss";
 import editPen from "../../img/editPen.svg";
-import { FC } from "react";
 import { AlertT } from "../../graphql/Alerts/GetAlerts";
 
 export const AlertsBlock: FC<AlertT> = ({ number, status, color }) => {
