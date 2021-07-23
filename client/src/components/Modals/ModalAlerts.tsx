@@ -5,33 +5,27 @@ import "./ModalAlert.scss";
 interface ModalAlertProps {
   active: boolean;
   setModalAlertsActive: any;
-  toggleModal: any;
 }
 
 export const ModalAlert: React.FC<ModalAlertProps> = ({
   active,
   setModalAlertsActive,
-  toggleModal,
 }) => {
-  const bgRef = useRef();
   const validate = (e) => {
     const errors = {};
     return errors;
   };
 
   const outsideClick = (e) => {
-    if (e.target === bgRef.current) {
+    if (e.target.className === "modal active") {
       setModalAlertsActive(false);
     }
   };
+
   const onSubmit = async (obj) => {};
 
   return (
-    <div
-      className={active ? "modal active" : "modal"}
-      onClick={outsideClick}
-      data-ref={bgRef}
-    >
+    <div className={active ? "modal active" : "modal"} onClick={outsideClick}>
       <div className={active ? "modal_content active" : "modal_content"}>
         <Form
           onSubmit={onSubmit}
@@ -67,8 +61,67 @@ export const ModalAlert: React.FC<ModalAlertProps> = ({
                     <Field
                       name="color"
                       render={({ input, meta }) => (
-                        <div>
-                          <input {...input} placeholder="Not done" />
+                        <div
+                          className="colors_block"
+                          style={{
+                            display: "flex",
+                            justifyContent: "space-between",
+                          }}
+                        >
+                          <span
+                            style={{
+                              width: "45px",
+                              height: "45px",
+                              backgroundColor: "#EE589730",
+                              borderRadius: "25px",
+                              borderColor: "#EE589730",
+                            }}
+                          ></span>
+                          <span
+                            style={{
+                              width: "45px",
+                              height: "45px",
+                              backgroundColor: "#86E8EE30",
+                              borderRadius: "25px",
+                              border: "2px solid #86E8EE30",
+                            }}
+                          ></span>
+                          <span
+                            style={{
+                              width: "45px",
+                              height: "45px",
+                              backgroundColor: "#FA700C30",
+                              borderRadius: "25px",
+                              border: "2px solid #FA700C30",
+                            }}
+                          ></span>
+                          <span
+                            style={{
+                              width: "45px",
+                              height: "45px",
+                              backgroundColor: "#E485F330",
+                              borderRadius: "25px",
+                              border: "2px solid #E485F330",
+                            }}
+                          ></span>
+                          <span
+                            style={{
+                              width: "45px",
+                              height: "45px",
+                              backgroundColor: "#C4E6E930",
+                              borderRadius: "25px",
+                              border: "2px solid #C4E6E930",
+                            }}
+                          ></span>
+                          <span
+                            style={{
+                              width: "45px",
+                              height: "45px",
+                              backgroundColor: "#78F27530",
+                              borderRadius: "25px",
+                              border: "2px solid #78F27530",
+                            }}
+                          ></span>
                           <br />
                           {meta.touched && meta.error && (
                             <span>{meta.error}</span>

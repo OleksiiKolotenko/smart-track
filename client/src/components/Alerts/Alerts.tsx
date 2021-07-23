@@ -40,7 +40,6 @@ export const Alerts = () => {
         <ModalAlert
           active={modalAlerts}
           setModalAlertsActive={setModalAlertsActive}
-          toggleModal={toggleModal}
         ></ModalAlert>
       )}
     </div>
