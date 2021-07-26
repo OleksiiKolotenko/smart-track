@@ -73,4 +73,10 @@
     align-items: center;
     padding-bottom: 10px;
   }
+  .cards {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
 }

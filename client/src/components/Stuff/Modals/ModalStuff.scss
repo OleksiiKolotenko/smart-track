@@ -7,14 +7,11 @@
   width: 100vw;
   background-color: rgba(0, 0, 0, 0.4);
   position: fixed;
-  top: 0;
-  left: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  opacity: 0;
   pointer-events: none;
-  &_alert_content {
+  &_stuff_content {
     .wrap {
       padding-left: 10px;
       width: 400px;
@@ -25,8 +22,8 @@
     flex-direction: column;
     padding: 20px;
     background-color: #fff;
-    height: 360px;
-    width: 441px;
+    height: 590px;
+    width: 500px;
     border-radius: 20px;
     h1 {
       display: flex;
@@ -45,7 +42,7 @@
       color: #212121;
       margin-bottom: 10px;
     }
-    .name_input {
+    .input {
       display: flex;
       align-items: center;
       width: 384px;
@@ -54,7 +51,7 @@
       border-radius: 20px;
       margin-left: -2px;
       margin-bottom: 20px;
-      .name_type {
+      .type {
         font-size: 16px;
         line-height: 24px;
         color: #212121;
@@ -65,6 +62,21 @@
       display: flex;
       justify-content: center;
       margin-left: -5px;
+    }
+    .role {
+      padding-left: 18px;
+      font-size: 16px;
+      line-height: 24px;
+      color: #212121;
+      height: 43px;
+      width: 135px;
+      border: 1px solid #dadada;
+      border-radius: 20px;
+    }
+    .options {
+      font-size: 16px;
+      line-height: 24px;
+      color: #212121;
     }
     .submit {
       color: #fff;
@@ -85,4 +97,9 @@
       }
     }
   }
+}
+
+.modal.active {
+  opacity: 1;
+  pointer-events: all;
 }

@@ -1,13 +1,13 @@
 import React from "react";
 import "./DashboardCard.scss";
 import DoctorsRoom from "./DoctorsRooms";
-export const DashboardCard = () => {
+export const DashboardCard = ({ name }) => {
   return (
     <div className="card">
       <div className="doctor">
         <button className="reset">Reset</button>
-        <span className="name">Dr Who</span>
-        <span className="job">Therapist</span>
+        <span className="name">{name}</span>
+        <span className="job">Doctor</span>
         <span className="doctor_line"></span>
         <div className="doctor_query">
           <button className="minus">-</button>

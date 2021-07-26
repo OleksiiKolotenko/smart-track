@@ -27,6 +27,13 @@ let users = [
     email: "doctor2@gmail.com",
     phone: +38050285280,
   },
+  {
+    id: 5,
+    name: "Helper",
+    role: "Receptionist",
+    email: "recep2@gmail.com",
+    phone: +38050285280,
+  },
 ];
 
 let alerts = [
@@ -69,7 +76,6 @@ const resolvers = {
       return users;
     },
     getByRole: (_: any, params: any) => {
-      console.log("params: ", params);
       return users.filter((user) => user.role === params.role);
     },
     getAlerts: () => {

@@ -3,7 +3,8 @@ import "./SequenceCard.scss";
 import add from "../../img/add.svg";
 import del from "../../img/delete.svg";
 import edit from "../../img/editPen.svg";
-export const SequenceCard = () => {
+
+export const SequenceCard = ({ name }) => {
   return (
     <div className="sequence_card">
       <div className="buttons">
@@ -12,7 +13,7 @@ export const SequenceCard = () => {
       </div>
       <div className="room_number">
         <img src={add} alt="" />
-        <span className="number">1b</span>
+        <span className="number">{name}</span>
       </div>
       <span className="name">Alex Sample</span>
     </div>

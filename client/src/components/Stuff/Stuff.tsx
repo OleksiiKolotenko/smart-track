@@ -1,8 +1,9 @@
-import React, { FC } from "react";
-import "./Stuff.scss";
+import React, { FC, useState } from "react";
 import { useQuery } from "@apollo/client";
 import { GetByRole, GetByRoleResponse } from "../../graphql/Stuff/GetStuff";
 import StuffCard from "./StuffCard";
+import { ModalStuff } from "./Modals/ModalStuff";
+import "./Stuff.scss";
 
 type StuffProps = {
   activePerson: number;
@@ -15,6 +16,12 @@ export const Stuff: FC<StuffProps> = ({ activePerson, setActivePerson }) => {
   const { data, loading } = useQuery<GetByRoleResponse>(GetByRole, {
     variables: { role: availableRoles[activePerson] },
   });
+
+  const [modalStuff, setModalStuffActive] = useState(false);
+  const toggleModal = () => {
+    setModalStuffActive((store) => !store);
+  };
+
   if (loading) {
     return <span>Page is loading...</span>;
   }
@@ -41,7 +48,9 @@ export const Stuff: FC<StuffProps> = ({ activePerson, setActivePerson }) => {
           Receptionist
         </button>
 
-        <button className="stuff_add">Add new</button>
+        <button className="stuff_add" onClick={toggleModal}>
+          Add new
+        </button>
       </div>
 
       <div className="info_block">
@@ -88,6 +97,12 @@ export const Stuff: FC<StuffProps> = ({ activePerson, setActivePerson }) => {
             ))
           : ""}
       </div>
+      {modalStuff && (
+        <ModalStuff
+          active={modalStuff}
+          setModalStuffActive={setModalStuffActive}
+        ></ModalStuff>
+      )}
     </div>
   );
 };

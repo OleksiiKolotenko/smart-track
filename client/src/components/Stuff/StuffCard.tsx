@@ -1,9 +1,9 @@
 import React, { FC } from "react";
+import { StuffT } from "../../graphql/Stuff/GetStuff";
 import "./StuffCard.scss";
 import blue from "../../img/blue.svg";
 import edit from "../../img/editPen.svg";
 import del from "../../img/trash.svg";
-import { StuffT } from "../../graphql/Stuff/GetStuff";
 
 export const StuffCard: FC<StuffT> = ({ number, id, name, email, phone }) => {
   return (

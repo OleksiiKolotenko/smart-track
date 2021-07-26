@@ -1,11 +1,22 @@
 import React from "react";
-import "./Sequence.scss";
 import SequenceCard from "./SequenceCard";
+import {
+  GetAllRooms,
+  GetAllSequenceResponse,
+} from "../../graphql/Sequence/GetRooms";
+import "./Sequence.scss";
 import triangle from "../../img/triangle.svg";
 import add from "../../img/add.svg";
 import plus from "../../img/plus.svg";
+import { useQuery } from "@apollo/client";
 
 export const Sequence = () => {
+  const { data, loading } = useQuery<GetAllSequenceResponse>(GetAllRooms);
+
+  if (loading) {
+    return <span>Page is loading...</span>;
+  }
+
   return (
     <div className="sequence">
       <div className="top">
@@ -36,8 +47,12 @@ export const Sequence = () => {
           </div>
           <span className="create">Add a room</span>
         </div>
-        <SequenceCard />
-        <SequenceCard /> <SequenceCard /> <SequenceCard /> <SequenceCard />{" "}
+        <div className="cards">
+          {data?.getRooms &&
+            data.getRooms.map((sequence, index) => (
+              <SequenceCard name={sequence.name} key={`sequence_${index}`} />
+            ))}
+        </div>
       </div>
     </div>
   );

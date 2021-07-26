@@ -4,12 +4,12 @@ import "./ModalAlert.scss";
 
 interface ModalAlertProps {
   active: boolean;
-  setModalAlertsActive: any;
+  setModalEditAlertsActive: any;
 }
 
-export const ModalAlert: React.FC<ModalAlertProps> = ({
+export const ModalEditAlert: React.FC<ModalAlertProps> = ({
   active,
-  setModalAlertsActive,
+  setModalEditAlertsActive,
 }) => {
   const validate = (e) => {
     const errors = {};
@@ -18,15 +18,21 @@ export const ModalAlert: React.FC<ModalAlertProps> = ({
 
   const outsideClick = (e) => {
     if (e.target.className === "modal active") {
-      setModalAlertsActive(false);
+      setModalEditAlertsActive(false);
     }
   };
 
-  const onSubmit = async (obj) => {};
+  const onSubmit = async (obj) => {
+    console.log(obj);
+  };
 
   return (
     <div className={active ? "modal active" : "modal"} onClick={outsideClick}>
-      <div className={active ? "modal_content active" : "modal_content"}>
+      <div
+        className={
+          active ? "modal_alert_content active" : "modal_alert_content"
+        }
+      >
         <Form
           onSubmit={onSubmit}
           validate={validate}
@@ -36,7 +42,7 @@ export const ModalAlert: React.FC<ModalAlertProps> = ({
                 name="modal"
                 render={({ input, meta }) => (
                   <div className="wrap">
-                    <h1>Add alert</h1>
+                    <h1>Edit alert</h1>
                     <span className="field">Name:</span>
                     <Field
                       name="name"

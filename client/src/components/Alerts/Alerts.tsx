@@ -5,24 +5,31 @@ import {
   GetAllAlerts,
   GetAllAlertsResponse,
 } from "../../graphql/Alerts/GetAlerts";
-import { ModalAlert } from "./Modals/ModalAlerts";
+import { ModalCreateAlert } from "./Modals/ModalCreateAlerts";
+import { ModalEditAlert } from "./Modals/ModalEditAlerts";
 import "./Alerts.scss";
 
-interface ModalAlert {
-  modalAlerts: boolean;
-  setModalAlertsActive: (id: number) => void;
+interface ModalCreateAlert {
+  modalCreateAlerts: boolean;
+  setModalCreateAlertsActive: (id: number) => void;
 }
 
 export const Alerts = () => {
-  const [modalAlerts, setModalAlertsActive] = React.useState(false);
-  const toggleModal = () => {
-    setModalAlertsActive((store) => !store);
+  const [modalCreateAlerts, setModalCreateAlertsActive] = useState(false);
+
+  const toggleCreateModal = () => {
+    setModalCreateAlertsActive((store) => !store);
   };
+
   const { data, loading } = useQuery<GetAllAlertsResponse>(GetAllAlerts);
+
+  if (loading) {
+    return <span>Page is loading...</span>;
+  }
 
   return (
     <div className="alerts">
-      <button className="add" onClick={toggleModal}>
+      <button className="add" onClick={toggleCreateModal}>
         Add new
       </button>
       <div className="alerts_box">
@@ -36,11 +43,11 @@ export const Alerts = () => {
             />
           ))}
       </div>
-      {modalAlerts && (
-        <ModalAlert
-          active={modalAlerts}
-          setModalAlertsActive={setModalAlertsActive}
-        ></ModalAlert>
+      {modalCreateAlerts && (
+        <ModalCreateAlert
+          active={modalCreateAlerts}
+          setModalCreateAlertsActive={setModalCreateAlertsActive}
+        ></ModalCreateAlert>
       )}
     </div>
   );

@@ -10,12 +10,13 @@ import "./app.scss";
 function App() {
   const [activeBtn, setActiveBtn] = useState<number | null>(0);
   const [activePerson, setActivePerson] = useState<number>(0);
+
   return (
     <Router>
       <div className="app">
         <LeftBar activeBtn={activeBtn} setActiveBtn={setActiveBtn} />
         <Route exact path="/">
-          <Redirect to="/dashboard" />
+          <Dashboard />
         </Route>
         <Route path="/dashboard">
           <Dashboard />
