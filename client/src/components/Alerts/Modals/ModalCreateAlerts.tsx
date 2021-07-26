@@ -2,6 +2,15 @@ import React, { useState, FC } from "react";
 import { Form, Field } from "react-final-form";
 import "./ModalAlert.scss";
 
+const colors = [
+  "#EE589730",
+  "#86E8EE30",
+  "#FA700C30",
+  "#E485F330",
+  "#C4E6E930",
+  "#78F27530",
+];
+
 interface ModalAlertProps {
   active: boolean;
   setModalCreateAlertsActive: any;
@@ -26,6 +35,8 @@ export const ModalCreateAlert: React.FC<ModalAlertProps> = ({
     console.log(obj);
   };
 
+  const [activeColor, setActiveColor] = useState(0);
+
   return (
     <div className={active ? "modal active" : "modal"} onClick={outsideClick}>
       <div
@@ -43,7 +54,7 @@ export const ModalCreateAlert: React.FC<ModalAlertProps> = ({
                 render={({ input, meta }) => (
                   <div className="wrap">
                     <h1>Add alert</h1>
-                    <span className="field">Name:</span>
+                    <span className="field">Status:</span>
                     <Field
                       name="name"
                       render={({ input, meta }) => (
@@ -64,6 +75,7 @@ export const ModalCreateAlert: React.FC<ModalAlertProps> = ({
                     />
                     <span className="field">Pick a color:</span>
                     <Field
+                      type="radio"
                       name="color"
                       render={({ input, meta }) => (
                         <div
@@ -73,48 +85,30 @@ export const ModalCreateAlert: React.FC<ModalAlertProps> = ({
                             justifyContent: "space-between",
                           }}
                         >
-                          <span
-                            className="colors_list"
-                            style={{
-                              backgroundColor: "#EE589730",
-                              border: "2px solid #EE589730",
-                            }}
-                          ></span>
-                          <span
-                            className="colors_list"
-                            style={{
-                              backgroundColor: "#86E8EE30",
-                              border: "2px solid #86E8EE30",
-                            }}
-                          ></span>
-                          <span
-                            className="colors_list"
-                            style={{
-                              backgroundColor: "#FA700C30",
-                              border: "2px solid #FA700C30",
-                            }}
-                          ></span>
-                          <span
-                            className="colors_list"
-                            style={{
-                              backgroundColor: "#E485F330",
-                              border: "2px solid #E485F330",
-                            }}
-                          ></span>
-                          <span
-                            className="colors_list"
-                            style={{
-                              backgroundColor: "#C4E6E930",
-                              border: "2px solid #C4E6E930",
-                            }}
-                          ></span>
-                          <span
-                            className="colors_list"
-                            style={{
-                              backgroundColor: "#78F27530",
-                              border: "2px solid #78F27530",
-                            }}
-                          ></span>
+                          {colors.map((color, index) => (
+                            <React.Fragment key={color + index}>
+                              <input
+                                type="radio"
+                                id={`radio-${index}`}
+                                className="hide"
+                                {...input}
+                                value={color}
+                                onChange={() => setActiveColor(index)}
+                              />
+                              <label
+                                htmlFor={`radio-${index}`}
+                                className={`colors_list ${
+                                  activeColor === index
+                                    ? "colors_list_active"
+                                    : ""
+                                }`}
+                                style={{
+                                  backgroundColor: color,
+                                  border: `2px solid ${color}`,
+                                }}
+                              ></label>
+                            </React.Fragment>
+                          ))}
                           <br />
                           {meta.touched && meta.error && (
                             <span>{meta.error}</span>
