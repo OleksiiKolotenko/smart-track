@@ -9,7 +9,7 @@ import "./app.scss";
 
 function App() {
   const [activeBtn, setActiveBtn] = useState<number | null>(0);
-  const [activePerson, setActivePerson] = useState<number | null>(0);
+  const [activePerson, setActivePerson] = useState<number>(0);
   return (
     <Router>
       <div className="app">

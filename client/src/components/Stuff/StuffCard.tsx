@@ -1,23 +1,24 @@
-import React from "react";
+import React, { FC } from "react";
 import "./StuffCard.scss";
 import blue from "../../img/blue.svg";
 import edit from "../../img/editPen.svg";
 import del from "../../img/trash.svg";
+import { StuffT } from "../../graphql/Stuff/GetStuff";
 
-export const StuffCard = () => {
+export const StuffCard: FC<StuffT> = ({ number, id, name, email, phone }) => {
   return (
     <div className="stuffCard">
-      <div className="doctor_number">
-        <span className="number">1</span>
+      <div className="doctor_id">
+        <span className="id">{number}</span>
       </div>
       <span className="name" style={{ marginRight: "80px" }}>
-        Alex Sample
+        {name}
       </span>
       <span className="email" style={{ marginRight: "80px" }}>
-        alexsample@gmail.com
+        {email}
       </span>
       <span className="phone" style={{ marginRight: "120px" }}>
-        +38097973867
+        {`+${phone}`}
       </span>
       <div className="colors">
         <img src={blue} alt="" />

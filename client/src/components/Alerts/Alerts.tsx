@@ -5,10 +5,10 @@ import {
   GetAllAlerts,
   GetAllAlertsResponse,
 } from "../../graphql/Alerts/GetAlerts";
-import { ModalAlert } from "../Modals/ModalAlerts";
+import { ModalAlert } from "./Modals/ModalAlerts";
 import "./Alerts.scss";
 
-interface ModalAlerts {
+interface ModalAlert {
   modalAlerts: boolean;
   setModalAlertsActive: (id: number) => void;
 }

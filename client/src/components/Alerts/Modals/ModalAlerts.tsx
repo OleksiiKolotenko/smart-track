@@ -1,4 +1,4 @@
-import React, { useState, useRef, FC } from "react";
+import React, { useState, FC } from "react";
 import { Form, Field } from "react-final-form";
 import "./ModalAlert.scss";
 
@@ -49,7 +49,6 @@ export const ModalAlert: React.FC<ModalAlertProps> = ({
                           />
                           {meta.touched && meta.error && (
                             <span>
-                              {" "}
                               <br />
                               {meta.error}
                             </span>
@@ -69,56 +68,44 @@ export const ModalAlert: React.FC<ModalAlertProps> = ({
                           }}
                         >
                           <span
+                            className="colors_list"
                             style={{
-                              width: "45px",
-                              height: "45px",
                               backgroundColor: "#EE589730",
-                              borderRadius: "25px",
-                              borderColor: "#EE589730",
+                              border: "2px solid #EE589730",
                             }}
                           ></span>
                           <span
+                            className="colors_list"
                             style={{
-                              width: "45px",
-                              height: "45px",
                               backgroundColor: "#86E8EE30",
-                              borderRadius: "25px",
                               border: "2px solid #86E8EE30",
                             }}
                           ></span>
                           <span
+                            className="colors_list"
                             style={{
-                              width: "45px",
-                              height: "45px",
                               backgroundColor: "#FA700C30",
-                              borderRadius: "25px",
                               border: "2px solid #FA700C30",
                             }}
                           ></span>
                           <span
+                            className="colors_list"
                             style={{
-                              width: "45px",
-                              height: "45px",
                               backgroundColor: "#E485F330",
-                              borderRadius: "25px",
                               border: "2px solid #E485F330",
                             }}
                           ></span>
                           <span
+                            className="colors_list"
                             style={{
-                              width: "45px",
-                              height: "45px",
                               backgroundColor: "#C4E6E930",
-                              borderRadius: "25px",
                               border: "2px solid #C4E6E930",
                             }}
                           ></span>
                           <span
+                            className="colors_list"
                             style={{
-                              width: "45px",
-                              height: "45px",
                               backgroundColor: "#78F27530",
-                              borderRadius: "25px",
                               border: "2px solid #78F27530",
                             }}
                           ></span>

@@ -3,7 +3,7 @@ type User {
   name: String!
   role: String!
   email: String!
-  phone: Float
+  phone: Float!
 }
 
 type Alert {
@@ -19,6 +19,7 @@ type Room {
 
 type Query {
   getUsers: [User]
+  getByRole(role: String!): [User]
   getAlerts: [Alert]
   getRooms: [Room]
 }

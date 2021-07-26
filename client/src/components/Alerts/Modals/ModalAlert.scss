@@ -78,6 +78,11 @@
     .colors_block {
       display: flex;
       flex-direction: row;
+      .colors_list {
+        width: 45px;
+        height: 45px;
+        border-radius: 25px;
+      }
     }
   }
 }

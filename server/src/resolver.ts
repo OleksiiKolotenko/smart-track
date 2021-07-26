@@ -4,13 +4,28 @@ let users = [
     name: "Who",
     role: "Doctor",
     email: "doctor@gmail.com",
-    phone: 38097373738,
+    phone: +38097373738,
   },
   {
     id: 2,
     name: "Watson",
     role: "Assistant",
-    phone: 38068686868,
+    email: "assistant@gmail.com",
+    phone: +38068686868,
+  },
+  {
+    id: 3,
+    name: "Ray",
+    role: "Receptionist",
+    email: "recep@gmail.com",
+    phone: +38050282280,
+  },
+  {
+    id: 4,
+    name: "Mister",
+    role: "Doctor",
+    email: "doctor2@gmail.com",
+    phone: +38050285280,
   },
 ];
 
@@ -52,6 +67,10 @@ const resolvers = {
   Query: {
     getUsers: () => {
       return users;
+    },
+    getByRole: (_: any, params: any) => {
+      console.log("params: ", params);
+      return users.filter((user) => user.role === params.role);
     },
     getAlerts: () => {
       return alerts;

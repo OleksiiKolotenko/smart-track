@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { Link } from "react-router-dom";
+import { Link, Route } from "react-router-dom";
 import "./LeftBar.scss";
 import dashboard from "../../img/dashboard.svg";
 import stuff from "../../img/stuff.svg";
