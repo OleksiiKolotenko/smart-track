@@ -36,7 +36,7 @@ export const Alerts = () => {
         {data?.getAlerts &&
           data.getAlerts.map((alert, index) => (
             <AlertsBlock
-              number={alert.number}
+              id={alert.id}
               status={alert.status}
               color={alert.color}
               key={`alert_${index}`}

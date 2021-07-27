@@ -28,8 +28,6 @@ export const Sequence = () => {
       variables: { role: "Doctor" },
     });
 
-  console.log(dataDoctors);
-
   if (loadingRooms) {
     return <span>Page is loading...</span>;
   }
@@ -45,9 +43,6 @@ export const Sequence = () => {
         <button className="save">Save</button>
       </div>
       <div className="doctor">
-        {dataDoctors &&
-          dataDoctors.getByRole &&
-          console.log(dataDoctors.getByRole[0].name)}
         <select style={{ fontSize: "18px" }}>
           {dataDoctors?.getByRole &&
             dataDoctors.getByRole.map((sequence, index) => (
@@ -88,7 +83,7 @@ export const Sequence = () => {
                 name={sequence.name}
                 key={`sequence_${index}`}
                 id={sequence.id}
-                owner={sequence.owner}
+                ownerId={sequence.ownerId}
                 ownerName={sequence.ownerName}
               />
             ))}

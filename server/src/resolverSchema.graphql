@@ -8,7 +8,7 @@ type User {
 }
 
 type Alert {
-  number: ID!
+  id: ID!
   status: String!
   color: String!
 }
@@ -26,4 +26,9 @@ type Query {
   getAlerts: [Alert]
   getRooms: [Room]
   getRoomsById(ownerId: String): [Room]
+}
+
+type Mutation {
+  createAlert(id: ID!, color: String!, status: String!): Alert!
+  editAlert(color: String!, status: String!): Alert!
 }

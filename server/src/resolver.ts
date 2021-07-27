@@ -40,22 +40,22 @@ let users = [
 
 let alerts = [
   {
-    number: 1,
+    id: 1,
     status: "Doctor required",
     color: "#63BFF230",
   },
   {
-    number: 2,
+    id: 2,
     status: "Patient in",
     color: "#FA700C30",
   },
   {
-    number: 3,
+    id: 3,
     status: "Assistant in",
     color: "#F2D77530",
   },
   {
-    number: 4,
+    id: 4,
     status: "Emergency",
     color: "#FC666630",
   },
@@ -87,11 +87,18 @@ const resolvers = {
     getRooms: () => {
       return rooms;
     },
-    getRoomsById: (_: any, params: any) => {
-      return rooms.filter((rooms) => rooms.ownerId === params.ownerId);
-    },
+    // getRoomsById: (_: any, params: any) => {
+    //   return rooms.filter((rooms) => rooms.ownerId === params.ownerId);
+    // },
     getAlerts: () => {
       return alerts;
+    },
+  },
+  Mutation: {
+    createAlert: (id: number, status: string, color: string) => {
+      // const newAlert = { id, status, color };
+      // alerts.push({ newAlert });
+      // return newAlert;
     },
   },
 };

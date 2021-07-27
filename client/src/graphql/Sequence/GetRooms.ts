@@ -3,7 +3,7 @@ import { gql } from "@apollo/client";
 export type SequenceT = {
   id: number;
   name: string;
-  owner: string;
+  ownerId: string;
   ownerName: string;
 };
 
@@ -14,7 +14,7 @@ export const GetAllRooms = gql`
     getRooms {
       id
       name
-      owner
+      ownerId
       ownerName
     }
   }

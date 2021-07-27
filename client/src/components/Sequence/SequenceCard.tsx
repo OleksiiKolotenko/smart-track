@@ -6,7 +6,7 @@ import add from "../../img/add.svg";
 import del from "../../img/delete.svg";
 import edit from "../../img/editPen.svg";
 
-export const SequenceCard = ({ name, id, owner, ownerName }) => {
+export const SequenceCard = ({ name, id, ownerId, ownerName }) => {
   const [modalEditRoom, setModalEditRoomActive] = useState(false);
 
   const toggleEditModal = () => {

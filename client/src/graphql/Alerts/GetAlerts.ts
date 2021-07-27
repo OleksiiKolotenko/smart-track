@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client";
 
 export type AlertT = {
-  number: string;
+  id: string;
   status: string;
   color: string;
 };
@@ -11,7 +11,7 @@ export type GetAllAlertsResponse = { getAlerts: AlertT[] };
 export const GetAllAlerts = gql`
   query GetAllAlerts {
     getAlerts {
-      number
+      id
       status
       color
     }
