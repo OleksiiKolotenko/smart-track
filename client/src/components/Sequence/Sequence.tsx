@@ -4,8 +4,11 @@ import {
   GetAllRooms,
   GetAllSequenceResponse,
 } from "../../graphql/Sequence/GetRooms";
+import {
+  GetDoctors,
+  GetDoctorsByResponse,
+} from "../../graphql/Sequence/GetDoctors";
 import "./Sequence.scss";
-import triangle from "../../img/triangle.svg";
 import add from "../../img/add.svg";
 import plus from "../../img/plus.svg";
 import { useQuery } from "@apollo/client";
@@ -13,14 +16,25 @@ import { ModalCreateRoom } from "./Modal/ModalCreateRoom";
 
 export const Sequence = () => {
   const [modalCreateRoom, setModalCreateRoomActive] = useState(false);
-
   const toggleCreateModal = () => {
     setModalCreateRoomActive((store) => !store);
   };
 
-  const { data, loading } = useQuery<GetAllSequenceResponse>(GetAllRooms);
+  const { data: dataRooms, loading: loadingRooms } =
+    useQuery<GetAllSequenceResponse>(GetAllRooms);
 
-  if (loading) {
+  const { data: dataDoctors, loading: loadingDoctors } =
+    useQuery<GetDoctorsByResponse>(GetDoctors, {
+      variables: { role: "Doctor" },
+    });
+
+  console.log(dataDoctors);
+
+  if (loadingRooms) {
+    return <span>Page is loading...</span>;
+  }
+
+  if (loadingDoctors) {
     return <span>Page is loading...</span>;
   }
 
@@ -31,8 +45,15 @@ export const Sequence = () => {
         <button className="save">Save</button>
       </div>
       <div className="doctor">
-        <span className="doctor_name">Alex Sample</span>
-        <img src={triangle} alt="" />
+        {dataDoctors &&
+          dataDoctors.getByRole &&
+          console.log(dataDoctors.getByRole[0].name)}
+        <select style={{ fontSize: "18px" }}>
+          {dataDoctors?.getByRole &&
+            dataDoctors.getByRole.map((sequence, index) => (
+              <option key={`sequence_${index}`}>{sequence.name}</option>
+            ))}
+        </select>
       </div>
       <h1>Drag and Drop rooms to the box</h1>
       <div className="drag_in"></div>
@@ -61,8 +82,8 @@ export const Sequence = () => {
           </span>
         </div>
         <div className="cards">
-          {data?.getRooms &&
-            data.getRooms.map((sequence, index) => (
+          {dataRooms?.getRooms &&
+            dataRooms.getRooms.map((sequence, index) => (
               <SequenceCard
                 name={sequence.name}
                 key={`sequence_${index}`}

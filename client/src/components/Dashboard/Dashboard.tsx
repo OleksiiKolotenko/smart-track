@@ -16,7 +16,7 @@ export const Dashboard = () => {
     <div className="dashboard">
       {data?.getByRole &&
         data.getByRole.map((dashboard, index) => (
-          <DashboardCard name={dashboard.name} key={`alert_${index}`} />
+          <DashboardCard name={dashboard.name} key={`dashboard_${index}`} />
         ))}
     </div>
   );

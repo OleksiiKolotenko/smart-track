@@ -65,13 +65,13 @@ let rooms = [
   {
     id: 1,
     name: "1a",
-    owner: "1",
+    ownerId: "1",
     ownerName: "Who",
   },
   {
     id: 2,
     name: "2b",
-    owner: "4",
+    ownerId: "4",
     ownerName: "Mister",
   },
 ];
@@ -84,11 +84,14 @@ const resolvers = {
     getByRole: (_: any, params: any) => {
       return users.filter((user) => user.role === params.role);
     },
-    getAlerts: () => {
-      return alerts;
-    },
     getRooms: () => {
       return rooms;
+    },
+    getRoomsById: (_: any, params: any) => {
+      return rooms.filter((rooms) => rooms.ownerId === params.ownerId);
+    },
+    getAlerts: () => {
+      return alerts;
     },
   },
 };

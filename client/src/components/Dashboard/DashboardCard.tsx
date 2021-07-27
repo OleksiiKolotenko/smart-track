@@ -25,9 +25,6 @@ export const DashboardCard = ({ name }) => {
       <div className="rooms_wrap">
         <DoctorsRoom />
         <DoctorsRoom />
-        <DoctorsRoom />
-        <DoctorsRoom />
-        <DoctorsRoom />
       </div>
     </div>
   );

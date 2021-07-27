@@ -16,7 +16,7 @@ type Alert {
 type Room {
   id: ID!
   name: String!
-  owner: String
+  ownerId: String
   ownerName: String
 }
 
@@ -25,4 +25,5 @@ type Query {
   getByRole(role: String!): [User]
   getAlerts: [Alert]
   getRooms: [Room]
+  getRoomsById(ownerId: String): [Room]
 }

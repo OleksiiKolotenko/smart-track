@@ -1,6 +1,7 @@
 import React, { FC, useState } from "react";
 import { StuffT } from "../../graphql/Stuff/GetStuff";
 import { ModalEditStuff } from "./Modals/ModalEditStuff";
+import { ModalDeleteUser } from "./Modals/ModalDeleteUser";
 import "./StuffCard.scss";
 import blue from "../../img/blue.svg";
 import edit from "../../img/editPen.svg";
@@ -15,8 +16,14 @@ export const StuffCard: FC<StuffT> = ({
   rooms,
 }) => {
   const [modalEditStuff, setModalEditStuffActive] = useState(false);
-  const toggleModal = () => {
+  const [modalDeleteUser, setModalDeleteUserActive] = useState(false);
+
+  const toggleEditModal = () => {
     setModalEditStuffActive((store) => !store);
+  };
+
+  const toggleDeleteModal = () => {
+    setModalDeleteUserActive((store) => !store);
   };
 
   return (
@@ -53,16 +60,22 @@ export const StuffCard: FC<StuffT> = ({
 
       <div className="buttons">
         <button>
-          <img src={edit} alt="" onClick={toggleModal} />
+          <img src={edit} alt="editUser" onClick={toggleEditModal} />
         </button>
         <button>
-          <img src={del} alt="" />
+          <img src={del} alt="deleteUser" onClick={toggleDeleteModal} />
         </button>
         {modalEditStuff && (
           <ModalEditStuff
             active={modalEditStuff}
             setModalEditStuffActive={setModalEditStuffActive}
           ></ModalEditStuff>
+        )}
+        {modalDeleteUser && (
+          <ModalDeleteUser
+            active={modalDeleteUser}
+            setModalDeleteUserActive={setModalDeleteUserActive}
+          ></ModalDeleteUser>
         )}
       </div>
     </div>
