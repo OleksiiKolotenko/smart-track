@@ -4,7 +4,7 @@ import "./ModalStuff.scss";
 
 interface ModalStuffProps {
   active: boolean;
-  setModalStuffActive: any;
+  setModalCreateStuffActive: any;
 }
 
 interface Errors {
@@ -13,9 +13,9 @@ interface Errors {
   phone?: string | null;
 }
 
-export const ModalStuff: FC<ModalStuffProps> = ({
+export const ModalCreateStuff: FC<ModalStuffProps> = ({
   active,
-  setModalStuffActive,
+  setModalCreateStuffActive,
 }) => {
   const validate = (e) => {
     const errors: Errors = {};
@@ -49,7 +49,7 @@ export const ModalStuff: FC<ModalStuffProps> = ({
 
   const outsideClick = (e) => {
     if (e.target.className === "modal active") {
-      setModalStuffActive(false);
+      setModalCreateStuffActive(false);
     }
   };
 

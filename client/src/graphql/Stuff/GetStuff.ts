@@ -7,6 +7,7 @@ export type StuffT = {
   email: string;
   role: string;
   phone: number;
+  rooms?: string;
 };
 
 export type GetAllUsersResponse = { getUsers: StuffT[] };
@@ -31,6 +32,7 @@ export const GetByRole = gql`
       id
       email
       phone
+      rooms
     }
   }
 `;

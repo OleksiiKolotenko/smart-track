@@ -1,11 +1,24 @@
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import { StuffT } from "../../graphql/Stuff/GetStuff";
+import { ModalEditStuff } from "./Modals/ModalEditStuff";
 import "./StuffCard.scss";
 import blue from "../../img/blue.svg";
 import edit from "../../img/editPen.svg";
 import del from "../../img/trash.svg";
 
-export const StuffCard: FC<StuffT> = ({ number, id, name, email, phone }) => {
+export const StuffCard: FC<StuffT> = ({
+  number,
+  id,
+  name,
+  email,
+  phone,
+  rooms,
+}) => {
+  const [modalEditStuff, setModalEditStuffActive] = useState(false);
+  const toggleModal = () => {
+    setModalEditStuffActive((store) => !store);
+  };
+
   return (
     <div className="stuffCard">
       <div className="doctor_id">
@@ -20,24 +33,37 @@ export const StuffCard: FC<StuffT> = ({ number, id, name, email, phone }) => {
       <span className="phone" style={{ marginRight: "120px" }}>
         {`+${phone}`}
       </span>
-      <div className="colors">
-        <img src={blue} alt="" />
-        <img src={blue} alt="" />
-        <img src={blue} alt="" />
-        <img src={blue} alt="" />
-        <img src={blue} alt="" />
-      </div>
-      <div className="rooms_list">
-        Rooms:
-        <span> 1a, 1b, 3f</span>
-      </div>
+      {rooms ? (
+        <>
+          <div className="colors">
+            <img src={blue} alt="" />
+            <img src={blue} alt="" />
+            <img src={blue} alt="" />
+            <img src={blue} alt="" />
+            <img src={blue} alt="" />
+          </div>
+          <div className="rooms_list">
+            Rooms:
+            <span> {`${rooms} `}</span>
+          </div>
+        </>
+      ) : (
+        ""
+      )}
+
       <div className="buttons">
         <button>
-          <img src={edit} alt="" />
+          <img src={edit} alt="" onClick={toggleModal} />
         </button>
         <button>
           <img src={del} alt="" />
         </button>
+        {modalEditStuff && (
+          <ModalEditStuff
+            active={modalEditStuff}
+            setModalEditStuffActive={setModalEditStuffActive}
+          ></ModalEditStuff>
+        )}
       </div>
     </div>
   );

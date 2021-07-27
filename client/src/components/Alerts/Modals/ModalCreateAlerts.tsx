@@ -32,7 +32,7 @@ export const ModalCreateAlert: React.FC<ModalAlertProps> = ({
   };
 
   const onSubmit = async (obj) => {
-    console.log(obj);
+    console.log({ ...obj, color: colors[activeColor] });
   };
 
   const [activeColor, setActiveColor] = useState(0);

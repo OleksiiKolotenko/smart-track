@@ -28,6 +28,9 @@
     img {
       margin-right: 14px;
     }
+    .navigation_button {
+      color: #ffffff;
+    }
   }
   .sign-out {
     button {
@@ -45,6 +48,7 @@
   .button_active {
     text-decoration: underline;
     font-weight: bold;
-    color: rgb(202, 204, 224);
+    transform: scale(1.05);
+    opacity: 0.9;
   }
 }

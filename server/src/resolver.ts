@@ -5,6 +5,7 @@ let users = [
     role: "Doctor",
     email: "doctor@gmail.com",
     phone: +38097373738,
+    rooms: ["1a", "4b"],
   },
   {
     id: 2,
@@ -26,6 +27,7 @@ let users = [
     role: "Doctor",
     email: "doctor2@gmail.com",
     phone: +38050285280,
+    rooms: ["2b"],
   },
   {
     id: 5,

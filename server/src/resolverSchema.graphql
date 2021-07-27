@@ -4,6 +4,7 @@ type User {
   role: String!
   email: String!
   phone: Float!
+  rooms: [String]
 }
 
 type Alert {
