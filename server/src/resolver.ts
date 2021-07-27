@@ -65,10 +65,14 @@ let rooms = [
   {
     id: 1,
     name: "1a",
+    owner: "1",
+    ownerName: "Who",
   },
   {
     id: 2,
     name: "2b",
+    owner: "4",
+    ownerName: "Mister",
   },
 ];
 

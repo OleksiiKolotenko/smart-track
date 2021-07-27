@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import SequenceCard from "./SequenceCard";
 import {
   GetAllRooms,
@@ -9,8 +9,15 @@ import triangle from "../../img/triangle.svg";
 import add from "../../img/add.svg";
 import plus from "../../img/plus.svg";
 import { useQuery } from "@apollo/client";
+import { ModalCreateRoom } from "./Modal/ModalCreateRoom";
 
 export const Sequence = () => {
+  const [modalCreateRoom, setModalCreateRoomActive] = useState(false);
+
+  const toggleCreateModal = () => {
+    setModalCreateRoomActive((store) => !store);
+  };
+
   const { data, loading } = useQuery<GetAllSequenceResponse>(GetAllRooms);
 
   if (loading) {
@@ -35,8 +42,12 @@ export const Sequence = () => {
         Drag and Drop rooms to the box
       </h2>
       <div className="rooms">
-        <div className="rooms_creation_block">
-          <div className="add_block">
+        <div
+          className="rooms_creation_block"
+          onClick={toggleCreateModal}
+          style={{ cursor: "pointer" }}
+        >
+          <div className="add_block" style={{ cursor: "pointer" }}>
             <img src={add} alt="addCreate" className="addCreate" />
             <img
               src={plus}
@@ -45,15 +56,29 @@ export const Sequence = () => {
               style={{ marginLeft: "-29px" }}
             />
           </div>
-          <span className="create">Add a room</span>
+          <span className="create" style={{ cursor: "pointer" }}>
+            Add a room
+          </span>
         </div>
         <div className="cards">
           {data?.getRooms &&
             data.getRooms.map((sequence, index) => (
-              <SequenceCard name={sequence.name} key={`sequence_${index}`} />
+              <SequenceCard
+                name={sequence.name}
+                key={`sequence_${index}`}
+                id={sequence.id}
+                owner={sequence.owner}
+                ownerName={sequence.ownerName}
+              />
             ))}
         </div>
       </div>
+      {modalCreateRoom && (
+        <ModalCreateRoom
+          active={modalCreateRoom}
+          setModalCreateRoomActive={setModalCreateRoomActive}
+        ></ModalCreateRoom>
+      )}
     </div>
   );
 };

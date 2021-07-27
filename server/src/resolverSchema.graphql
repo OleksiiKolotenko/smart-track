@@ -16,6 +16,8 @@ type Alert {
 type Room {
   id: ID!
   name: String!
+  owner: String
+  ownerName: String
 }
 
 type Query {
