@@ -13,10 +13,11 @@ export const StuffCard: React.FC<StuffT> = ({
   email,
   phone,
   rooms,
+  role,
 }) => {
   const [modalEditStuff, setModalEditStuffActive] = useState(false);
   const [modalDeleteUser, setModalDeleteUserActive] = useState(false);
-  console.log(rooms);
+  console.log(role);
 
   const toggleEditModal = () => {
     setModalEditStuffActive((store) => !store);
@@ -40,22 +41,30 @@ export const StuffCard: React.FC<StuffT> = ({
       <span className="phone" style={{ marginRight: "120px" }}>
         {`+${phone}`}
       </span>
-      {rooms ? (
-        <>
-          <div className="colors">
-            <img src={blue} alt="" />
-            <img src={blue} alt="" />
-            <img src={blue} alt="" />
-            <img src={blue} alt="" />
-            <img src={blue} alt="" />
-          </div>
-          <div className="rooms_list">
-            Rooms:
-            <span>
-              {rooms.map((room, index) => (index ? ", " : "") + room.name)}
-            </span>
-          </div>
-        </>
+      {role === "Doctor" ? (
+        rooms ? (
+          rooms.length >= 1 ? (
+            <>
+              <div className="colors">
+                <img src={blue} alt="" />
+                <img src={blue} alt="" />
+                <img src={blue} alt="" />
+                <img src={blue} alt="" />
+                <img src={blue} alt="" />
+              </div>
+              <div className="rooms_list">
+                <span>
+                  Rooms:
+                  {rooms.map((room, index) => (index ? ", " : "") + room.name)}
+                </span>
+              </div>
+            </>
+          ) : (
+            <span className="rooms_list">Rooms: 0</span>
+          )
+        ) : (
+          ""
+        )
       ) : (
         ""
       )}

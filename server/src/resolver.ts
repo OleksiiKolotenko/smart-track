@@ -100,9 +100,10 @@ const resolvers = {
   },
   Mutation: {
     createAlert: (_: any, args: any) => {
+      const newId = +alerts.length + 1;
       const { id, status, color } = args;
-      const newId = alerts.length + 1;
       alerts.push(args);
+      console.log(args);
       return args;
     },
   },
