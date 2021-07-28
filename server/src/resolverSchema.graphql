@@ -8,7 +8,7 @@ type User {
 }
 
 type Alert {
-  id: Int!
+  id: ID!
   status: String!
   color: String!
 }
@@ -30,6 +30,6 @@ type Query {
 }
 
 type Mutation {
-  createAlert(id: Int!, status: String!, color: String!): Alert!
+  createAlert(status: String!, color: String!): Alert!
   editAlert(color: String!, status: String!): Alert!
 }

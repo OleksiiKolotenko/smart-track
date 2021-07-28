@@ -8,10 +8,9 @@ export type AlertT = {
 
 export type SendAlertResponse = { createAlert: AlertT[] };
 
-const createAlert = gql`
-  mutation createAlert($id: number, $color: string, $status: string) {
-    createAlert(id: $id, color: $color, status: $status) {
-      id
+export const CREATE_ALERT = gql`
+  mutation createAlert($color: String!, $status: String!) {
+    createAlert(color: $color, status: $status) {
       status
       color
     }

@@ -9,7 +9,6 @@ import DashboardCard from "./DashboardCard";
 
 export const Dashboard = () => {
   const { data, loading } = useQuery<GetDoctorsResponse>(getDoctors);
-  console.log(data);
 
   return (
     <div className="dashboard">

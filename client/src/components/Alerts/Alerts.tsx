@@ -26,7 +26,7 @@ export const Alerts = () => {
   if (loading) {
     return <span>Page is loading...</span>;
   }
-
+  console.log(data);
   return (
     <div className="alerts">
       <button className="add" onClick={toggleCreateModal}>

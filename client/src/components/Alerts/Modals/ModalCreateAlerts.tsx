@@ -1,6 +1,9 @@
+import { useMutation } from "@apollo/client";
+import { CREATE_ALERT } from "../../../graphql/Alerts/CreateAlerts";
 import React, { useState, FC } from "react";
 import { Form, Field } from "react-final-form";
 import "./ModalAlert.scss";
+import { GetAllAlerts } from "../../../graphql/Alerts/GetAlerts";
 
 const colors = [
   "#EE589730",
@@ -24,7 +27,7 @@ export const ModalCreateAlert: React.FC<ModalAlertProps> = ({
     const errors = {};
     return errors;
   };
-
+  const [CreateAlert] = useMutation(CREATE_ALERT);
   const outsideClick = (e) => {
     if (e.target.className === "modal active") {
       setModalCreateAlertsActive(false);
@@ -32,7 +35,11 @@ export const ModalCreateAlert: React.FC<ModalAlertProps> = ({
   };
 
   const onSubmit = async (obj) => {
-    console.log({ ...obj, color: colors[activeColor] });
+    CreateAlert({
+      variables: { status: obj.name, color: colors[activeColor] },
+      refetchQueries: [{ query: GetAllAlerts }],
+    });
+    setModalCreateAlertsActive(false);
   };
 
   const [activeColor, setActiveColor] = useState(0);

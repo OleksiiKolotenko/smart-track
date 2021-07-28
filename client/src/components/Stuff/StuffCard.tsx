@@ -17,7 +17,6 @@ export const StuffCard: React.FC<StuffT> = ({
 }) => {
   const [modalEditStuff, setModalEditStuffActive] = useState(false);
   const [modalDeleteUser, setModalDeleteUserActive] = useState(false);
-  console.log(role);
 
   const toggleEditModal = () => {
     setModalEditStuffActive((store) => !store);
