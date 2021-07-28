@@ -7,7 +7,14 @@ export type StuffT = {
   email: string;
   role: string;
   phone: number;
-  rooms?: string;
+  rooms?: [
+    {
+      id: string;
+      ownerId: string;
+      ownerName: string;
+      name: string;
+    }
+  ];
 };
 
 export type GetAllUsersResponse = { getUsers: StuffT[] };
@@ -32,7 +39,12 @@ export const GetByRole = gql`
       id
       email
       phone
-      rooms
+      rooms {
+        id
+        name
+        ownerId
+        ownerName
+      }
     }
   }
 `;

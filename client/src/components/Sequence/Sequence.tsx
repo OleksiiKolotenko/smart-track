@@ -5,7 +5,7 @@ import {
   GetAllSequenceResponse,
 } from "../../graphql/Sequence/GetRooms";
 import {
-  GetDoctors,
+  getDoctors,
   GetDoctorsByResponse,
 } from "../../graphql/Sequence/GetDoctors";
 import "./Sequence.scss";
@@ -24,9 +24,7 @@ export const Sequence = () => {
     useQuery<GetAllSequenceResponse>(GetAllRooms);
 
   const { data: dataDoctors, loading: loadingDoctors } =
-    useQuery<GetDoctorsByResponse>(GetDoctors, {
-      variables: { role: "Doctor" },
-    });
+    useQuery<GetDoctorsByResponse>(getDoctors);
 
   if (loadingRooms) {
     return <span>Page is loading...</span>;
@@ -44,8 +42,8 @@ export const Sequence = () => {
       </div>
       <div className="doctor">
         <select style={{ fontSize: "18px" }}>
-          {dataDoctors?.getByRole &&
-            dataDoctors.getByRole.map((sequence, index) => (
+          {dataDoctors?.getDoctors &&
+            dataDoctors.getDoctors.map((sequence, index) => (
               <option key={`sequence_${index}`}>{sequence.name}</option>
             ))}
         </select>

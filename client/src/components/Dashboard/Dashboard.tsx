@@ -1,22 +1,25 @@
 import { useQuery } from "@apollo/client";
 import React from "react";
 import {
-  GetByRole,
-  GetByRoleResponse,
+  GetDoctorsResponse,
+  getDoctors,
 } from "../../graphql/Dashboard/GetDoctors";
 import "./Dashboard.scss";
 import DashboardCard from "./DashboardCard";
 
 export const Dashboard = () => {
-  const { data, loading } = useQuery<GetByRoleResponse>(GetByRole, {
-    variables: { role: "Doctor" },
-  });
+  const { data, loading } = useQuery<GetDoctorsResponse>(getDoctors);
+  console.log(data);
 
   return (
     <div className="dashboard">
-      {data?.getByRole &&
-        data.getByRole.map((dashboard, index) => (
-          <DashboardCard name={dashboard.name} key={`dashboard_${index}`} />
+      {data?.getDoctors &&
+        data.getDoctors.map((dashboard, index) => (
+          <DashboardCard
+            name={dashboard.name}
+            key={`dashboard_${index}`}
+            rooms={dashboard.rooms}
+          />
         ))}
     </div>
   );

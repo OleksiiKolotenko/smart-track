@@ -9,16 +9,19 @@ export type DoctorsT = {
   phone: number;
   rooms?: string;
 };
-export type GetDoctorsByResponse = { getByRole: DoctorsT[] };
+export type GetDoctorsByResponse = { getDoctors: DoctorsT[] };
 
-export const GetDoctors = gql`
-  query getByRole($role: String!) {
-    getByRole(role: $role) {
-      name
+export const getDoctors = gql`
+  query getDoctors {
+    getDoctors {
       id
-      email
-      phone
-      rooms
+      name
+      rooms {
+        id
+        name
+        ownerId
+        ownerName
+      }
     }
   }
 `;

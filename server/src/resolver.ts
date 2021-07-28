@@ -5,7 +5,6 @@ let users = [
     role: "Doctor",
     email: "doctor@gmail.com",
     phone: +38097373738,
-    rooms: ["1a", "4b"],
   },
   {
     id: 2,
@@ -27,7 +26,6 @@ let users = [
     role: "Doctor",
     email: "doctor2@gmail.com",
     phone: +38050285280,
-    rooms: ["2b"],
   },
   {
     id: 5,
@@ -74,6 +72,12 @@ let rooms = [
     ownerId: "4",
     ownerName: "Mister",
   },
+  {
+    id: 3,
+    name: "2g",
+    ownerId: "4",
+    ownerName: "Mister",
+  },
 ];
 
 const resolvers = {
@@ -84,21 +88,27 @@ const resolvers = {
     getByRole: (_: any, params: any) => {
       return users.filter((user) => user.role === params.role);
     },
+    getDoctors: () => {
+      return users.filter((user) => user.role === "Doctor");
+    },
     getRooms: () => {
       return rooms;
     },
-    // getRoomsById: (_: any, params: any) => {
-    //   return rooms.filter((rooms) => rooms.ownerId === params.ownerId);
-    // },
     getAlerts: () => {
       return alerts;
     },
   },
   Mutation: {
-    createAlert: (id: number, status: string, color: string) => {
-      // const newAlert = { id, status, color };
-      // alerts.push({ newAlert });
-      // return newAlert;
+    createAlert: (_: any, args: any) => {
+      const { id, status, color } = args;
+      const newId = alerts.length + 1;
+      alerts.push(args);
+      return args;
+    },
+  },
+  User: {
+    rooms: (user: any) => {
+      return rooms.filter((rooms) => +rooms.ownerId === +user.id);
     },
   },
 };

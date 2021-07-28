@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React from "react";
 import { useQuery } from "@apollo/client";
 import { GetByRole, GetByRoleResponse } from "../../graphql/Stuff/GetStuff";
 import StuffCard from "./StuffCard";
@@ -12,12 +12,15 @@ type StuffProps = {
 
 const availableRoles = [`Doctor`, `Assistant`, `Receptionist`];
 
-export const Stuff: FC<StuffProps> = ({ activePerson, setActivePerson }) => {
+export const Stuff: React.FC<StuffProps> = ({
+  activePerson,
+  setActivePerson,
+}) => {
   const { data, loading } = useQuery<GetByRoleResponse>(GetByRole, {
     variables: { role: availableRoles[activePerson] },
   });
 
-  const [modalCreateStuff, setModalCreateStuffActive] = useState(false);
+  const [modalCreateStuff, setModalCreateStuffActive] = React.useState(false);
   const toggleModal = () => {
     setModalCreateStuffActive((store) => !store);
   };

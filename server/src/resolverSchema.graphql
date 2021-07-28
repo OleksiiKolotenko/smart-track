@@ -4,11 +4,11 @@ type User {
   role: String!
   email: String!
   phone: Float!
-  rooms: [String]
+  rooms: [Room]
 }
 
 type Alert {
-  id: ID!
+  id: Int!
   status: String!
   color: String!
 }
@@ -23,12 +23,13 @@ type Room {
 type Query {
   getUsers: [User]
   getByRole(role: String!): [User]
+  getDoctors: [User]
   getAlerts: [Alert]
   getRooms: [Room]
   getRoomsById(ownerId: String): [Room]
 }
 
 type Mutation {
-  createAlert(id: ID!, color: String!, status: String!): Alert!
+  createAlert(id: Int!, status: String!, color: String!): Alert!
   editAlert(color: String!, status: String!): Alert!
 }

@@ -3,15 +3,22 @@ import { gql } from "@apollo/client";
 export type DashboardT = {
   name: string;
   id: number;
+  rooms: [];
 };
 
-export type GetByRoleResponse = { getByRole: DashboardT[] };
+export type GetDoctorsResponse = { getDoctors: DashboardT[] };
 
-export const GetByRole = gql`
-  query getByRole($role: String!) {
-    getByRole(role: $role) {
-      name
+export const getDoctors = gql`
+  query getDoctors {
+    getDoctors {
       id
+      name
+      rooms {
+        id
+        name
+        ownerId
+        ownerName
+      }
     }
   }
 `;

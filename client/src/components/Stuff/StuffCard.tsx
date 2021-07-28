@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { useState } from "react";
 import { StuffT } from "../../graphql/Stuff/GetStuff";
 import { ModalEditStuff } from "./Modals/ModalEditStuff";
 import { ModalDeleteUser } from "./Modals/ModalDeleteUser";
@@ -7,9 +7,8 @@ import blue from "../../img/blue.svg";
 import edit from "../../img/editPen.svg";
 import del from "../../img/trash.svg";
 
-export const StuffCard: FC<StuffT> = ({
+export const StuffCard: React.FC<StuffT> = ({
   number,
-  id,
   name,
   email,
   phone,
@@ -17,6 +16,7 @@ export const StuffCard: FC<StuffT> = ({
 }) => {
   const [modalEditStuff, setModalEditStuffActive] = useState(false);
   const [modalDeleteUser, setModalDeleteUserActive] = useState(false);
+  console.log(rooms);
 
   const toggleEditModal = () => {
     setModalEditStuffActive((store) => !store);
@@ -51,7 +51,9 @@ export const StuffCard: FC<StuffT> = ({
           </div>
           <div className="rooms_list">
             Rooms:
-            <span> {`${rooms} `}</span>
+            <span>
+              {rooms.map((room, index) => (index ? ", " : "") + room.name)}
+            </span>
           </div>
         </>
       ) : (
