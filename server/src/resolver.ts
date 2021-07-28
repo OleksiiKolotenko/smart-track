@@ -114,13 +114,12 @@ const resolvers = {
       rooms.push({ ...args, id: Date.now() });
       return args;
     },
-    // editAlert: (_: any, args: any) => {
-    //   const { color, status } = args;
-    //   alerts.push({ ...args, id: Date.now() });
-    //   console.log(alerts);
-    //   console.log(status, "color:", color);
-    //   return args;
-    // },
+    editAlert: (_: any, args: any) => {
+      const { id, color, status } = args;
+      // alerts = alerts.map((obj) => obj.id === id );
+      console.log(alerts);
+      return args;
+    },
   },
   User: {
     rooms: (user: any) => {

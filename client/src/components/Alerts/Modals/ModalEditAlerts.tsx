@@ -26,6 +26,7 @@ export const ModalEditAlert: React.FC<ModalAlertProps> = ({
     const errors = {};
     return errors;
   };
+  console.log(id);
 
   const outsideClick = (e) => {
     if (e.target.className === "modal active") {
@@ -34,7 +35,7 @@ export const ModalEditAlert: React.FC<ModalAlertProps> = ({
   };
 
   const onSubmit = async (obj) => {
-    console.log({ ...obj, color: colors[activeColor] });
+    console.log({ ...obj, color: colors[activeColor], id });
   };
 
   const [activeColor, setActiveColor] = useState(0);

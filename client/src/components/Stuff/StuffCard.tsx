@@ -40,13 +40,15 @@ export const StuffCard: React.FC<StuffT> = ({
       <span className="phone" style={{ marginRight: "120px" }}>
         {`+${phone}`}
       </span>
-      <div className="colors">
-        <img src={blue} alt="" />
-        <img src={blue} alt="" />
-        <img src={blue} alt="" />
-        <img src={blue} alt="" />
-        <img src={blue} alt="" />
-      </div>
+      {role === "Doctor" ? (
+        <div className="colors">
+          <img src={blue} alt="" />
+          <img src={blue} alt="" />
+        </div>
+      ) : (
+        ""
+      )}
+
       {role === "Doctor" ? (
         rooms ? (
           rooms.length >= 1 ? (
