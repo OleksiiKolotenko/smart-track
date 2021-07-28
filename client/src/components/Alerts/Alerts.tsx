@@ -6,7 +6,6 @@ import {
   GetAllAlertsResponse,
 } from "../../graphql/Alerts/GetAlerts";
 import { ModalCreateAlert } from "./Modals/ModalCreateAlerts";
-import { ModalEditAlert } from "./Modals/ModalEditAlerts";
 import "./Alerts.scss";
 
 interface ModalCreateAlert {
@@ -26,7 +25,6 @@ export const Alerts = () => {
   if (loading) {
     return <span>Page is loading...</span>;
   }
-  console.log(data);
   return (
     <div className="alerts">
       <button className="add" onClick={toggleCreateModal}>

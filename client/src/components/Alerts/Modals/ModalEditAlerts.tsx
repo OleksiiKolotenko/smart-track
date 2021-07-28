@@ -1,6 +1,9 @@
 import React, { useState, FC } from "react";
+import { useMutation } from "@apollo/client";
 import { Form, Field } from "react-final-form";
+import { EDIT_ALERT } from "../../../graphql/Alerts/EditAlerts";
 import "./ModalAlert.scss";
+import { GetAllAlerts } from "../../../graphql/Alerts/GetAlerts";
 
 interface ModalAlertProps {
   active: boolean;
@@ -26,17 +29,29 @@ export const ModalEditAlert: React.FC<ModalAlertProps> = ({
     const errors = {};
     return errors;
   };
-  console.log(id);
 
   const outsideClick = (e) => {
     if (e.target.className === "modal active") {
       setModalEditAlertsActive(false);
     }
   };
+  console.log(id);
 
   const onSubmit = async (obj) => {
-    console.log({ ...obj, color: colors[activeColor], id });
+    console.log(obj);
+
+    console.log({ id: id, status: obj.name, color: colors[activeColor] });
+
+    editAlert({
+      variables: { id: id, status: obj.name, color: colors[activeColor] },
+      refetchQueries: [{ query: GetAllAlerts }],
+    });
+    setModalEditAlertsActive(false);
+
+    // ({ ...obj, color: colors[activeColor], id });
   };
+
+  const [editAlert] = useMutation(EDIT_ALERT);
 
   const [activeColor, setActiveColor] = useState(0);
 

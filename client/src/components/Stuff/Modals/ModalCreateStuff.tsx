@@ -69,7 +69,7 @@ export const ModalCreateStuff: React.FC<ModalStuffProps> = ({
         phone: obj.phone,
         role: obj.role,
       },
-      refetchQueries: [{ query: GetAllUsers }],
+      refetchQueries: [{ query: GetByRole }],
     });
 
     setModalCreateStuffActive(false);

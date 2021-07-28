@@ -1,3 +1,5 @@
+import e from "express";
+
 let users = [
   {
     id: 1,
@@ -116,8 +118,12 @@ const resolvers = {
     },
     editAlert: (_: any, args: any) => {
       const { id, color, status } = args;
-      // alerts = alerts.map((obj) => obj.id === id );
-      console.log(alerts);
+      alerts = alerts.map((obj) => {
+        console.log(obj.id, "id:", id);
+        if (obj.id === parseInt(id)) {
+          return { id: parseInt(id), status, color };
+        } else return obj;
+      });
       return args;
     },
   },

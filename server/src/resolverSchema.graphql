@@ -37,6 +37,6 @@ type Mutation {
     phone: String!
   ): User!
   createAlert(status: String!, color: String!): Alert!
-  editAlert(status: String!, color: String!): Alert!
+  editAlert(id: ID!, status: String!, color: String!): Alert!
   createRoom(name: String!): Room!
 }
