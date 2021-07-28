@@ -28,6 +28,12 @@ export const GetAllUsers = gql`
       email
       role
       phone
+      rooms {
+        id
+        name
+        ownerId
+        ownerName
+      }
     }
   }
 `;

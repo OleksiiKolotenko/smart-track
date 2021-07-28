@@ -3,7 +3,7 @@ type User {
   name: String!
   role: String!
   email: String!
-  phone: Float!
+  phone: String!
   rooms: [Room]
 }
 
@@ -30,6 +30,12 @@ type Query {
 }
 
 type Mutation {
+  createUser(
+    name: String!
+    role: String!
+    email: String!
+    phone: String!
+  ): User!
   createAlert(status: String!, color: String!): Alert!
-  editAlert(color: String!, status: String!): Alert!
+  editAlert(status: String!, color: String!): Alert!
 }

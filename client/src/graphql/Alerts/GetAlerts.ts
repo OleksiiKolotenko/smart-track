@@ -2,6 +2,7 @@ import { gql } from "@apollo/client";
 
 export type AlertT = {
   index: number;
+  id: number;
   status: string;
   color: string;
 };

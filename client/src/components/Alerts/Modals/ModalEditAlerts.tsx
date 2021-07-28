@@ -5,6 +5,7 @@ import "./ModalAlert.scss";
 interface ModalAlertProps {
   active: boolean;
   setModalEditAlertsActive: any;
+  id: number;
 }
 
 const colors = [
@@ -19,6 +20,7 @@ const colors = [
 export const ModalEditAlert: React.FC<ModalAlertProps> = ({
   active,
   setModalEditAlertsActive,
+  id,
 }) => {
   const validate = (e) => {
     const errors = {};

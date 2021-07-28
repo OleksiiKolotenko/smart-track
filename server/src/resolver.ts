@@ -4,35 +4,35 @@ let users = [
     name: "Who",
     role: "Doctor",
     email: "doctor@gmail.com",
-    phone: +38097373738,
+    phone: 38097373738,
   },
   {
     id: 2,
     name: "Watson",
     role: "Assistant",
     email: "assistant@gmail.com",
-    phone: +38068686868,
+    phone: 38068686868,
   },
   {
     id: 3,
     name: "Ray",
     role: "Receptionist",
     email: "recep@gmail.com",
-    phone: +38050282280,
+    phone: 38050282280,
   },
   {
     id: 4,
     name: "Mister",
     role: "Doctor",
     email: "doctor2@gmail.com",
-    phone: +38050285280,
+    phone: 38050285280,
   },
   {
     id: 5,
     name: "Helper",
     role: "Receptionist",
     email: "recep2@gmail.com",
-    phone: +38050285280,
+    phone: 38050285280,
   },
 ];
 
@@ -100,12 +100,24 @@ const resolvers = {
   },
   Mutation: {
     createAlert: (_: any, args: any) => {
-      const { status, color } = args;
+      const { color, status } = args;
       alerts.push({ ...args, id: Date.now() });
       console.log(alerts);
-      console.log(status, "color:", color);
       return args;
     },
+    createUser: (_: any, args: any) => {
+      const { name, role, email, phone } = args;
+      users.push({ ...args, id: Date.now() });
+      console.log(users);
+      return args;
+    },
+    // editAlert: (_: any, args: any) => {
+    //   const { color, status } = args;
+    //   alerts.push({ ...args, id: Date.now() });
+    //   console.log(alerts);
+    //   console.log(status, "color:", color);
+    //   return args;
+    // },
   },
   User: {
     rooms: (user: any) => {

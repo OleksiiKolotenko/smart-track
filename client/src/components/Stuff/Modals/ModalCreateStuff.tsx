@@ -1,6 +1,9 @@
-import React, { useState, FC } from "react";
+import React from "react";
+import { CREATE_STUFF } from "../../../graphql/Stuff/CreateStuff";
+import { useMutation } from "@apollo/client";
 import { Form, Field } from "react-final-form";
 import "./ModalStuff.scss";
+import { GetAllUsers, GetByRole } from "../../../graphql/Stuff/GetStuff";
 
 interface ModalStuffProps {
   active: boolean;
@@ -13,7 +16,7 @@ interface Errors {
   phone?: string | null;
 }
 
-export const ModalCreateStuff: FC<ModalStuffProps> = ({
+export const ModalCreateStuff: React.FC<ModalStuffProps> = ({
   active,
   setModalCreateStuffActive,
 }) => {
@@ -54,8 +57,20 @@ export const ModalCreateStuff: FC<ModalStuffProps> = ({
   };
 
   const onSubmit = async (obj) => {
-    console.log(obj);
+    CreateStuff({
+      variables: {
+        name: obj.name,
+        email: obj.email,
+        phone: obj.phone,
+        role: obj.role,
+      },
+      refetchQueries: [{ query: GetAllUsers }],
+    });
+
+    setModalCreateStuffActive(false);
   };
+
+  const [CreateStuff] = useMutation(CREATE_STUFF);
 
   return (
     <div className={active ? "modal active" : "modal"} onClick={outsideClick}>
@@ -65,6 +80,7 @@ export const ModalCreateStuff: FC<ModalStuffProps> = ({
         }
       >
         <Form
+          initialValues
           onSubmit={onSubmit}
           validate={validate}
           render={({ handleSubmit }) => (
@@ -150,7 +166,12 @@ export const ModalCreateStuff: FC<ModalStuffProps> = ({
                       )}
                     />
                     <span className="field">Choose a role</span>
-                    <Field name="role" component="select" className="role">
+                    <Field
+                      defaultValue="Doctor"
+                      name="role"
+                      component="select"
+                      className="role"
+                    >
                       <option className="options">Doctor</option>
                       <option className="options">Assistant</option>
                       <option className="options">Receptionist</option>

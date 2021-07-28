@@ -4,7 +4,7 @@ import editPen from "../../img/editPen.svg";
 import { AlertT } from "../../graphql/Alerts/GetAlerts";
 import { ModalEditAlert } from "./Modals/ModalEditAlerts";
 
-export const AlertsBlock: FC<AlertT> = ({ index, status, color }) => {
+export const AlertsBlock: FC<AlertT> = ({ index, status, color, id }) => {
   const [modalEditAlerts, setModalEditAlertsActive] = useState(false);
 
   const toggleEditModal = () => {
@@ -29,6 +29,7 @@ export const AlertsBlock: FC<AlertT> = ({ index, status, color }) => {
       </button>
       {modalEditAlerts && (
         <ModalEditAlert
+          id={id}
           active={modalEditAlerts}
           setModalEditAlertsActive={setModalEditAlertsActive}
         ></ModalEditAlert>
