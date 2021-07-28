@@ -1,6 +1,9 @@
+import { useMutation } from "@apollo/client";
+import { CREATE_ROOM } from "../../../graphql/Sequence/CreateRooms";
 import React, { useState, FC } from "react";
 import { Form, Field } from "react-final-form";
 import "./ModalRoom.scss";
+import { GetAllRooms } from "../../../graphql/Sequence/GetRooms";
 
 interface ModalRoomProps {
   active: boolean;
@@ -29,11 +32,11 @@ export const ModalCreateRoom: FC<ModalRoomProps> = ({
     }
 
     if (e.name && e.name.length < 2) {
-      errors.name = "Name should contain only 2 letters";
+      errors.name = "Room name should contain 2 letters";
     }
 
     if (e.name && e.name.length > 2) {
-      errors.name = "Name should contain only 2 letters";
+      errors.name = "Room name should contain 2 letters";
     }
 
     return errors;
@@ -45,8 +48,14 @@ export const ModalCreateRoom: FC<ModalRoomProps> = ({
     }
   };
 
+  const [CreateRoom] = useMutation(CREATE_ROOM);
+
   const onSubmit = async (obj) => {
-    console.log(obj);
+    CreateRoom({
+      variables: { name: obj.name },
+      refetchQueries: [{ query: GetAllRooms }],
+    });
+    setModalCreateRoomActive(false);
   };
 
   return (

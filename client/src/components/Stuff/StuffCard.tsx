@@ -40,17 +40,17 @@ export const StuffCard: React.FC<StuffT> = ({
       <span className="phone" style={{ marginRight: "120px" }}>
         {`+${phone}`}
       </span>
+      <div className="colors">
+        <img src={blue} alt="" />
+        <img src={blue} alt="" />
+        <img src={blue} alt="" />
+        <img src={blue} alt="" />
+        <img src={blue} alt="" />
+      </div>
       {role === "Doctor" ? (
         rooms ? (
           rooms.length >= 1 ? (
             <>
-              <div className="colors">
-                <img src={blue} alt="" />
-                <img src={blue} alt="" />
-                <img src={blue} alt="" />
-                <img src={blue} alt="" />
-                <img src={blue} alt="" />
-              </div>
               <div className="rooms_list">
                 <span>
                   Rooms:
@@ -59,7 +59,7 @@ export const StuffCard: React.FC<StuffT> = ({
               </div>
             </>
           ) : (
-            <span className="rooms_list">Rooms: 0</span>
+            <span className="rooms_list">Rooms: none</span>
           )
         ) : (
           ""

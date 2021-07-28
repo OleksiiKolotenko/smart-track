@@ -102,13 +102,16 @@ const resolvers = {
     createAlert: (_: any, args: any) => {
       const { color, status } = args;
       alerts.push({ ...args, id: Date.now() });
-      console.log(alerts);
       return args;
     },
     createUser: (_: any, args: any) => {
       const { name, role, email, phone } = args;
       users.push({ ...args, id: Date.now() });
-      console.log(users);
+      return args;
+    },
+    createRoom: (_: any, args: any) => {
+      const { name } = args;
+      rooms.push({ ...args, id: Date.now() });
       return args;
     },
     // editAlert: (_: any, args: any) => {

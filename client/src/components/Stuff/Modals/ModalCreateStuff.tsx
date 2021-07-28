@@ -47,6 +47,11 @@ export const ModalCreateStuff: React.FC<ModalStuffProps> = ({
     if (!e.phone) {
       errors.phone = "Phone can't be empty";
     }
+
+    if (e.phone && e.phone.length !== 11) {
+      errors.phone = "Phone should contain 11 numbers";
+    }
+
     return errors;
   };
 
