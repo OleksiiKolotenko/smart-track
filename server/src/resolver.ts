@@ -127,6 +127,13 @@ const resolvers = {
       });
       return args;
     },
+    deleteRoom: (_: void, args: any) => {
+      const { id } = args;
+      rooms = rooms.filter((obj) => {
+        return +obj.id !== +id;
+      });
+      return args;
+    },
     createUser: (_: void, args: any) => {
       const { name, role, email, phone } = args;
       users.push({ ...args, id: Date.now() });

@@ -1,6 +1,11 @@
 import React, { useState, FC } from "react";
 import { Form, Field } from "react-final-form";
 import "./ModalRoom.scss";
+import { DELETE_ROOM } from "../../../graphql/Sequence/DeleteRooms";
+import { useMutation } from "@apollo/client";
+import { GetAllRooms } from "../../../graphql/Sequence/GetRooms";
+import { GetAllUsers } from "../../../graphql/Stuff/GetStuff";
+import { getDoctors } from "../../../graphql/Dashboard/GetDoctors";
 
 interface ModalRoomProps {
   active: boolean;
@@ -29,7 +34,15 @@ export const ModalDeleteRoom: FC<ModalRoomProps> = ({
     }
   };
 
-  const onSubmit = async (obj) => {};
+  const [deleteRoom] = useMutation(DELETE_ROOM);
+
+  const onSubmit = async (obj) => {
+    deleteRoom({
+      variables: { id: id },
+      refetchQueries: [{ query: GetAllRooms }, { query: getDoctors }],
+    });
+    setModalDeleteRoomActive(false);
+  };
 
   return (
     <div className={active ? "modal active" : "modal"} onClick={outsideClick}>

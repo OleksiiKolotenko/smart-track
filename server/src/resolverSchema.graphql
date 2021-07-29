@@ -47,4 +47,5 @@ type Mutation {
   editAlert(id: ID!, status: String!, color: String!): Alert!
   createRoom(name: String!): Room!
   editRoom(id: ID!, name: String!, ownerId: ID, ownerName: String): Room!
+  deleteRoom(id: ID!): Room!
 }
