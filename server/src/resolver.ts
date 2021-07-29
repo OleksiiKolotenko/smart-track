@@ -85,7 +85,7 @@ const resolvers = {
     getUsers: () => {
       return users;
     },
-    getByRole: (_: void, params: any) => {
+    getByRole: (_: void, params: { role: string }) => {
       return users.filter((user) => user.role === params.role);
     },
     getDoctors: () => {
@@ -99,16 +99,19 @@ const resolvers = {
     },
   },
   Mutation: {
-    createAlert: (_: void, args: any) => {
+    createAlert: (_: void, args: { color: string; status: string }) => {
       const { color, status } = args;
       alerts.push({ ...args, id: Date.now() });
       return args;
     },
-    editAlert: (_: void, args: any) => {
+    editAlert: (
+      _: void,
+      args: { id: number; color: string; status: string }
+    ) => {
       const { id, color, status } = args;
       alerts = alerts.map((obj) => {
-        if (obj.id === parseInt(id)) {
-          return { id: parseInt(id), status, color };
+        if (obj.id === +id) {
+          return { id: +id, status, color };
         } else return obj;
       });
       return args;
@@ -118,37 +121,52 @@ const resolvers = {
       rooms.push({ ...args, id: Date.now() });
       return args;
     },
-    editRoom: (_: void, args: any) => {
+    editRoom: (
+      _: void,
+      args: { id: number; name: string; ownerId: string; ownerName: string }
+    ) => {
       const { id, name, ownerId, ownerName } = args;
       rooms = rooms.map((obj) => {
-        if (obj.id === parseInt(id)) {
-          return { id: parseInt(id), name, ownerId, ownerName };
+        if (obj.id === +id) {
+          return { id: +id, name, ownerId, ownerName };
         } else return obj;
       });
       return args;
     },
-    deleteRoom: (_: void, args: any) => {
+    deleteRoom: (_: void, args: { id: number }) => {
       const { id } = args;
       rooms = rooms.filter((obj) => {
         return +obj.id !== +id;
       });
       return args;
     },
-    createUser: (_: void, args: any) => {
+    createUser: (
+      _: void,
+      args: { name: string; role: string; email: string; phone: number }
+    ) => {
       const { name, role, email, phone } = args;
       users.push({ ...args, id: Date.now() });
       return args;
     },
-    editUser: (_: void, args: any) => {
+    editUser: (
+      _: void,
+      args: {
+        id: number;
+        name: string;
+        role: string;
+        email: string;
+        phone: number;
+      }
+    ) => {
       const { id, name, role, email, phone } = args;
       users = users.map((obj) => {
-        if (obj.id === parseInt(id)) {
-          return { id: parseInt(id), name, role, email, phone };
+        if (obj.id === +id) {
+          return { id: +id, name, role, email, phone };
         } else return obj;
       });
       return args;
     },
-    deleteUser: (_: void, args: any) => {
+    deleteUser: (_: void, args: { id: number }) => {
       const { id } = args;
       users = users.filter((obj) => {
         return +obj.id !== +id;

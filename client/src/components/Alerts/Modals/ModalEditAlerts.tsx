@@ -1,4 +1,4 @@
-import React, { useState, FC } from "react";
+import React, { Dispatch, useState } from "react";
 import { useMutation } from "@apollo/client";
 import { Form, Field } from "react-final-form";
 import { EDIT_ALERT } from "../../../graphql/Alerts/EditAlerts";
@@ -7,7 +7,7 @@ import { GetAllAlerts } from "../../../graphql/Alerts/GetAlerts";
 
 interface ModalAlertProps {
   active: boolean;
-  setModalEditAlertsActive: any;
+  setModalEditAlertsActive: Dispatch<boolean>;
   id: number;
 }
 

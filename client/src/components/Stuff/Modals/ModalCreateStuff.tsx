@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Dispatch } from "react";
 import { CREATE_STUFF } from "../../../graphql/Stuff/CreateStuff";
 import { useMutation } from "@apollo/client";
 import { Form, Field } from "react-final-form";
@@ -8,7 +8,7 @@ import { getDoctors } from "../../../graphql/Dashboard/GetDoctors";
 
 interface ModalStuffProps {
   active: boolean;
-  setModalCreateStuffActive: any;
+  setModalCreateStuffActive: Dispatch<boolean>;
 }
 
 interface Errors {
@@ -23,7 +23,7 @@ export const ModalCreateStuff: React.FC<ModalStuffProps> = ({
 }) => {
   const validate = (e) => {
     const errors: Errors = {};
-
+    let regexPhone = /^\d+$/g;
     let regexName = /[ !@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/g;
 
     if (!e.name) {
@@ -55,6 +55,10 @@ export const ModalCreateStuff: React.FC<ModalStuffProps> = ({
 
     if (e.phone && e.phone.includes("+")) {
       errors.phone = "+ is added automatically";
+    }
+
+    if (e.phone && !e.phone.match(regexPhone)) {
+      errors.phone = "Only numbers are allowed";
     }
 
     return errors;

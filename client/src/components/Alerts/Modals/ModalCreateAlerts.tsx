@@ -1,6 +1,6 @@
 import { useMutation } from "@apollo/client";
 import { CREATE_ALERT } from "../../../graphql/Alerts/CreateAlerts";
-import React, { useState, FC } from "react";
+import React, { useState, FC, Dispatch } from "react";
 import { Form, Field } from "react-final-form";
 import "./ModalAlert.scss";
 import { GetAllAlerts } from "../../../graphql/Alerts/GetAlerts";
@@ -16,7 +16,7 @@ const colors = [
 
 interface ModalAlertProps {
   active: boolean;
-  setModalCreateAlertsActive: any;
+  setModalCreateAlertsActive: Dispatch<boolean>;
 }
 
 export const ModalCreateAlert: React.FC<ModalAlertProps> = ({

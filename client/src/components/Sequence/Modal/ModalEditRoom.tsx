@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Dispatch } from "react";
 import { useMutation } from "@apollo/client";
 import { EDIT_ROOM } from "../../../graphql/Sequence/EditRooms";
 
@@ -9,7 +9,7 @@ import { getDoctors } from "../../../graphql/Dashboard/GetDoctors";
 
 interface ModalRoomProps {
   active: boolean;
-  setModalEditRoomActive: any;
+  setModalEditRoomActive: Dispatch<boolean>;
   id: number;
   ownerId?: number;
   ownerName?: string;

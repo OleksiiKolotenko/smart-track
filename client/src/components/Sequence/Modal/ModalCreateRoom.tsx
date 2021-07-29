@@ -1,13 +1,13 @@
 import { useMutation } from "@apollo/client";
 import { CREATE_ROOM } from "../../../graphql/Sequence/CreateRooms";
-import React, { useState, FC } from "react";
+import React, { useState, FC, Dispatch } from "react";
 import { Form, Field } from "react-final-form";
 import "./ModalRoom.scss";
 import { GetAllRooms } from "../../../graphql/Sequence/GetRooms";
 
 interface ModalRoomProps {
   active: boolean;
-  setModalCreateRoomActive: any;
+  setModalCreateRoomActive: Dispatch<boolean>;
 }
 
 interface Errors {

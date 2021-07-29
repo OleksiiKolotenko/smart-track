@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Dispatch } from "react";
 import { useMutation } from "@apollo/client";
 import { Form, Field } from "react-final-form";
 import "./ModalStuff.scss";
@@ -9,7 +9,7 @@ import { GetAllRooms } from "../../../graphql/Sequence/GetRooms";
 
 interface ModalDeleteUserProps {
   active: boolean;
-  setModalDeleteUserActive: any;
+  setModalDeleteUserActive: Dispatch<boolean>;
   id: number;
 }
 

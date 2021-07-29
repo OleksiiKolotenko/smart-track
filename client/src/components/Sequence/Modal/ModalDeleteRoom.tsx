@@ -1,4 +1,4 @@
-import React, { useState, FC } from "react";
+import React, { useState, FC, Dispatch } from "react";
 import { Form, Field } from "react-final-form";
 import "./ModalRoom.scss";
 import { DELETE_ROOM } from "../../../graphql/Sequence/DeleteRooms";
@@ -9,7 +9,7 @@ import { getDoctors } from "../../../graphql/Dashboard/GetDoctors";
 
 interface ModalRoomProps {
   active: boolean;
-  setModalDeleteRoomActive: any;
+  setModalDeleteRoomActive: Dispatch<boolean>;
   id: number;
 }
 
