@@ -57,6 +57,11 @@ let alerts = [
     status: "Emergency",
     color: "#FC666630",
   },
+  {
+    id: 5,
+    status: "Empty",
+    color: "#E5E4E2",
+  },
 ];
 
 let rooms = [
