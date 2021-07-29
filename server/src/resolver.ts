@@ -4,35 +4,35 @@ let users = [
     name: "Who",
     role: "Doctor",
     email: "doctor@gmail.com",
-    phone: 38097373738,
+    phone: 380973788860,
   },
   {
     id: 2,
     name: "Watson",
     role: "Assistant",
     email: "assistant@gmail.com",
-    phone: 38068686868,
+    phone: 380953588850,
   },
   {
     id: 3,
     name: "Ray",
     role: "Receptionist",
     email: "recep@gmail.com",
-    phone: 38050282280,
+    phone: 380673722260,
   },
   {
     id: 4,
     name: "Mister",
     role: "Doctor",
     email: "doctor2@gmail.com",
-    phone: 38050285280,
+    phone: 380753788866,
   },
   {
     id: 5,
     name: "Helper",
     role: "Receptionist",
     email: "recep2@gmail.com",
-    phone: 38050285280,
+    phone: 380963728269,
   },
 ];
 
@@ -85,7 +85,7 @@ const resolvers = {
     getUsers: () => {
       return users;
     },
-    getByRole: (_: any, params: any) => {
+    getByRole: (_: void, params: any) => {
       return users.filter((user) => user.role === params.role);
     },
     getDoctors: () => {
@@ -99,13 +99,12 @@ const resolvers = {
     },
   },
   Mutation: {
-    createAlert: (_: any, args: any) => {
+    createAlert: (_: void, args: any) => {
       const { color, status } = args;
       alerts.push({ ...args, id: Date.now() });
       return args;
     },
-    editAlert: (_: any, args: any) => {
-      console.log("edit obj", args);
+    editAlert: (_: void, args: any) => {
       const { id, color, status } = args;
       alerts = alerts.map((obj) => {
         if (obj.id === parseInt(id)) {
@@ -114,29 +113,32 @@ const resolvers = {
       });
       return args;
     },
-    createRoom: (_: any, args: any) => {
-      console.log("obj: ", args);
-
+    createRoom: (_: void, args: any) => {
       const { name } = args;
       rooms.push({ ...args, id: Date.now() });
       return args;
     },
-    editRoom: (_: any, args: any) => {
+    editRoom: (_: void, args: any) => {
       const { id, name, ownerId, ownerName } = args;
       rooms = rooms.map((obj) => {
         if (obj.id === parseInt(id)) {
           return { id: parseInt(id), name, ownerId, ownerName };
         } else return obj;
       });
-      console.log(rooms);
-
       return args;
     },
-    createUser: (_: any, args: any) => {
-      console.log(args);
-
+    createUser: (_: void, args: any) => {
       const { name, role, email, phone } = args;
       users.push({ ...args, id: Date.now() });
+      return args;
+    },
+    editUser: (_: void, args: any) => {
+      const { id, name, role, email, phone } = args;
+      users = users.map((obj) => {
+        if (obj.id === parseInt(id)) {
+          return { id: parseInt(id), name, role, email, phone };
+        } else return obj;
+      });
       return args;
     },
   },

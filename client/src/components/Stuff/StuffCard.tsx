@@ -80,6 +80,7 @@ export const StuffCard: React.FC<StuffT> = ({
         </button>
         {modalEditStuff && (
           <ModalEditStuff
+            id={id}
             active={modalEditStuff}
             setModalEditStuffActive={setModalEditStuffActive}
           ></ModalEditStuff>

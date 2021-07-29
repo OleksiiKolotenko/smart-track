@@ -36,6 +36,13 @@ type Mutation {
     email: String!
     phone: String!
   ): User!
+  editUser(
+    id: ID!
+    name: String!
+    role: String!
+    email: String!
+    phone: String!
+  ): User!
   createAlert(status: String!, color: String!): Alert!
   editAlert(id: ID!, status: String!, color: String!): Alert!
   createRoom(name: String!): Room!

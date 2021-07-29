@@ -1,21 +1,28 @@
-import React, { useState, FC } from "react";
+import { useMutation } from "@apollo/client";
+import React from "react";
 import { Form, Field } from "react-final-form";
 import "./ModalStuff.scss";
+import { EDIT_USER } from "../../../graphql/Stuff/EditStuff";
+import { GetAllUsers, GetByRole } from "../../../graphql/Stuff/GetStuff";
+import { getDoctors } from "../../../graphql/Dashboard/GetDoctors";
 
 interface ModalStuffProps {
   active: boolean;
   setModalEditStuffActive: any;
+  id: number;
 }
 
 interface Errors {
   name?: string | null;
   email?: string | null;
   phone?: string | null;
+  id?: number | null;
 }
 
-export const ModalEditStuff: FC<ModalStuffProps> = ({
+export const ModalEditStuff: React.FC<ModalStuffProps> = ({
   active,
   setModalEditStuffActive,
+  id,
 }) => {
   const validate = (e) => {
     const errors: Errors = {};
@@ -44,6 +51,14 @@ export const ModalEditStuff: FC<ModalStuffProps> = ({
     if (!e.phone) {
       errors.phone = "Phone can't be empty";
     }
+
+    if (e.phone && e.phone.length !== 12) {
+      errors.phone = "Phone should contain 12 numbers";
+    }
+
+    if (e.phone && e.phone.includes("+")) {
+      errors.phone = "+ is added automatically";
+    }
     return errors;
   };
 
@@ -53,8 +68,25 @@ export const ModalEditStuff: FC<ModalStuffProps> = ({
     }
   };
 
+  const [editUser] = useMutation(EDIT_USER);
+
   const onSubmit = async (obj) => {
-    console.log(obj);
+    editUser({
+      variables: {
+        id: id,
+        name: obj.name,
+        email: obj.email,
+        phone: obj.phone,
+        role: obj.role,
+      },
+      refetchQueries: [
+        { query: GetByRole, variables: { role: "Doctor" } },
+        { query: GetByRole, variables: { role: "Assistant" } },
+        { query: GetByRole, variables: { role: "Receptionist" } },
+        { query: getDoctors },
+      ],
+    });
+    setModalEditStuffActive(false);
   };
 
   return (
@@ -132,7 +164,7 @@ export const ModalEditStuff: FC<ModalStuffProps> = ({
                           <input
                             className="type"
                             {...input}
-                            placeholder="+380953577575"
+                            placeholder="380000000000"
                           />
                           {meta.touched && meta.error && (
                             <span
@@ -150,7 +182,12 @@ export const ModalEditStuff: FC<ModalStuffProps> = ({
                       )}
                     />
                     <span className="field">Choose a role</span>
-                    <Field name="role" component="select" className="role">
+                    <Field
+                      name="role"
+                      component="select"
+                      className="role"
+                      defaultValue="Doctor"
+                    >
                       <option className="options">Doctor</option>
                       <option className="options">Assistant</option>
                       <option className="options">Receptionist</option>

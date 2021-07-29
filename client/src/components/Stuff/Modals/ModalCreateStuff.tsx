@@ -4,6 +4,7 @@ import { useMutation } from "@apollo/client";
 import { Form, Field } from "react-final-form";
 import "./ModalStuff.scss";
 import { GetAllUsers, GetByRole } from "../../../graphql/Stuff/GetStuff";
+import { getDoctors } from "../../../graphql/Dashboard/GetDoctors";
 
 interface ModalStuffProps {
   active: boolean;
@@ -48,8 +49,12 @@ export const ModalCreateStuff: React.FC<ModalStuffProps> = ({
       errors.phone = "Phone can't be empty";
     }
 
-    if (e.phone && e.phone.length !== 11) {
-      errors.phone = "Phone should contain 11 numbers";
+    if (e.phone && e.phone.length !== 12) {
+      errors.phone = "Phone should contain 12 numbers";
+    }
+
+    if (e.phone && e.phone.includes("+")) {
+      errors.phone = "+ is added automatically";
     }
 
     return errors;
@@ -71,9 +76,11 @@ export const ModalCreateStuff: React.FC<ModalStuffProps> = ({
         phone: obj.phone,
         role: obj.role,
       },
-      refetchQueries: [{ query: GetByRole, variables: { role: obj.role } }],
+      refetchQueries: [
+        { query: GetByRole, variables: { role: obj.role } },
+        { query: getDoctors },
+      ],
     });
-
     setModalCreateStuffActive(false);
   };
 
@@ -155,7 +162,7 @@ export const ModalCreateStuff: React.FC<ModalStuffProps> = ({
                           <input
                             className="type"
                             {...input}
-                            placeholder="+380953577575"
+                            placeholder="38000000000"
                           />
                           {meta.touched && meta.error && (
                             <span

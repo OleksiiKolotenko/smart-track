@@ -5,6 +5,7 @@ import { EDIT_ROOM } from "../../../graphql/Sequence/EditRooms";
 import { Form, Field } from "react-final-form";
 import "./ModalRoom.scss";
 import { GetAllRooms } from "../../../graphql/Sequence/GetRooms";
+import { getDoctors } from "../../../graphql/Dashboard/GetDoctors";
 
 interface ModalRoomProps {
   active: boolean;
@@ -64,12 +65,10 @@ export const ModalEditRoom: React.FC<ModalRoomProps> = ({
         ownerId: ownerId,
         ownerName: ownerName,
       },
-      refetchQueries: [{ query: GetAllRooms }],
+      refetchQueries: [{ query: GetAllRooms }, { query: getDoctors }],
     });
     setModalEditRoomActive(false);
   };
-  console.log("ownId:", ownerId, "ownName:", ownerName);
-  console.log("RoomId:", id);
 
   return (
     <div className={active ? "modal active" : "modal"} onClick={outsideClick}>
