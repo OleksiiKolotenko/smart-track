@@ -11,7 +11,7 @@ export const DashboardCard = ({ name, rooms }) => {
         <span className="doctor_line"></span>
         <div className="doctor_query">
           <button className="minus">-</button>
-          <span className="state">5</span>
+          <span className="state">{rooms.length}</span>
           <button className="plus">+</button>
           <span
             style={{ fontSize: "14px", color: "#969696", marginRight: "83px" }}

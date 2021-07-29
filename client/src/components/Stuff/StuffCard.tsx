@@ -87,6 +87,7 @@ export const StuffCard: React.FC<StuffT> = ({
         )}
         {modalDeleteUser && (
           <ModalDeleteUser
+            id={id}
             active={modalDeleteUser}
             setModalDeleteUserActive={setModalDeleteUserActive}
           ></ModalDeleteUser>

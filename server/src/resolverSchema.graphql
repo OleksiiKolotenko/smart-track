@@ -43,6 +43,7 @@ type Mutation {
     email: String!
     phone: String!
   ): User!
+  deleteUser(id: ID!): User!
   createAlert(status: String!, color: String!): Alert!
   editAlert(id: ID!, status: String!, color: String!): Alert!
   createRoom(name: String!): Room!

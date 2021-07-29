@@ -148,6 +148,18 @@ const resolvers = {
       });
       return args;
     },
+    deleteUser: (_: void, args: any) => {
+      const { id } = args;
+      users = users.filter((obj) => {
+        return +obj.id !== +id;
+      });
+      rooms = rooms.map((obj) => {
+        if (+obj.ownerId === +id) {
+          return { ...obj, ownerName: "", ownerId: "" };
+        } else return obj;
+      });
+      return args;
+    },
   },
   User: {
     rooms: (user: any) => {

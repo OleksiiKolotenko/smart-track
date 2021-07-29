@@ -1,19 +1,26 @@
-import React, { useState, FC } from "react";
+import React from "react";
+import { useMutation } from "@apollo/client";
 import { Form, Field } from "react-final-form";
 import "./ModalStuff.scss";
+import { DELETE_STUFF } from "../../../graphql/Stuff/DeleteStuff";
+import { GetByRole } from "../../../graphql/Stuff/GetStuff";
+import { getDoctors } from "../../../graphql/Dashboard/GetDoctors";
+import { GetAllRooms } from "../../../graphql/Sequence/GetRooms";
 
 interface ModalDeleteUserProps {
   active: boolean;
   setModalDeleteUserActive: any;
+  id: number;
 }
 
 interface Errors {
   name?: string | null;
 }
 
-export const ModalDeleteUser: FC<ModalDeleteUserProps> = ({
+export const ModalDeleteUser: React.FC<ModalDeleteUserProps> = ({
   active,
   setModalDeleteUserActive,
+  id,
 }) => {
   const validate = (e) => {
     const errors: Errors = {};
@@ -21,13 +28,27 @@ export const ModalDeleteUser: FC<ModalDeleteUserProps> = ({
     return errors;
   };
 
+  const [deleteUser] = useMutation(DELETE_STUFF);
+
   const outsideClick = (e) => {
     if (e.target.className === "modal active") {
       setModalDeleteUserActive(false);
     }
   };
 
-  const onSubmit = async (obj) => {};
+  const onSubmit = async (obj) => {
+    deleteUser({
+      variables: { id: id },
+      refetchQueries: [
+        { query: GetByRole, variables: { role: "Doctor" } },
+        { query: GetByRole, variables: { role: "Assistant" } },
+        { query: GetByRole, variables: { role: "Receptionist" } },
+        { query: getDoctors },
+        { query: GetAllRooms },
+      ],
+    });
+    setModalDeleteUserActive(false);
+  };
 
   return (
     <div className={active ? "modal active" : "modal"} onClick={outsideClick}>
