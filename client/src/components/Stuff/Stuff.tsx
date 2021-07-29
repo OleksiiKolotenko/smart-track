@@ -55,6 +55,7 @@ export const Stuff: React.FC<StuffProps> = ({
           Add new
         </button>
       </div>
+
       <div className="info_block">
         {activePerson === 0
           ? data?.getByRole &&

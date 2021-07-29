@@ -40,15 +40,11 @@ export const ModalEditAlert: React.FC<ModalAlertProps> = ({
   const onSubmit = async (obj) => {
     console.log(obj);
 
-    console.log({ id: id, status: obj.name, color: colors[activeColor] });
-
     editAlert({
       variables: { id: id, status: obj.name, color: colors[activeColor] },
       refetchQueries: [{ query: GetAllAlerts }],
     });
     setModalEditAlertsActive(false);
-
-    // ({ ...obj, color: colors[activeColor], id });
   };
 
   const [editAlert] = useMutation(EDIT_ALERT);

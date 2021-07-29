@@ -5,6 +5,7 @@ import "./ModalRoom.scss";
 interface ModalRoomProps {
   active: boolean;
   setModalDeleteRoomActive: any;
+  id: number;
 }
 
 interface Errors {
@@ -14,6 +15,7 @@ interface Errors {
 export const ModalDeleteRoom: FC<ModalRoomProps> = ({
   active,
   setModalDeleteRoomActive,
+  id,
 }) => {
   const validate = (e) => {
     const errors: Errors = {};

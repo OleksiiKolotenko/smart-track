@@ -42,12 +42,16 @@ export const SequenceCard = ({ name, id, ownerId, ownerName }) => {
       <span className="name">{ownerName}</span>
       {modalEditRoom && (
         <ModalEditRoom
+          id={id}
+          ownerId={ownerId}
+          ownerName={ownerName}
           active={modalEditRoom}
           setModalEditRoomActive={setModalEditRoomActive}
         ></ModalEditRoom>
       )}
       {modalDeleteRoom && (
         <ModalDeleteRoom
+          id={id}
           active={modalDeleteRoom}
           setModalDeleteRoomActive={setModalDeleteRoomActive}
         ></ModalDeleteRoom>

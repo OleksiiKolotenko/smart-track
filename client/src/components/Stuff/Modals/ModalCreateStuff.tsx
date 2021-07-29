@@ -62,6 +62,8 @@ export const ModalCreateStuff: React.FC<ModalStuffProps> = ({
   };
 
   const onSubmit = async (obj) => {
+    console.log(obj);
+
     CreateStuff({
       variables: {
         name: obj.name,
@@ -69,7 +71,7 @@ export const ModalCreateStuff: React.FC<ModalStuffProps> = ({
         phone: obj.phone,
         role: obj.role,
       },
-      refetchQueries: [{ query: GetByRole }],
+      refetchQueries: [{ query: GetByRole, variables: { role: obj.role } }],
     });
 
     setModalCreateStuffActive(false);

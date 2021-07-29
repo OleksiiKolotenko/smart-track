@@ -1,5 +1,3 @@
-import e from "express";
-
 let users = [
   {
     id: 1,
@@ -106,24 +104,39 @@ const resolvers = {
       alerts.push({ ...args, id: Date.now() });
       return args;
     },
-    createUser: (_: any, args: any) => {
-      const { name, role, email, phone } = args;
-      users.push({ ...args, id: Date.now() });
-      return args;
-    },
-    createRoom: (_: any, args: any) => {
-      const { name } = args;
-      rooms.push({ ...args, id: Date.now() });
-      return args;
-    },
     editAlert: (_: any, args: any) => {
+      console.log("edit obj", args);
       const { id, color, status } = args;
       alerts = alerts.map((obj) => {
-        console.log(obj.id, "id:", id);
         if (obj.id === parseInt(id)) {
           return { id: parseInt(id), status, color };
         } else return obj;
       });
+      return args;
+    },
+    createRoom: (_: any, args: any) => {
+      console.log("obj: ", args);
+
+      const { name } = args;
+      rooms.push({ ...args, id: Date.now() });
+      return args;
+    },
+    editRoom: (_: any, args: any) => {
+      const { id, name, ownerId, ownerName } = args;
+      rooms = rooms.map((obj) => {
+        if (obj.id === parseInt(id)) {
+          return { id: parseInt(id), name, ownerId, ownerName };
+        } else return obj;
+      });
+      console.log(rooms);
+
+      return args;
+    },
+    createUser: (_: any, args: any) => {
+      console.log(args);
+
+      const { name, role, email, phone } = args;
+      users.push({ ...args, id: Date.now() });
       return args;
     },
   },

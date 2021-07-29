@@ -16,7 +16,7 @@ type Alert {
 type Room {
   id: ID!
   name: String!
-  ownerId: String
+  ownerId: ID
   ownerName: String
 }
 
@@ -26,7 +26,7 @@ type Query {
   getDoctors: [User]
   getAlerts: [Alert]
   getRooms: [Room]
-  getRoomsById(ownerId: String): [Room]
+  getRoomsById(ownerId: ID!): [Room]
 }
 
 type Mutation {
@@ -39,4 +39,5 @@ type Mutation {
   createAlert(status: String!, color: String!): Alert!
   editAlert(id: ID!, status: String!, color: String!): Alert!
   createRoom(name: String!): Room!
+  editRoom(id: ID!, name: String!, ownerId: ID, ownerName: String): Room!
 }

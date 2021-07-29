@@ -1,19 +1,29 @@
-import React, { useState, FC } from "react";
+import React from "react";
+import { useMutation } from "@apollo/client";
+import { EDIT_ROOM } from "../../../graphql/Sequence/EditRooms";
+
 import { Form, Field } from "react-final-form";
 import "./ModalRoom.scss";
+import { GetAllRooms } from "../../../graphql/Sequence/GetRooms";
 
 interface ModalRoomProps {
   active: boolean;
   setModalEditRoomActive: any;
+  id: number;
+  ownerId?: number;
+  ownerName?: string;
 }
 
 interface Errors {
   name?: string | null;
 }
 
-export const ModalEditRoom: FC<ModalRoomProps> = ({
+export const ModalEditRoom: React.FC<ModalRoomProps> = ({
   active,
   setModalEditRoomActive,
+  id,
+  ownerId,
+  ownerName,
 }) => {
   const validate = (e) => {
     const errors: Errors = {};
@@ -44,10 +54,22 @@ export const ModalEditRoom: FC<ModalRoomProps> = ({
       setModalEditRoomActive(false);
     }
   };
+  const [editRoom] = useMutation(EDIT_ROOM);
 
   const onSubmit = async (obj) => {
-    console.log(obj);
+    editRoom({
+      variables: {
+        id: id,
+        name: obj.name,
+        ownerId: ownerId,
+        ownerName: ownerName,
+      },
+      refetchQueries: [{ query: GetAllRooms }],
+    });
+    setModalEditRoomActive(false);
   };
+  console.log("ownId:", ownerId, "ownName:", ownerName);
+  console.log("RoomId:", id);
 
   return (
     <div className={active ? "modal active" : "modal"} onClick={outsideClick}>

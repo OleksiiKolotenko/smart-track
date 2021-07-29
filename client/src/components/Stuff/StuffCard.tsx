@@ -14,6 +14,7 @@ export const StuffCard: React.FC<StuffT> = ({
   phone,
   rooms,
   role,
+  id,
 }) => {
   const [modalEditStuff, setModalEditStuffActive] = useState(false);
   const [modalDeleteUser, setModalDeleteUserActive] = useState(false);
