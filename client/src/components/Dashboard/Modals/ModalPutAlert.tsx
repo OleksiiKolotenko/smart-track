@@ -2,26 +2,29 @@ import React, { Dispatch, useState } from "react";
 import { useMutation, useQuery } from "@apollo/client";
 import { Form, Field } from "react-final-form";
 import "./ModalPutAlert.scss";
-import {
-  GetAllAlerts,
-  GetAllAlertsResponse,
-} from "../../../graphql/Alerts/GetAlerts";
+import { SET_ALERT } from "../../../graphql/Dashboard/SetAlert";
+import { getDoctors } from "../../../graphql/Dashboard/GetDoctors";
+import { GetByRole } from "../../../graphql/Stuff/GetStuff";
 
 interface ModalPutAlert {
   active: boolean;
   setModalPutAlertActive: Dispatch<boolean>;
-  data: any;
+  alerts: any;
+  rooms: any;
 }
 
 export const ModalPutAlert: React.FC<ModalPutAlert> = ({
   active,
   setModalPutAlertActive,
-  data,
+  alerts,
+  rooms,
 }) => {
   const validate = (e) => {
     const errors = {};
     return errors;
   };
+
+  const [setAlert] = useMutation(SET_ALERT);
 
   const outsideClick = (e) => {
     if (e.target.className === "modal active") {
@@ -30,9 +33,21 @@ export const ModalPutAlert: React.FC<ModalPutAlert> = ({
   };
 
   const onSubmit = async (obj) => {
+    obj = activeAlert;
+    setAlert({
+      variables: {
+        roomId: rooms.id,
+        id: obj.id,
+        color: obj.color,
+        status: obj.status,
+      },
+      refetchQueries: [
+        { query: getDoctors },
+        { query: GetByRole, variables: { role: "Doctor" } },
+      ],
+    });
     setModalPutAlertActive(false);
   };
-
   const [activeAlert, setActiveAlert] = useState("");
 
   return (
@@ -55,15 +70,15 @@ export const ModalPutAlert: React.FC<ModalPutAlert> = ({
                       name="alerts"
                       render={({ input, meta }) => (
                         <div className="choose_alerts_block">
-                          {data.map((obj) => {
+                          {alerts.map((obj, index) => {
                             {
                               return (
-                                <div className="alerts_choice">
+                                <div className="alerts_choice" key={index + 1}>
                                   <div
                                     className="block"
-                                    onClick={() => setActiveAlert(obj.id)}
+                                    onClick={() => setActiveAlert(obj)}
+                                    style={{ cursor: "pointer" }}
                                   >
-                                    {console.log(activeAlert)}
                                     <div
                                       className="round"
                                       style={{
@@ -79,7 +94,6 @@ export const ModalPutAlert: React.FC<ModalPutAlert> = ({
                               );
                             }
                           })}
-
                           {meta.touched && meta.error && (
                             <span>{meta.error}</span>
                           )}

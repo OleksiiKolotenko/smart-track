@@ -5,6 +5,7 @@ export type SequenceT = {
   name: string;
   ownerId: string;
   ownerName: string;
+  statusAlert: string;
 };
 
 export type GetAllSequenceResponse = { getRooms: SequenceT[] };
@@ -16,6 +17,11 @@ export const GetAllRooms = gql`
       name
       ownerId
       ownerName
+      statusAlert {
+        id
+        status
+        color
+      }
     }
   }
 `;

@@ -22,13 +22,19 @@
       .choose_alerts_block {
         display: flex;
         flex-direction: column;
-        width: 240px;
+        width: auto;
         height: auto;
+        :hover {
+          transform: scale(1.005);
+        }
       }
       .block {
         display: flex;
         flex-direction: row;
         align-items: center;
+        padding: 5px;
+        background: #f6faf9;
+        border-radius: 40px;
       }
       .alerts_choice {
         margin-bottom: 20px;

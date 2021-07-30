@@ -18,6 +18,11 @@ export const getDoctors = gql`
         name
         ownerId
         ownerName
+        statusAlert {
+          id
+          status
+          color
+        }
       }
     }
   }

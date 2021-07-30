@@ -25,7 +25,7 @@ export const AlertsBlock: FC<AlertT> = ({ index, status, color, id }) => {
         }}
       ></span>
       <button className="alerts_block_edit">
-        <img src={editPen} alt="" onClick={toggleEditModal} />
+        <img src={editPen} alt="edit" onClick={toggleEditModal} />
       </button>
       {modalEditAlerts && (
         <ModalEditAlert

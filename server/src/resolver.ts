@@ -60,7 +60,7 @@ let alerts = [
   {
     id: 5,
     status: "Empty",
-    color: "#E5E4E2",
+    color: "#F0F0F0",
   },
 ];
 
@@ -70,18 +70,21 @@ let rooms = [
     name: "1a",
     ownerId: "1",
     ownerName: "Who",
+    statusAlert: { id: 5, status: "Empty", color: "#F0F0F0" },
   },
   {
     id: 2,
     name: "2b",
     ownerId: "4",
     ownerName: "Mister",
+    statusAlert: { id: 5, status: "Empty", color: "#F0F0F0" },
   },
   {
     id: 3,
     name: "2g",
     ownerId: "4",
     ownerName: "Mister",
+    statusAlert: { id: 5, status: "Empty", color: "#F0F0F0" },
   },
 ];
 
@@ -123,7 +126,11 @@ const resolvers = {
     },
     createRoom: (_: void, args: any) => {
       const { name } = args;
-      rooms.push({ ...args, id: Date.now() });
+      rooms.push({
+        ...args,
+        id: Date.now(),
+        statusAlert: { id: 5, status: "Empty", color: "#E5E4E2" },
+      });
       return args;
     },
     editRoom: (
@@ -133,7 +140,7 @@ const resolvers = {
       const { id, name, ownerId, ownerName } = args;
       rooms = rooms.map((obj) => {
         if (obj.id === +id) {
-          return { id: +id, name, ownerId, ownerName };
+          return { ...obj, id: +id, name, ownerId, ownerName };
         } else return obj;
       });
       return args;
@@ -182,6 +189,21 @@ const resolvers = {
         } else return obj;
       });
       return args;
+    },
+    setAlert: (
+      _: void,
+      args: {
+        roomId: number;
+        alert: { id: number; status: string; color: string };
+      }
+    ) => {
+      const { roomId, alert } = args;
+      rooms = rooms.map((obj) => {
+        if (+obj.id === +roomId) {
+          return { ...obj, statusAlert: alert };
+        } else return obj;
+      });
+      return alert;
     },
   },
   User: {

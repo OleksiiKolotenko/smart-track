@@ -1,7 +1,8 @@
 import React from "react";
 import "./DashboardCard.scss";
 import DoctorsRoom from "./DoctorsRooms";
-export const DashboardCard = ({ name, rooms }) => {
+
+export const DashboardCard = ({ name, rooms, alerts }) => {
   return (
     <div className="card">
       <div className="doctor">
@@ -25,7 +26,7 @@ export const DashboardCard = ({ name, rooms }) => {
       <div className="rooms_wrap">
         {rooms &&
           rooms.map((rooms, index) => (
-            <DoctorsRoom name={rooms.name} key={`rooms${index}`} />
+            <DoctorsRoom alerts={alerts} rooms={rooms} key={`rooms${index}`} />
           ))}
       </div>
     </div>

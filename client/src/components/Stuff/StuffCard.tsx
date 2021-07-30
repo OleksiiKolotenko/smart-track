@@ -41,14 +41,23 @@ export const StuffCard: React.FC<StuffT> = ({
       <span className="phone" style={{ marginRight: "120px" }}>
         {`+${phone}`}
       </span>
-      {role === "Doctor" ? (
-        <div className="colors">
-          <img src={blue} alt="" />
-          <img src={blue} alt="" />
-        </div>
-      ) : (
-        ""
-      )}
+      {role === "Doctor"
+        ? rooms && (
+            <div className="colors">
+              {rooms.map((color, index) => {
+                return (
+                  <span
+                    className="colors_round"
+                    key={index}
+                    style={{
+                      background: color.statusAlert?.color,
+                    }}
+                  ></span>
+                );
+              })}
+            </div>
+          )
+        : ""}
 
       {role === "Doctor" ? (
         rooms ? (

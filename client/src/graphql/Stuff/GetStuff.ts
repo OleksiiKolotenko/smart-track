@@ -13,6 +13,11 @@ export type StuffT = {
       ownerId: string;
       ownerName: string;
       name: string;
+      statusAlert?: {
+        color: string;
+        id: string;
+        status: string;
+      };
     }
   ];
 };
@@ -50,6 +55,11 @@ export const GetByRole = gql`
         name
         ownerId
         ownerName
+        statusAlert {
+          id
+          status
+          color
+        }
       }
     }
   }

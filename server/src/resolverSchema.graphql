@@ -18,6 +18,7 @@ type Room {
   name: String!
   ownerId: ID
   ownerName: String
+  statusAlert: Alert!
 }
 
 type Query {
@@ -27,6 +28,12 @@ type Query {
   getAlerts: [Alert]
   getRooms: [Room]
   getRoomsById(ownerId: ID!): [Room]
+}
+
+input AlertInput {
+  id: ID
+  color: String
+  status: String
 }
 
 type Mutation {
@@ -46,7 +53,14 @@ type Mutation {
   deleteUser(id: ID!): User!
   createAlert(status: String!, color: String!): Alert!
   editAlert(id: ID!, status: String!, color: String!): Alert!
+  setAlert(roomId: ID!, alert: AlertInput): Alert!
   createRoom(name: String!): Room!
-  editRoom(id: ID!, name: String!, ownerId: ID, ownerName: String): Room!
+  editRoom(
+    id: ID!
+    name: String!
+    ownerId: ID
+    ownerName: String
+    statusAlert: String
+  ): Room!
   deleteRoom(id: ID!): Room!
 }

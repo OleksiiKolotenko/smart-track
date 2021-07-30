@@ -4,7 +4,7 @@ import "./ModalRoom.scss";
 import { DELETE_ROOM } from "../../../graphql/Sequence/DeleteRooms";
 import { useMutation } from "@apollo/client";
 import { GetAllRooms } from "../../../graphql/Sequence/GetRooms";
-import { GetAllUsers } from "../../../graphql/Stuff/GetStuff";
+import { GetAllUsers, GetByRole } from "../../../graphql/Stuff/GetStuff";
 import { getDoctors } from "../../../graphql/Dashboard/GetDoctors";
 
 interface ModalRoomProps {
@@ -39,7 +39,11 @@ export const ModalDeleteRoom: FC<ModalRoomProps> = ({
   const onSubmit = async (obj) => {
     deleteRoom({
       variables: { id: id },
-      refetchQueries: [{ query: GetAllRooms }, { query: getDoctors }],
+      refetchQueries: [
+        { query: GetAllRooms },
+        { query: getDoctors },
+        { query: GetByRole, variables: { role: "Doctor" } },
+      ],
     });
     setModalDeleteRoomActive(false);
   };
