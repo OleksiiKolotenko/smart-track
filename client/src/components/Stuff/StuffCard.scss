@@ -5,7 +5,7 @@
   justify-content: space-between;
   font-family: "Poppins", sans-serif;
   height: 56px;
-  width: 1369px;
+  width: 1469px;
   background: #ffffff;
   box-shadow: 0px 4px 20px rgba(178, 178, 233, 0.19);
   border-radius: 20px 0px;
@@ -22,19 +22,19 @@
     margin-right: 50px;
   }
   .name {
-    width: 120px;
+    width: auto;
   }
   .email {
-    width: 150px;
+    width: auto;
   }
   .phone {
-    width: 100px;
+    width: auto;
   }
   .colors {
     display: flex;
     align-items: center;
     margin-right: 80px;
-    width: 150px;
+    width: 120px;
     height: 40px;
     &_round {
       width: 20px;
@@ -44,12 +44,11 @@
     }
   }
   .buttons {
-    display: flex;
+    width: 100px;
     img {
-      margin-right: 30px;
+      display: flex;
+      justify-content: center;
+      margin-right: 20px;
     }
-  }
-  .rooms_list {
-    margin-right: 50px;
   }
 }

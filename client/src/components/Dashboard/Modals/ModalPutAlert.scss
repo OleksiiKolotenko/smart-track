@@ -27,12 +27,18 @@
         :hover {
           transform: scale(1.005);
         }
+        button {
+          font-weight: 500;
+          font-size: 18px;
+          line-height: 24px;
+        }
       }
       .block {
         display: flex;
         flex-direction: row;
         align-items: center;
-        padding: 5px;
+        width: 350px;
+        padding: 7px;
         background: #f6faf9;
         border-radius: 40px;
       }

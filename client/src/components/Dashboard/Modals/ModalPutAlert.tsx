@@ -74,7 +74,7 @@ export const ModalPutAlert: React.FC<ModalPutAlert> = ({
                             {
                               return (
                                 <div className="alerts_choice" key={index + 1}>
-                                  <div
+                                  <button
                                     className="block"
                                     onClick={() => setActiveAlert(obj)}
                                     style={{ cursor: "pointer" }}
@@ -89,7 +89,7 @@ export const ModalPutAlert: React.FC<ModalPutAlert> = ({
                                       <span>{obj.status.slice(0, 1)}</span>
                                     </div>
                                     <span className="status">{obj.status}</span>
-                                  </div>
+                                  </button>
                                 </div>
                               );
                             }
@@ -100,11 +100,7 @@ export const ModalPutAlert: React.FC<ModalPutAlert> = ({
                         </div>
                       )}
                     />
-                    <div className="btn_wrap">
-                      <button type="submit" className="submit">
-                        Set
-                      </button>
-                    </div>
+
                     {meta.touched && meta.error && <span>{meta.error}</span>}
                   </div>
                 )}
