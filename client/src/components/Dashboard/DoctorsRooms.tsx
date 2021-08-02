@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "./DoctorsRooms.scss";
-import empty from "../../img/empty.svg";
 import triangle from "../../img/triangle.svg";
 import { ModalPutAlert } from "./Modals/ModalPutAlert";
 

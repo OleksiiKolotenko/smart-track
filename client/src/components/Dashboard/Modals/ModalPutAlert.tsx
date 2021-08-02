@@ -9,8 +9,28 @@ import { GetByRole } from "../../../graphql/Stuff/GetStuff";
 interface ModalPutAlert {
   active: boolean;
   setModalPutAlertActive: Dispatch<boolean>;
-  alerts: any;
-  rooms: any;
+  alerts: Alert[];
+  rooms: Room;
+}
+
+interface Alert {
+  id: string;
+  status: string;
+  color: string;
+}
+
+interface statusAlert {
+  color: string;
+  id: string;
+  status: string;
+}
+
+interface Room {
+  id: string;
+  name: string;
+  ownerId: string;
+  ownerName: string;
+  statusAlert: statusAlert;
 }
 
 export const ModalPutAlert: React.FC<ModalPutAlert> = ({
@@ -48,7 +68,7 @@ export const ModalPutAlert: React.FC<ModalPutAlert> = ({
     });
     setModalPutAlertActive(false);
   };
-  const [activeAlert, setActiveAlert] = useState("");
+  const [activeAlert, setActiveAlert] = useState<Alert>();
 
   return (
     <div className={active ? "modal active" : "modal"} onClick={outsideClick}>

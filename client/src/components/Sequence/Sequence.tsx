@@ -16,15 +16,24 @@ import { ModalCreateRoom } from "./Modal/ModalCreateRoom";
 
 export const Sequence = () => {
   const [modalCreateRoom, setModalCreateRoomActive] = useState(false);
+  const [currentDoctor, setCurrentDoctor] = useState<string | undefined>();
+
   const toggleCreateModal = () => {
     setModalCreateRoomActive((store) => !store);
   };
+  console.log(currentDoctor);
 
   const { data: dataRooms, loading: loadingRooms } =
     useQuery<GetAllSequenceResponse>(GetAllRooms);
 
   const { data: dataDoctors, loading: loadingDoctors } =
     useQuery<GetDoctorsByResponse>(getDoctors);
+
+  React.useEffect(() => {
+    if (dataDoctors) {
+      setCurrentDoctor(dataDoctors.getDoctors[0].name);
+    }
+  }, [dataDoctors]);
 
   if (loadingRooms) {
     return <span>Page is loading...</span>;
@@ -41,20 +50,44 @@ export const Sequence = () => {
         <button className="save">Save</button>
       </div>
       <div className="doctor">
-        <select style={{ fontSize: "18px" }}>
+        <select
+          defaultValue={dataDoctors?.getDoctors[0].name}
+          style={{ fontSize: "18px" }}
+          onChange={(e) => {
+            setCurrentDoctor(e.currentTarget.value);
+          }}
+        >
           {dataDoctors?.getDoctors &&
-            dataDoctors.getDoctors.map((sequence, index) => (
-              <option key={`sequence_${index}`}>{sequence.name}</option>
+            dataDoctors.getDoctors.map((sequence_doctor, index) => (
+              <option key={`sequence_${index}`}>{sequence_doctor.name}</option>
             ))}
         </select>
       </div>
       <h1>Drag and Drop rooms to the box</h1>
-      <div className="drag_in"></div>
+      <div className="drag_in">
+        <div className="active_cards">
+          {dataRooms?.getRooms &&
+            dataRooms.getRooms.map((sequence, index) =>
+              sequence.ownerName === currentDoctor ? (
+                <SequenceCard
+                  name={sequence.name}
+                  key={`sequence_${index}`}
+                  id={sequence.id}
+                  ownerId={sequence.ownerId}
+                  ownerName={sequence.ownerName}
+                />
+              ) : (
+                ""
+              )
+            )}
+        </div>
+      </div>
       <h2
         style={{ paddingTop: "40px", fontSize: "18px", paddingBottom: "40px" }}
       >
         Drag and Drop rooms to the box
       </h2>
+
       <div className="rooms">
         <div
           className="rooms_creation_block"
@@ -76,15 +109,19 @@ export const Sequence = () => {
         </div>
         <div className="cards">
           {dataRooms?.getRooms &&
-            dataRooms.getRooms.map((sequence, index) => (
-              <SequenceCard
-                name={sequence.name}
-                key={`sequence_${index}`}
-                id={sequence.id}
-                ownerId={sequence.ownerId}
-                ownerName={sequence.ownerName}
-              />
-            ))}
+            dataRooms.getRooms.map((sequence, index) =>
+              sequence.ownerName != currentDoctor ? (
+                <SequenceCard
+                  name={sequence.name}
+                  key={`sequence_${index}`}
+                  id={sequence.id}
+                  ownerId={sequence.ownerId}
+                  ownerName={sequence.ownerName}
+                />
+              ) : (
+                ""
+              )
+            )}
         </div>
       </div>
       {modalCreateRoom && (

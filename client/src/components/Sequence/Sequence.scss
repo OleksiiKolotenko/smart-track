@@ -40,14 +40,7 @@
     margin-left: 700px;
     margin-bottom: 20px;
   }
-  .drag_in {
-    width: 1658px;
-    height: 138px;
-    left: 202px;
-    background: #fbfbff;
-    border: 1px dashed #6ac7be;
-    border-radius: 3px;
-  }
+
   .rooms {
     display: flex;
     flex-direction: row;
@@ -78,5 +71,24 @@
     align-items: flex-start;
     flex-direction: row;
     flex-wrap: wrap;
+  }
+  .drag_in {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 20px;
+    width: 1658px;
+    min-height: 150px;
+    height: auto;
+    left: 202px;
+    background: #fbfbff;
+    border: 1px dashed #6ac7be;
+    border-radius: 3px;
+    .active_cards {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      margin-left: 20px;
+    }
   }
 }
