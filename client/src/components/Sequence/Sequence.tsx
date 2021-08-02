@@ -1,5 +1,7 @@
-import React, { useState } from "react";
-import SequenceCard from "./SequenceCard";
+import { useState, useEffect } from "react";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import { useQuery } from "@apollo/client";
+
 import {
   GetAllRooms,
   GetAllSequenceResponse,
@@ -8,11 +10,12 @@ import {
   getDoctors,
   GetDoctorsByResponse,
 } from "../../graphql/Sequence/GetDoctors";
-import "./Sequence.scss";
+import { ModalCreateRoom } from "./Modal/ModalCreateRoom";
 import add from "../../img/add.svg";
 import plus from "../../img/plus.svg";
-import { useQuery } from "@apollo/client";
-import { ModalCreateRoom } from "./Modal/ModalCreateRoom";
+import "./Sequence.scss";
+import { SequenceActiveDoctor } from "./SequenceActiveDoctor";
+import { SequenceOtherRooms } from "./SequenceOtherRooms";
 
 export const Sequence = () => {
   const [modalCreateRoom, setModalCreateRoomActive] = useState(false);
@@ -21,7 +24,6 @@ export const Sequence = () => {
   const toggleCreateModal = () => {
     setModalCreateRoomActive((store) => !store);
   };
-  console.log(currentDoctor);
 
   const { data: dataRooms, loading: loadingRooms } =
     useQuery<GetAllSequenceResponse>(GetAllRooms);
@@ -29,7 +31,7 @@ export const Sequence = () => {
   const { data: dataDoctors, loading: loadingDoctors } =
     useQuery<GetDoctorsByResponse>(getDoctors);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (dataDoctors) {
       setCurrentDoctor(dataDoctors.getDoctors[0].name);
     }
@@ -51,7 +53,6 @@ export const Sequence = () => {
       </div>
       <div className="doctor">
         <select
-          defaultValue={dataDoctors?.getDoctors[0].name}
           style={{ fontSize: "18px" }}
           onChange={(e) => {
             setCurrentDoctor(e.currentTarget.value);
@@ -63,31 +64,20 @@ export const Sequence = () => {
             ))}
         </select>
       </div>
+
       <h1>Drag and Drop rooms to the box</h1>
+
       <div className="drag_in">
-        <div className="active_cards">
-          {dataRooms?.getRooms &&
-            dataRooms.getRooms.map((sequence, index) =>
-              sequence.ownerName === currentDoctor ? (
-                <SequenceCard
-                  name={sequence.name}
-                  key={`sequence_${index}`}
-                  id={sequence.id}
-                  ownerId={sequence.ownerId}
-                  ownerName={sequence.ownerName}
-                />
-              ) : (
-                ""
-              )
-            )}
-        </div>
+        <SequenceActiveDoctor
+          dataRooms={dataRooms}
+          currentDoctor={currentDoctor}
+        ></SequenceActiveDoctor>
       </div>
       <h2
         style={{ paddingTop: "40px", fontSize: "18px", paddingBottom: "40px" }}
       >
         Drag and Drop rooms to the box
       </h2>
-
       <div className="rooms">
         <div
           className="rooms_creation_block"
@@ -107,22 +97,10 @@ export const Sequence = () => {
             Add a room
           </span>
         </div>
-        <div className="cards">
-          {dataRooms?.getRooms &&
-            dataRooms.getRooms.map((sequence, index) =>
-              sequence.ownerName != currentDoctor ? (
-                <SequenceCard
-                  name={sequence.name}
-                  key={`sequence_${index}`}
-                  id={sequence.id}
-                  ownerId={sequence.ownerId}
-                  ownerName={sequence.ownerName}
-                />
-              ) : (
-                ""
-              )
-            )}
-        </div>
+        <SequenceOtherRooms
+          dataRooms={dataRooms}
+          currentDoctor={currentDoctor}
+        ></SequenceOtherRooms>
       </div>
       {modalCreateRoom && (
         <ModalCreateRoom

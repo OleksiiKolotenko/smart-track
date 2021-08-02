@@ -3,7 +3,7 @@ import React, { Dispatch } from "react";
 import { Form, Field } from "react-final-form";
 import "./ModalStuff.scss";
 import { EDIT_USER } from "../../../graphql/Stuff/EditStuff";
-import { GetAllUsers, GetByRole } from "../../../graphql/Stuff/GetStuff";
+import { GetByRole } from "../../../graphql/Stuff/GetStuff";
 import { getDoctors } from "../../../graphql/Dashboard/GetDoctors";
 
 interface ModalStuffProps {

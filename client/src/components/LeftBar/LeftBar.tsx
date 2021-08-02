@@ -1,5 +1,5 @@
-import React, { FC } from "react";
-import { NavLink, Route, useHistory } from "react-router-dom";
+import { FC } from "react";
+import { NavLink } from "react-router-dom";
 import "./LeftBar.scss";
 import dashboard from "../../img/dashboard.svg";
 import stuff from "../../img/stuff.svg";

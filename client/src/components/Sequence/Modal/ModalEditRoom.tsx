@@ -6,6 +6,7 @@ import { Form, Field } from "react-final-form";
 import "./ModalRoom.scss";
 import { GetAllRooms } from "../../../graphql/Sequence/GetRooms";
 import { getDoctors } from "../../../graphql/Dashboard/GetDoctors";
+import { GetByRole } from "../../../graphql/Stuff/GetStuff";
 
 interface ModalRoomProps {
   active: boolean;
@@ -65,7 +66,11 @@ export const ModalEditRoom: React.FC<ModalRoomProps> = ({
         ownerId: ownerId,
         ownerName: ownerName,
       },
-      refetchQueries: [{ query: GetAllRooms }, { query: getDoctors }],
+      refetchQueries: [
+        { query: GetAllRooms },
+        { query: getDoctors },
+        { query: GetByRole, variables: { role: "Doctor" } },
+      ],
     });
     setModalEditRoomActive(false);
   };

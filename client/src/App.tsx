@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
+import { useState } from "react";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import LeftBar from "./components/LeftBar/LeftBar";
 import Alerts from "./components/Alerts/Alerts";
 import Sequence from "./components/Sequence/Sequence";

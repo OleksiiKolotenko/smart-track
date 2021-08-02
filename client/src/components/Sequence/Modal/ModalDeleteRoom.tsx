@@ -1,10 +1,10 @@
-import React, { useState, FC, Dispatch } from "react";
+import { FC, Dispatch } from "react";
 import { Form, Field } from "react-final-form";
 import "./ModalRoom.scss";
 import { DELETE_ROOM } from "../../../graphql/Sequence/DeleteRooms";
 import { useMutation } from "@apollo/client";
 import { GetAllRooms } from "../../../graphql/Sequence/GetRooms";
-import { GetAllUsers, GetByRole } from "../../../graphql/Stuff/GetStuff";
+import { GetByRole } from "../../../graphql/Stuff/GetStuff";
 import { getDoctors } from "../../../graphql/Dashboard/GetDoctors";
 
 interface ModalRoomProps {

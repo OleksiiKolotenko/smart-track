@@ -1,12 +1,12 @@
 import React, { Dispatch, useState } from "react";
-import { useMutation, useQuery } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import { Form, Field } from "react-final-form";
 import "./ModalPutAlert.scss";
 import { SET_ALERT } from "../../../graphql/Dashboard/SetAlert";
 import { getDoctors } from "../../../graphql/Dashboard/GetDoctors";
 import { GetByRole } from "../../../graphql/Stuff/GetStuff";
 
-interface ModalPutAlert {
+interface ModalPutAlertProp {
   active: boolean;
   setModalPutAlertActive: Dispatch<boolean>;
   alerts: Alert[];
@@ -33,7 +33,7 @@ interface Room {
   statusAlert: statusAlert;
 }
 
-export const ModalPutAlert: React.FC<ModalPutAlert> = ({
+export const ModalPutAlert: React.FC<ModalPutAlertProp> = ({
   active,
   setModalPutAlertActive,
   alerts,

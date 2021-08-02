@@ -1,6 +1,6 @@
 import { useMutation } from "@apollo/client";
 import { CREATE_ALERT } from "../../../graphql/Alerts/CreateAlerts";
-import React, { useState, FC, Dispatch } from "react";
+import React, { useState, Dispatch } from "react";
 import { Form, Field } from "react-final-form";
 import "./ModalAlert.scss";
 import { GetAllAlerts } from "../../../graphql/Alerts/GetAlerts";

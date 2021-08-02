@@ -3,7 +3,6 @@ import { StuffT } from "../../graphql/Stuff/GetStuff";
 import { ModalEditStuff } from "./Modals/ModalEditStuff";
 import { ModalDeleteUser } from "./Modals/ModalDeleteUser";
 import "./StuffCard.scss";
-import blue from "../../img/blue.svg";
 import edit from "../../img/editPen.svg";
 import del from "../../img/trash.svg";
 

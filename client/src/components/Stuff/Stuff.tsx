@@ -21,6 +21,7 @@ export const Stuff: React.FC<StuffProps> = ({
   });
 
   const [modalCreateStuff, setModalCreateStuffActive] = React.useState(false);
+
   const toggleModal = () => {
     setModalCreateStuffActive((store) => !store);
   };
