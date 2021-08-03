@@ -44,7 +44,6 @@
   .rooms {
     display: flex;
     flex-direction: row;
-    flex-wrap: wrap;
   }
   .rooms_creation_block {
     height: 110px;
@@ -66,10 +65,9 @@
     align-items: center;
     padding-bottom: 10px;
   }
-  .cards {
+
+  .cards_inside {
     display: flex;
-    align-items: flex-start;
-    flex-direction: row;
     flex-wrap: wrap;
   }
   .drag_in {
@@ -89,6 +87,9 @@
       flex-direction: row;
       flex-wrap: wrap;
       margin-left: 20px;
+    }
+    &_lower {
+      display: flex;
     }
   }
 }

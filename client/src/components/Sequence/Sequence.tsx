@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { useQuery } from "@apollo/client";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 import {
   GetAllRooms,
@@ -10,20 +10,12 @@ import {
   getDoctors,
   GetDoctorsByResponse,
 } from "../../graphql/Sequence/GetDoctors";
-import { ModalCreateRoom } from "./Modal/ModalCreateRoom";
-import add from "../../img/add.svg";
-import plus from "../../img/plus.svg";
+
 import "./Sequence.scss";
-import { SequenceActiveDoctor } from "./SequenceActiveDoctor";
-import { SequenceOtherRooms } from "./SequenceOtherRooms";
+import { SequenceDrag } from "./SequenceDrag";
 
 export const Sequence = () => {
-  const [modalCreateRoom, setModalCreateRoomActive] = useState(false);
   const [currentDoctor, setCurrentDoctor] = useState<string | undefined>();
-
-  const toggleCreateModal = () => {
-    setModalCreateRoomActive((store) => !store);
-  };
 
   const { data: dataRooms, loading: loadingRooms } =
     useQuery<GetAllSequenceResponse>(GetAllRooms);
@@ -67,47 +59,12 @@ export const Sequence = () => {
 
       <h1>Drag and Drop rooms to the box</h1>
 
-      <div className="drag_in">
-        <SequenceActiveDoctor
+      <div className="drag">
+        <SequenceDrag
           dataRooms={dataRooms}
           currentDoctor={currentDoctor}
-        ></SequenceActiveDoctor>
+        ></SequenceDrag>
       </div>
-      <h2
-        style={{ paddingTop: "40px", fontSize: "18px", paddingBottom: "40px" }}
-      >
-        Drag and Drop rooms to the box
-      </h2>
-      <div className="rooms">
-        <div
-          className="rooms_creation_block"
-          onClick={toggleCreateModal}
-          style={{ cursor: "pointer" }}
-        >
-          <div className="add_block" style={{ cursor: "pointer" }}>
-            <img src={add} alt="addCreate" className="addCreate" />
-            <img
-              src={plus}
-              alt="addPlus"
-              className="addPlus"
-              style={{ marginLeft: "-29px" }}
-            />
-          </div>
-          <span className="create" style={{ cursor: "pointer" }}>
-            Add a room
-          </span>
-        </div>
-        <SequenceOtherRooms
-          dataRooms={dataRooms}
-          currentDoctor={currentDoctor}
-        ></SequenceOtherRooms>
-      </div>
-      {modalCreateRoom && (
-        <ModalCreateRoom
-          active={modalCreateRoom}
-          setModalCreateRoomActive={setModalCreateRoomActive}
-        ></ModalCreateRoom>
-      )}
     </div>
   );
 };
