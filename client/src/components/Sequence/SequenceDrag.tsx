@@ -4,39 +4,108 @@ import { useState, useEffect } from "react";
 import add from "../../img/add.svg";
 import plus from "../../img/plus.svg";
 import { ModalCreateRoom } from "./Modal/ModalCreateRoom";
+import { Source } from "graphql";
 
 export const SequenceDrag = ({ dataRooms, currentDoctor }) => {
   const [modalCreateRoom, setModalCreateRoomActive] = useState(false);
+
   const toggleCreateModal = () => {
     setModalCreateRoomActive((store) => !store);
   };
-  const [roomsPlace, setRoomsPlace] = useState(dataRooms?.getRooms);
+
+  const [roomsCurrent, setRoomsCurrent] = useState({
+    currentRooms: dataRooms?.getRooms.filter(
+      (room) => room.ownerName === currentDoctor
+    ),
+  });
+
+  const [roomsOther, setRoomsOther] = useState({
+    otherRooms: dataRooms?.getRooms.filter(
+      (room) => room.ownerName != currentDoctor
+    ),
+  });
+
+  const allRooms = { roomsCurrent, roomsOther };
+
   const reorder = (list, startIndex, endIndex) => {
-    const result = Array.from(list);
+    const result = Array.from(list.otherRooms || list.currentRooms);
     const [removed] = result.splice(startIndex, 1);
     result.splice(endIndex, 0, removed);
+    console.log(removed);
+
     return result;
   };
 
-  function handleOnDragEnd(result) {
+  const move = (list, startIndex, endIndex) => {
+    const newStart = Array.from(list.otherRooms || list.currentRooms);
+    const [taken] = newStart.splice(startIndex, 1);
+    const resultStart = {
+      newStart,
+    };
+    console.log("Array without taken element", newStart);
+    console.log("Taken element:", taken);
+
+    const resultEnd = taken;
+
+    console.log("Item will be pushed:", endIndex);
+
+    return { newStart, resultEnd };
+  };
+
+  const idList = {
+    active_sequence: "roomsCurrent",
+    other_sequence: "roomsOther",
+  };
+
+  const getList = (id) => allRooms[idList[id]];
+
+  function onDragEnd(result) {
+    const { source, destination } = result;
+    console.log("source", source.droppableId);
+
     if (!result.destination) {
       return;
     }
-    const items = reorder(
-      roomsPlace,
-      result.source.index,
-      result.destination.index
-    );
 
-    setRoomsPlace(items);
+    if (getList(source.droppableId) === getList(destination.droppableId)) {
+      const items = reorder(
+        getList(source.droppableId),
+        source.index,
+        destination.index
+      );
+
+      if (source.droppableId === "other_sequence") {
+        setRoomsOther({ otherRooms: items });
+      } else setRoomsCurrent({ currentRooms: items });
+    } else {
+      const items = move(
+        getList(source.droppableId),
+        source.index,
+        destination.index
+      );
+      if (source.droppableId === "other_sequence") {
+        setRoomsOther({ otherRooms: items });
+      } else setRoomsCurrent({ currentRooms: items });
+    }
   }
 
   useEffect(() => {
-    setRoomsPlace(dataRooms?.getRooms);
-  }, [dataRooms]);
+    if (currentDoctor) {
+      setRoomsCurrent({
+        currentRooms: dataRooms?.getRooms.filter(
+          (room) => room.ownerName === currentDoctor
+        ),
+      });
+      setRoomsOther({
+        otherRooms: dataRooms?.getRooms.filter(
+          (room) => room.ownerName !== currentDoctor
+        ),
+      });
+    }
+  }, [currentDoctor, dataRooms]);
 
   return (
-    <DragDropContext onDragEnd={handleOnDragEnd}>
+    <DragDropContext onDragEnd={onDragEnd}>
       <div className="drag_in">
         <Droppable droppableId="active_sequence" direction="horizontal">
           {(provided) => (
@@ -45,37 +114,31 @@ export const SequenceDrag = ({ dataRooms, currentDoctor }) => {
               ref={provided.innerRef}
               {...provided.droppableProps}
             >
-              {roomsPlace &&
-                roomsPlace.map((sequence, index) => {
-                  return (
-                    <Draggable
-                      key={sequence.name}
-                      draggableId={sequence.name}
-                      index={index}
-                    >
-                      {(provided) => (
-                        <div
-                          className="active_div"
-                          {...provided.draggableProps}
-                          {...provided.dragHandleProps}
-                          ref={provided.innerRef}
-                        >
-                          {sequence.ownerName === currentDoctor ? (
-                            <SequenceCard
-                              name={sequence.name}
-                              key={`sequence_${index}`}
-                              id={sequence.id}
-                              ownerId={sequence.ownerId}
-                              ownerName={sequence.ownerName}
-                            />
-                          ) : (
-                            ""
-                          )}
-                        </div>
-                      )}
-                    </Draggable>
-                  );
-                })}{" "}
+              {roomsCurrent &&
+                roomsCurrent.currentRooms.map((sequence, index) => (
+                  <Draggable
+                    draggableId={sequence.name}
+                    key={sequence.name}
+                    index={index}
+                  >
+                    {(provided) => (
+                      <div
+                        className="active_cards"
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
+                        ref={provided.innerRef}
+                      >
+                        <SequenceCard
+                          name={sequence.name}
+                          key={`sequence_${index}`}
+                          id={sequence.id}
+                          ownerId={sequence.ownerId}
+                          ownerName={sequence.ownerName}
+                        />
+                      </div>
+                    )}
+                  </Draggable>
+                ))}
               {provided.placeholder}
             </div>
           )}
@@ -118,37 +181,31 @@ export const SequenceDrag = ({ dataRooms, currentDoctor }) => {
                 {...provided.droppableProps}
               >
                 <div className="cards_inside">
-                  {roomsPlace &&
-                    roomsPlace.map((sequence, index) => {
-                      return (
-                        <Draggable
-                          key={sequence.id}
-                          draggableId={sequence.id}
-                          index={index}
-                        >
-                          {(provided) => (
-                            <div
-                              className="active_div"
-                              {...provided.draggableProps}
-                              {...provided.dragHandleProps}
-                              ref={provided.innerRef}
-                            >
-                              {sequence.ownerName !== currentDoctor ? (
-                                <SequenceCard
-                                  name={sequence.name}
-                                  key={`sequence_${index}`}
-                                  id={sequence.id}
-                                  ownerId={sequence.ownerId}
-                                  ownerName={sequence.ownerName}
-                                />
-                              ) : (
-                                ""
-                              )}
-                            </div>
-                          )}
-                        </Draggable>
-                      );
-                    })}
+                  {roomsOther &&
+                    roomsOther.otherRooms.map((sequence, index) => (
+                      <Draggable
+                        draggableId={sequence.id}
+                        key={sequence.name}
+                        index={index}
+                      >
+                        {(provided) => (
+                          <div
+                            className="active_cards"
+                            {...provided.draggableProps}
+                            {...provided.dragHandleProps}
+                            ref={provided.innerRef}
+                          >
+                            <SequenceCard
+                              name={sequence.name}
+                              key={`sequence_${index}`}
+                              id={sequence.id}
+                              ownerId={sequence.ownerId}
+                              ownerName={sequence.ownerName}
+                            />
+                          </div>
+                        )}
+                      </Draggable>
+                    ))}
                 </div>
                 {provided.placeholder}
               </div>
