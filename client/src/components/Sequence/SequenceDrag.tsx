@@ -1,29 +1,23 @@
 import SequenceCard from "./SequenceCard";
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import { useState, useEffect } from "react";
+import { DragDropContext, Droppable, Draggable } from "aligned-rbd";
+import { FC, useState, useEffect } from "react";
 import add from "../../img/add.svg";
 import plus from "../../img/plus.svg";
 import { ModalCreateRoom } from "./Modal/ModalCreateRoom";
-import { Source } from "graphql";
 
-export const SequenceDrag = ({ dataRooms, currentDoctor }) => {
+export const SequenceDrag = ({
+  dataRooms,
+  currentDoctor,
+  roomsCurrent,
+  roomsOther,
+  setRoomsCurrent,
+  setRoomsOther,
+}) => {
   const [modalCreateRoom, setModalCreateRoomActive] = useState(false);
 
   const toggleCreateModal = () => {
     setModalCreateRoomActive((store) => !store);
   };
-
-  const [roomsCurrent, setRoomsCurrent] = useState({
-    currentRooms: dataRooms?.getRooms.filter(
-      (room) => room.ownerName === currentDoctor
-    ),
-  });
-
-  const [roomsOther, setRoomsOther] = useState({
-    otherRooms: dataRooms?.getRooms.filter(
-      (room) => room.ownerName != currentDoctor
-    ),
-  });
 
   const allRooms = { roomsCurrent, roomsOther };
 
@@ -74,19 +68,17 @@ export const SequenceDrag = ({ dataRooms, currentDoctor }) => {
       );
       if (source.droppableId === "active_sequence") {
         const copyOther = [...roomsOther.otherRooms];
-        const copyCurrent = items.newStart;
         copyOther.splice(destination.index, 0, items.taken);
 
-        setRoomsCurrent({ currentRooms: copyCurrent });
+        setRoomsCurrent({ currentRooms: items.newStart });
         setRoomsOther({
           otherRooms: copyOther,
         });
       } else {
         const copyCurrent = [...roomsCurrent.currentRooms];
-        const copyOther = items.newStart;
         copyCurrent.splice(destination.index, 0, items.taken);
 
-        setRoomsOther({ otherRooms: copyOther });
+        setRoomsOther({ otherRooms: items.newStart });
         setRoomsCurrent({
           currentRooms: copyCurrent,
         });
@@ -112,7 +104,7 @@ export const SequenceDrag = ({ dataRooms, currentDoctor }) => {
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <div className="drag_in">
-        <Droppable droppableId="active_sequence" direction="horizontal">
+        <Droppable droppableId="active_sequence" direction="grid">
           {(provided) => (
             <div
               className="active_cards"
@@ -178,7 +170,7 @@ export const SequenceDrag = ({ dataRooms, currentDoctor }) => {
               Add a room
             </span>
           </div>
-          <Droppable droppableId="other_sequence" direction="horizontal">
+          <Droppable droppableId="other_sequence" direction="grid">
             {(provided) => (
               <div
                 className="cards"

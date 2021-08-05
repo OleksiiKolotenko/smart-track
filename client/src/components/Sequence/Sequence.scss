@@ -75,6 +75,7 @@
     align-items: center;
     justify-content: space-between;
     padding-top: 20px;
+    padding-left: 20px;
     width: 1658px;
     min-height: 152px;
     height: auto;
@@ -86,10 +87,13 @@
       display: flex;
       flex-direction: row;
       flex-wrap: wrap;
-      margin-left: 20px;
     }
     &_lower {
+      width: auto;
+      max-width: max-content;
+      height: auto;
       display: flex;
+      flex-wrap: wrap;
     }
   }
 }

@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import { FC, useState } from "react";
 import "./AlertsBlock.scss";
 import editPen from "../../img/editPen.svg";
 import { AlertT } from "../../graphql/Alerts/GetAlerts";

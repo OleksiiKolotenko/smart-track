@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "./DoctorsRooms.scss";
 import triangle from "../../img/triangle.svg";
 import { ModalPutAlert } from "./Modals/ModalPutAlert";

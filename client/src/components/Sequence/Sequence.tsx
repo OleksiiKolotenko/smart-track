@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
-import { useQuery } from "@apollo/client";
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-
+import { useQuery, useMutation } from "@apollo/client";
+import { SET_OWNER } from "../../graphql/Sequence/SetOwner";
 import {
   GetAllRooms,
   GetAllSequenceResponse,
@@ -13,6 +12,7 @@ import {
 
 import "./Sequence.scss";
 import { SequenceDrag } from "./SequenceDrag";
+import { GetByRole } from "../../graphql/Stuff/GetStuff";
 
 export const Sequence = () => {
   const [currentDoctor, setCurrentDoctor] = useState<string | undefined>();
@@ -22,6 +22,38 @@ export const Sequence = () => {
 
   const { data: dataDoctors, loading: loadingDoctors } =
     useQuery<GetDoctorsByResponse>(getDoctors);
+
+  const [setOwner] = useMutation(SET_OWNER);
+
+  const [roomsCurrent, setRoomsCurrent] = useState({
+    currentRooms: [],
+  });
+  const [roomsOther, setRoomsOther] = useState({
+    otherRooms: [],
+  });
+
+  const currentDoctorId = dataDoctors?.getDoctors.find(
+    (id) => id.name === currentDoctor
+  )?.id;
+
+  function setName() {
+    roomsCurrent.currentRooms.filter((name: any) =>
+      name.ownerName !== currentDoctor
+        ? setOwner({
+            variables: {
+              id: name.id,
+              ownerId: currentDoctorId,
+              ownerName: currentDoctor,
+            },
+            refetchQueries: [
+              { query: GetAllRooms },
+              { query: getDoctors },
+              { query: GetByRole, variables: { role: "Doctor" } },
+            ],
+          })
+        : ""
+    );
+  }
 
   useEffect(() => {
     if (dataDoctors) {
@@ -41,8 +73,11 @@ export const Sequence = () => {
     <div className="sequence">
       <div className="top">
         <span style={{ fontSize: "18px" }}>Choose a Doctor</span>
-        <button className="save">Save</button>
+        <button className="save" onClick={setName}>
+          Save
+        </button>
       </div>
+
       <div className="doctor">
         <select
           style={{ fontSize: "18px" }}
@@ -61,6 +96,10 @@ export const Sequence = () => {
 
       <div className="drag">
         <SequenceDrag
+          roomsCurrent={roomsCurrent}
+          setRoomsCurrent={setRoomsCurrent}
+          roomsOther={roomsOther}
+          setRoomsOther={setRoomsOther}
           dataRooms={dataRooms}
           currentDoctor={currentDoctor}
         ></SequenceDrag>

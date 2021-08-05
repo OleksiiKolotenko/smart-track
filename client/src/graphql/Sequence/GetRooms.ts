@@ -3,9 +3,9 @@ import { gql } from "@apollo/client";
 export type SequenceT = {
   id: number;
   name: string;
-  ownerId: string;
-  ownerName: string;
-  statusAlert: string;
+  ownerId?: string;
+  ownerName?: string;
+  statusAlert?: string;
 };
 
 export type GetAllSequenceResponse = { getRooms: SequenceT[] };
