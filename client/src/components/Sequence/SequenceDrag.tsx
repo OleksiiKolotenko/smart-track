@@ -31,7 +31,6 @@ export const SequenceDrag = ({ dataRooms, currentDoctor }) => {
     const result = Array.from(list.otherRooms || list.currentRooms);
     const [removed] = result.splice(startIndex, 1);
     result.splice(endIndex, 0, removed);
-    console.log(removed);
 
     return result;
   };
@@ -39,17 +38,8 @@ export const SequenceDrag = ({ dataRooms, currentDoctor }) => {
   const move = (list, startIndex, endIndex) => {
     const newStart = Array.from(list.otherRooms || list.currentRooms);
     const [taken] = newStart.splice(startIndex, 1);
-    const resultStart = {
-      newStart,
-    };
-    console.log("Array without taken element", newStart);
-    console.log("Taken element:", taken);
 
-    const resultEnd = taken;
-
-    console.log("Item will be pushed:", endIndex);
-
-    return { newStart, resultEnd };
+    return { newStart, taken };
   };
 
   const idList = {
@@ -61,7 +51,6 @@ export const SequenceDrag = ({ dataRooms, currentDoctor }) => {
 
   function onDragEnd(result) {
     const { source, destination } = result;
-    console.log("source", source.droppableId);
 
     if (!result.destination) {
       return;
@@ -83,9 +72,25 @@ export const SequenceDrag = ({ dataRooms, currentDoctor }) => {
         source.index,
         destination.index
       );
-      if (source.droppableId === "other_sequence") {
-        setRoomsOther({ otherRooms: items });
-      } else setRoomsCurrent({ currentRooms: items });
+      if (source.droppableId === "active_sequence") {
+        const copyOther = [...roomsOther.otherRooms];
+        const copyCurrent = items.newStart;
+        copyOther.splice(destination.index, 0, items.taken);
+
+        setRoomsCurrent({ currentRooms: copyCurrent });
+        setRoomsOther({
+          otherRooms: copyOther,
+        });
+      } else {
+        const copyCurrent = [...roomsCurrent.currentRooms];
+        const copyOther = items.newStart;
+        copyCurrent.splice(destination.index, 0, items.taken);
+
+        setRoomsOther({ otherRooms: copyOther });
+        setRoomsCurrent({
+          currentRooms: copyCurrent,
+        });
+      }
     }
   }
 
