@@ -15,12 +15,6 @@ interface ModalPutAlertProp {
   rooms: IRooms;
 }
 
-interface statusAlert {
-  color: string;
-  id: string;
-  status: string;
-}
-
 export const ModalPutAlert: React.FC<ModalPutAlertProp> = ({
   active,
   setModalPutAlertActive,

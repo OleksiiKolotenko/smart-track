@@ -40,13 +40,22 @@ export const Sequence = () => {
   const [roomsCurrent, setRoomsCurrent] = useState<ICurrentRooms>({
     currentRooms: [],
   });
-  const [roomsOther, setRoomsOther] = useState<IOtherRooms>({
-    otherRooms: [],
+
+  const [roomsOther, setRoomsOther] = useState<IOtherRooms | any>({
+    otherRooms: dataRooms?.getRooms,
   });
 
   const currentDoctorId = dataDoctors?.getDoctors.find(
     (id) => id.name === currentDoctor
   )?.id;
+
+  useEffect(() => {
+    if (!currentDoctor) {
+      setRoomsOther({
+        otherRooms: dataRooms?.getRooms,
+      });
+    }
+  }, [dataRooms]);
 
   function setName() {
     roomsCurrent.currentRooms.filter((name: any) =>
@@ -86,12 +95,6 @@ export const Sequence = () => {
     );
   }
 
-  useEffect(() => {
-    if (dataDoctors?.getDoctors[0]) {
-      setCurrentDoctor(dataDoctors.getDoctors[0].name);
-    }
-  }, [dataDoctors]);
-
   if (loadingRooms) {
     return <span>Page is loading...</span>;
   }
@@ -101,14 +104,19 @@ export const Sequence = () => {
   }
 
   function handleSave() {
-    return setName(), clearName();
+    if (currentDoctor) {
+      return setName(), clearName();
+    } else window.alert("You should pick a doctor first!");
   }
 
   return (
     <div className="sequence">
       <div className="top">
         <span style={{ fontSize: "18px" }}>Choose a Doctor</span>
-        <button className="save" onClick={handleSave}>
+        <button
+          className={currentDoctor ? "save" : "save_disabled"}
+          onClick={handleSave}
+        >
           Save
         </button>
       </div>
@@ -120,9 +128,14 @@ export const Sequence = () => {
             setCurrentDoctor(e.currentTarget.value);
           }}
         >
+          <option hidden>Make a choice</option>
           {dataDoctors?.getDoctors &&
             dataDoctors.getDoctors.map((sequence_doctor, index) => (
-              <option key={`sequence_${index}`}>{sequence_doctor.name}</option>
+              <>
+                <option key={`sequence_${index}`}>
+                  {sequence_doctor.name}
+                </option>
+              </>
             ))}
         </select>
       </div>

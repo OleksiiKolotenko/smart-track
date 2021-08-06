@@ -14,12 +14,12 @@ const colors = [
   "#78F27530",
 ];
 
-interface ModalAlertProps {
+interface ModalAlertCreateProps {
   active: boolean;
   setModalCreateAlertsActive: Dispatch<boolean>;
 }
 
-export const ModalCreateAlert: React.FC<ModalAlertProps> = ({
+export const ModalCreateAlert: React.FC<ModalAlertCreateProps> = ({
   active,
   setModalCreateAlertsActive,
 }) => {

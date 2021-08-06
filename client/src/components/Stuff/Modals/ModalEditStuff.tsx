@@ -11,6 +11,9 @@ interface ModalStuffProps {
   active: boolean;
   setModalEditStuffActive: Dispatch<boolean>;
   id: number;
+  name: string;
+  phone: number;
+  email: string;
 }
 
 interface Errors {
@@ -24,6 +27,9 @@ export const ModalEditStuff: React.FC<ModalStuffProps> = ({
   active,
   setModalEditStuffActive,
   id,
+  name,
+  email,
+  phone,
 }) => {
   const validate = (e) => {
     const errors: Errors = {};
@@ -105,6 +111,7 @@ export const ModalEditStuff: React.FC<ModalStuffProps> = ({
         }
       >
         <Form
+          initialValues={{ name: name, email: email, phone: phone }}
           onSubmit={onSubmit}
           validate={validate}
           render={({ handleSubmit }) => (

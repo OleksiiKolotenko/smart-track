@@ -29,6 +29,8 @@ export const AlertsBlock: FC<AlertT> = ({ index, status, color, id }) => {
       </button>
       {modalEditAlerts && (
         <ModalEditAlert
+          status={status}
+          color={color}
           id={id}
           active={modalEditAlerts}
           setModalEditAlertsActive={setModalEditAlertsActive}

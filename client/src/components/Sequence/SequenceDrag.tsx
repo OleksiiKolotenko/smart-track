@@ -1,3 +1,5 @@
+import _ from "lodash";
+
 import SequenceCard from "./SequenceCard";
 import { DragDropContext, Droppable, Draggable } from "aligned-rbd";
 import { useState, useEffect, SetStateAction } from "react";
@@ -30,7 +32,9 @@ export const SequenceDrag: React.FC<SequenceDrag> = ({
   const [modalCreateRoom, setModalCreateRoomActive] = useState(false);
 
   const toggleCreateModal = () => {
-    setModalCreateRoomActive((store) => !store);
+    if (!currentDoctor) {
+      setModalCreateRoomActive(false);
+    } else setModalCreateRoomActive((store) => !store);
   };
 
   const allRooms = { roomsCurrent, roomsOther };
@@ -174,7 +178,14 @@ export const SequenceDrag: React.FC<SequenceDrag> = ({
             onClick={toggleCreateModal}
             style={{ cursor: "pointer" }}
           >
-            <div className="add_block" style={{ cursor: "pointer" }}>
+            <div
+              className="add_block"
+              style={
+                currentDoctor
+                  ? { cursor: "pointer" }
+                  : { cursor: "not-allowed", opacity: "0.7" }
+              }
+            >
               <img src={add} alt="addCreate" className="addCreate" />
               <img
                 src={plus}
@@ -183,7 +194,7 @@ export const SequenceDrag: React.FC<SequenceDrag> = ({
                 style={{ marginLeft: "-29px" }}
               />
             </div>
-            <span className="create" style={{ cursor: "pointer" }}>
+            <span className={currentDoctor ? "create" : "create_disabled"}>
               Add a room
             </span>
           </div>
@@ -227,12 +238,15 @@ export const SequenceDrag: React.FC<SequenceDrag> = ({
           </Droppable>
         </div>
       </div>
-      {modalCreateRoom && (
-        <ModalCreateRoom
-          active={modalCreateRoom}
-          setModalCreateRoomActive={setModalCreateRoomActive}
-        ></ModalCreateRoom>
-      )}
+
+      {!currentDoctor
+        ? () => setModalCreateRoomActive(false)
+        : modalCreateRoom && (
+            <ModalCreateRoom
+              active={modalCreateRoom}
+              setModalCreateRoomActive={setModalCreateRoomActive}
+            ></ModalCreateRoom>
+          )}
     </DragDropContext>
   );
 };

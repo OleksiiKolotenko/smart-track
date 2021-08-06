@@ -9,6 +9,8 @@ interface ModalAlertProps {
   active: boolean;
   setModalEditAlertsActive: Dispatch<boolean>;
   id: string;
+  status: string;
+  color: string;
 }
 
 const colors = [
@@ -24,6 +26,8 @@ export const ModalEditAlert: React.FC<ModalAlertProps> = ({
   active,
   setModalEditAlertsActive,
   id,
+  status,
+  color,
 }) => {
   const validate = (e) => {
     const errors = {};
@@ -56,6 +60,7 @@ export const ModalEditAlert: React.FC<ModalAlertProps> = ({
         }
       >
         <Form
+          initialValues={{ name: status, color: color }}
           onSubmit={onSubmit}
           validate={validate}
           render={({ handleSubmit }) => (
