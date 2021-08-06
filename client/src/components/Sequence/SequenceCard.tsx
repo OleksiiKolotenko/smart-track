@@ -5,8 +5,14 @@ import "./SequenceCard.scss";
 import add from "../../img/add.svg";
 import del from "../../img/delete.svg";
 import edit from "../../img/editPen.svg";
+import { SequenceT } from "../../graphql/Sequence/GetRooms";
 
-export const SequenceCard = ({ name, id, ownerId, ownerName }) => {
+export const SequenceCard: React.FC<SequenceT> = ({
+  name,
+  id,
+  ownerId,
+  ownerName,
+}) => {
   const [modalEditRoom, setModalEditRoomActive] = useState(false);
 
   const toggleEditModal = () => {

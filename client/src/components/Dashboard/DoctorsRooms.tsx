@@ -2,8 +2,15 @@ import { useState } from "react";
 import "./DoctorsRooms.scss";
 import triangle from "../../img/triangle.svg";
 import { ModalPutAlert } from "./Modals/ModalPutAlert";
+import { IRooms } from "../Types/Rooms";
+import { AlertT } from "../../graphql/Alerts/GetAlerts";
 
-export const DoctorsRooms = ({ rooms, alerts }) => {
+interface DoctorsRooms {
+  rooms: IRooms;
+  alerts: AlertT[];
+}
+
+export const DoctorsRooms: React.FC<DoctorsRooms> = ({ rooms, alerts }) => {
   const [modalPutAlert, setModalPutAlertActive] = useState(false);
 
   const togglePutAlertModal = () => {
@@ -49,7 +56,7 @@ export const DoctorsRooms = ({ rooms, alerts }) => {
       {modalPutAlert && (
         <ModalPutAlert
           rooms={rooms}
-          alerts={alerts.getAlerts}
+          alerts={alerts}
           active={modalPutAlert}
           setModalPutAlertActive={setModalPutAlertActive}
         ></ModalPutAlert>

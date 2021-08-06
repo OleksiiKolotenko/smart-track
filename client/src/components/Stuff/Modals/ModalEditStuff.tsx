@@ -5,6 +5,7 @@ import "./ModalStuff.scss";
 import { EDIT_USER } from "../../../graphql/Stuff/EditStuff";
 import { GetByRole } from "../../../graphql/Stuff/GetStuff";
 import { getDoctors } from "../../../graphql/Dashboard/GetDoctors";
+import { GetAllRooms } from "../../../graphql/Sequence/GetRooms";
 
 interface ModalStuffProps {
   active: boolean;
@@ -90,6 +91,7 @@ export const ModalEditStuff: React.FC<ModalStuffProps> = ({
         { query: GetByRole, variables: { role: "Assistant" } },
         { query: GetByRole, variables: { role: "Receptionist" } },
         { query: getDoctors },
+        { query: GetAllRooms },
       ],
     });
     setModalEditStuffActive(false);

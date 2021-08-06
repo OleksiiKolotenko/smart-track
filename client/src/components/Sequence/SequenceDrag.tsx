@@ -1,11 +1,25 @@
 import SequenceCard from "./SequenceCard";
 import { DragDropContext, Droppable, Draggable } from "aligned-rbd";
-import { FC, useState, useEffect } from "react";
+import { useState, useEffect, SetStateAction } from "react";
 import add from "../../img/add.svg";
 import plus from "../../img/plus.svg";
 import { ModalCreateRoom } from "./Modal/ModalCreateRoom";
+import {
+  GetAllSequenceResponse,
+  SequenceT,
+} from "../../graphql/Sequence/GetRooms";
+import { ICurrentRooms, IOtherRooms } from "./Sequence";
 
-export const SequenceDrag = ({
+interface SequenceDrag {
+  dataRooms: GetAllSequenceResponse;
+  currentDoctor: string | undefined;
+  setRoomsCurrent: React.Dispatch<SetStateAction<any>>;
+  setRoomsOther: React.Dispatch<SetStateAction<any>>;
+  roomsCurrent: ICurrentRooms;
+  roomsOther: IOtherRooms;
+}
+
+export const SequenceDrag: React.FC<SequenceDrag> = ({
   dataRooms,
   currentDoctor,
   roomsCurrent,
@@ -30,7 +44,9 @@ export const SequenceDrag = ({
   };
 
   const move = (list, startIndex, endIndex) => {
-    const newStart = Array.from(list.otherRooms || list.currentRooms);
+    const newStart: SequenceT[] = Array.from(
+      list.otherRooms || list.currentRooms
+    );
     const [taken] = newStart.splice(startIndex, 1);
 
     return { newStart, taken };
@@ -66,6 +82,7 @@ export const SequenceDrag = ({
         source.index,
         destination.index
       );
+
       if (source.droppableId === "active_sequence") {
         const copyOther = [...roomsOther.otherRooms];
         copyOther.splice(destination.index, 0, items.taken);

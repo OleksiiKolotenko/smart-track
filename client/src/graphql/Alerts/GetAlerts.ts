@@ -2,9 +2,9 @@ import { gql } from "@apollo/client";
 
 export type AlertT = {
   index: number;
-  id: number;
-  status: string;
+  id: string;
   color: string;
+  status: string;
 };
 
 export type GetAllAlertsResponse = { getAlerts: AlertT[] };

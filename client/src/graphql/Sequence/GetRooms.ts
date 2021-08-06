@@ -8,7 +8,7 @@ export type SequenceT = {
   statusAlert?: string;
 };
 
-export type GetAllSequenceResponse = { getRooms: SequenceT[] };
+export type GetAllSequenceResponse = { getRooms: SequenceT[] } | undefined;
 
 export const GetAllRooms = gql`
   query GetAllRooms {

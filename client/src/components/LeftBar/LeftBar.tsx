@@ -1,4 +1,3 @@
-import { FC } from "react";
 import { NavLink } from "react-router-dom";
 import "./LeftBar.scss";
 import dashboard from "../../img/dashboard.svg";
@@ -7,12 +6,7 @@ import alerts from "../../img/alerts.svg";
 import sequence from "../../img/sequence.svg";
 import logout from "../../img/sign-out.svg";
 
-type LeftBarProps = {
-  activeBtn: number | null;
-  setActiveBtn: (arg: number | null) => void;
-};
-
-export const LeftBar: FC<LeftBarProps> = ({ activeBtn, setActiveBtn }) => {
+export const LeftBar = () => {
   return (
     <div className="left">
       <p className="logo">Logo</p>

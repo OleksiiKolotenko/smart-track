@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import { SET_OWNER } from "../../graphql/Sequence/SetOwner";
+import { CLEAR_OWNER } from "../../graphql/Sequence/ClearOwner";
 import {
   GetAllRooms,
   GetAllSequenceResponse,
+  SequenceT,
 } from "../../graphql/Sequence/GetRooms";
 import {
   getDoctors,
@@ -13,6 +15,14 @@ import {
 import "./Sequence.scss";
 import { SequenceDrag } from "./SequenceDrag";
 import { GetByRole } from "../../graphql/Stuff/GetStuff";
+
+export interface ICurrentRooms {
+  currentRooms: SequenceT[];
+}
+
+export interface IOtherRooms {
+  otherRooms: SequenceT[];
+}
 
 export const Sequence = () => {
   const [currentDoctor, setCurrentDoctor] = useState<string | undefined>();
@@ -25,10 +35,12 @@ export const Sequence = () => {
 
   const [setOwner] = useMutation(SET_OWNER);
 
-  const [roomsCurrent, setRoomsCurrent] = useState({
+  const [clearOwner] = useMutation(CLEAR_OWNER);
+
+  const [roomsCurrent, setRoomsCurrent] = useState<ICurrentRooms>({
     currentRooms: [],
   });
-  const [roomsOther, setRoomsOther] = useState({
+  const [roomsOther, setRoomsOther] = useState<IOtherRooms>({
     otherRooms: [],
   });
 
@@ -55,8 +67,27 @@ export const Sequence = () => {
     );
   }
 
+  function clearName() {
+    roomsOther.otherRooms.filter((name: any) =>
+      name.ownerName === currentDoctor
+        ? clearOwner({
+            variables: {
+              id: name.id,
+              ownerId: currentDoctorId,
+              ownerName: currentDoctor,
+            },
+            refetchQueries: [
+              { query: GetAllRooms },
+              { query: getDoctors },
+              { query: GetByRole, variables: { role: "Doctor" } },
+            ],
+          })
+        : ""
+    );
+  }
+
   useEffect(() => {
-    if (dataDoctors) {
+    if (dataDoctors?.getDoctors[0]) {
       setCurrentDoctor(dataDoctors.getDoctors[0].name);
     }
   }, [dataDoctors]);
@@ -69,11 +100,15 @@ export const Sequence = () => {
     return <span>Page is loading...</span>;
   }
 
+  function handleSave() {
+    return setName(), clearName();
+  }
+
   return (
     <div className="sequence">
       <div className="top">
         <span style={{ fontSize: "18px" }}>Choose a Doctor</span>
-        <button className="save" onClick={setName}>
+        <button className="save" onClick={handleSave}>
           Save
         </button>
       </div>

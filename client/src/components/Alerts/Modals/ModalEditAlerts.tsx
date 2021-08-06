@@ -8,7 +8,7 @@ import { GetAllAlerts } from "../../../graphql/Alerts/GetAlerts";
 interface ModalAlertProps {
   active: boolean;
   setModalEditAlertsActive: Dispatch<boolean>;
-  id: number;
+  id: string;
 }
 
 const colors = [

@@ -156,7 +156,7 @@ const resolvers = {
       _: void,
       args: { id: number; ownerId: string; ownerName: string }
     ) => {
-      let { id, ownerId, ownerName } = args;
+      const { id, ownerId, ownerName } = args;
       rooms = rooms.map((obj) => {
         if (obj.id === +id) {
           return { ...obj, id: +id, ownerId, ownerName };
@@ -164,6 +164,19 @@ const resolvers = {
       });
       return args;
     },
+    nullRoomOwner: (
+      _: void,
+      args: { id: number; ownerId: string; ownerName: string }
+    ) => {
+      const { id, ownerId, ownerName } = args;
+      rooms = rooms.map((obj) => {
+        if (obj.id === +id) {
+          return { ...obj, id: +id, ownerId: "", ownerName: "" };
+        } else return obj;
+      });
+      return args;
+    },
+
     createUser: (
       _: void,
       args: { name: string; role: string; email: string; phone: number }

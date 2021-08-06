@@ -63,5 +63,6 @@ type Mutation {
     statusAlert: String
   ): Room!
   setRoomOwner(id: ID, ownerId: ID, ownerName: String): Room!
+  nullRoomOwner(id: ID, ownerId: ID!, ownerName: String!): Room!
   deleteRoom(id: ID!): Room!
 }

@@ -27,10 +27,11 @@ export const Dashboard = () => {
   return (
     <div className="dashboard">
       {dataDoctors?.getDoctors &&
+        dataAlerts &&
         dataDoctors.getDoctors.map((dashboard, index) => (
           <DashboardCard
             name={dashboard.name}
-            alerts={dataAlerts}
+            alerts={dataAlerts.getAlerts}
             key={`dashboard_${index}`}
             rooms={dashboard.rooms}
           />

@@ -5,32 +5,20 @@ import "./ModalPutAlert.scss";
 import { SET_ALERT } from "../../../graphql/Dashboard/SetAlert";
 import { getDoctors } from "../../../graphql/Dashboard/GetDoctors";
 import { GetByRole } from "../../../graphql/Stuff/GetStuff";
+import { AlertT } from "../../../graphql/Alerts/CreateAlerts";
+import { IRooms } from "../../Types/Rooms";
 
 interface ModalPutAlertProp {
   active: boolean;
   setModalPutAlertActive: Dispatch<boolean>;
-  alerts: Alert[];
-  rooms: Room;
-}
-
-interface Alert {
-  id: string;
-  status: string;
-  color: string;
+  alerts: AlertT[];
+  rooms: IRooms;
 }
 
 interface statusAlert {
   color: string;
   id: string;
   status: string;
-}
-
-interface Room {
-  id: string;
-  name: string;
-  ownerId: string;
-  ownerName: string;
-  statusAlert: statusAlert;
 }
 
 export const ModalPutAlert: React.FC<ModalPutAlertProp> = ({
@@ -68,7 +56,7 @@ export const ModalPutAlert: React.FC<ModalPutAlertProp> = ({
     });
     setModalPutAlertActive(false);
   };
-  const [activeAlert, setActiveAlert] = useState<Alert>();
+  const [activeAlert, setActiveAlert] = useState<AlertT>();
 
   return (
     <div className={active ? "modal active" : "modal"} onClick={outsideClick}>

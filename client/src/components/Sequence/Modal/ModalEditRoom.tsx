@@ -12,7 +12,7 @@ interface ModalRoomProps {
   active: boolean;
   setModalEditRoomActive: Dispatch<boolean>;
   id: number;
-  ownerId?: number;
+  ownerId?: string;
   ownerName?: string;
 }
 

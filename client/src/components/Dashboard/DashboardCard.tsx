@@ -1,8 +1,20 @@
 import React from "react";
+import { AlertT } from "../../graphql/Alerts/GetAlerts";
 import "./DashboardCard.scss";
 import DoctorsRoom from "./DoctorsRooms";
+import { IRooms } from "../Types/Rooms";
 
-export const DashboardCard = ({ name, rooms, alerts }) => {
+interface DashboardProps {
+  name: string;
+  rooms: IRooms[];
+  alerts: AlertT[];
+}
+
+export const DashboardCard: React.FC<DashboardProps> = ({
+  name,
+  rooms,
+  alerts,
+}) => {
   return (
     <div className="card">
       <div className="doctor">

@@ -8,13 +8,12 @@ import Stuff from "./components/Stuff/Stuff";
 import "./app.scss";
 
 function App() {
-  const [activeBtn, setActiveBtn] = useState<number | null>(0);
   const [activePerson, setActivePerson] = useState<number>(0);
 
   return (
     <Router>
       <div className="app">
-        <LeftBar activeBtn={activeBtn} setActiveBtn={setActiveBtn} />
+        <LeftBar />
         <Route exact path="/">
           <Dashboard />
         </Route>
