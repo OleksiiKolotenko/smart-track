@@ -106,7 +106,7 @@ export const Sequence = () => {
   function handleSave() {
     if (currentDoctor) {
       return setName(), clearName();
-    } else window.alert("You should pick a doctor first!");
+    }
   }
 
   return (

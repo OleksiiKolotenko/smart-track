@@ -61,7 +61,7 @@ export const SequenceDrag: React.FC<SequenceDrag> = ({
     other_sequence: "roomsOther",
   };
 
-  const getList = (id) => allRooms[idList[id]];
+  const getList = (id: number) => allRooms[idList[id]];
 
   function onDragEnd(result) {
     const { source, destination } = result;

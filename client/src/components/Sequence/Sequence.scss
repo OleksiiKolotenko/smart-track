@@ -54,6 +54,7 @@
   .rooms {
     display: flex;
     flex-direction: row;
+    overflow-x: hidden;
   }
   .rooms_creation_block {
     height: 110px;
