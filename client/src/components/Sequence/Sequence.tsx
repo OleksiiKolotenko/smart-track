@@ -8,9 +8,14 @@ import { CLEAR_OWNER } from "../../graphql/Sequence/ClearOwner";
 import {
   GetAllRooms,
   GetAllSequenceResponse,
-  SequenceT,
 } from "../../graphql/Sequence/GetRooms";
-import { GetByRole } from "../../graphql/Stuff/GetStuff";
+import { SequenceT } from "../Types/Sequence";
+
+import {
+  GetAllUsers,
+  GetByRole,
+  GetByRoleResponse,
+} from "../../graphql/Stuff/GetStuff";
 import {
   getDoctors,
   GetDoctorsByResponse,
@@ -32,7 +37,9 @@ export const Sequence = () => {
     useQuery<GetAllSequenceResponse>(GetAllRooms);
 
   const { data: dataDoctors, loading: loadingDoctors } =
-    useQuery<GetDoctorsByResponse>(getDoctors);
+    useQuery<GetByRoleResponse>(GetByRole, {
+      variables: { role: "Doctor" },
+    });
 
   const [setOwner] = useMutation(SET_OWNER);
 
@@ -46,7 +53,7 @@ export const Sequence = () => {
     otherRooms: dataRooms?.getRooms,
   });
 
-  const currentDoctorId = dataDoctors?.getDoctors.find(
+  const currentDoctorId = dataDoctors?.getByRole.find(
     (id) => id.name === currentDoctor
   )?.id;
 
@@ -58,7 +65,7 @@ export const Sequence = () => {
     }
   }, [dataRooms]);
 
-  function setName() {
+  function setNewName() {
     roomsCurrent.currentRooms.filter((name: any) =>
       name.ownerName !== currentDoctor
         ? setOwner({
@@ -69,15 +76,14 @@ export const Sequence = () => {
             },
             refetchQueries: [
               { query: GetAllRooms },
-              { query: getDoctors },
               { query: GetByRole, variables: { role: "Doctor" } },
             ],
           })
-        : ""
+        : null
     );
   }
 
-  function clearName() {
+  function clearOldName() {
     roomsOther.otherRooms.filter((name: any) =>
       name.ownerName === currentDoctor
         ? clearOwner({
@@ -88,7 +94,6 @@ export const Sequence = () => {
             },
             refetchQueries: [
               { query: GetAllRooms },
-              { query: getDoctors },
               { query: GetByRole, variables: { role: "Doctor" } },
             ],
           })
@@ -96,24 +101,20 @@ export const Sequence = () => {
     );
   }
 
-  if (loadingRooms) {
-    return <span>Page is loading...</span>;
-  }
-
-  if (loadingDoctors) {
+  if (loadingRooms || loadingDoctors) {
     return <span>Page is loading...</span>;
   }
 
   function handleSave() {
     if (currentDoctor) {
-      return setName(), clearName();
+      return setNewName(), clearOldName();
     }
   }
 
   return (
     <div className="sequence">
       <div className="top">
-        <span style={{ fontSize: "18px" }}>Choose a Doctor</span>
+        <span className="choose_title">Choose a Doctor</span>
         <button
           className={currentDoctor ? "save" : "save_disabled"}
           onClick={handleSave}
@@ -123,18 +124,16 @@ export const Sequence = () => {
       </div>
       <div className="doctor">
         <select
-          style={{ fontSize: "18px" }}
+          className="doctor__select"
           onChange={(e) => {
             setCurrentDoctor(e.currentTarget.value);
           }}
         >
           <option hidden>Make a choice</option>
-          {dataDoctors?.getDoctors &&
-            dataDoctors.getDoctors.map((sequence_doctor, index) => (
+          {dataDoctors?.getByRole &&
+            dataDoctors.getByRole.map((sequence_doctor, index) => (
               <>
-                <option key={`sequence_${index}`}>
-                  {sequence_doctor.name}
-                </option>
+                <option key={sequence_doctor.id}>{sequence_doctor.name}</option>
               </>
             ))}
         </select>

@@ -13,41 +13,41 @@ export const LeftBar = () => {
       <p className="logo">Logo</p>
       <div className="navigation">
         <div className="navigation_dashboard">
-          <img src={dashboard} alt="" />
+          <img src={dashboard} alt="dashboard picture" />
           <NavLink
+            className="navigation__buttons"
             to="/dashboard"
             activeClassName="button_active"
-            style={{ color: "#FFFFFF" }}
           >
             Dashboard
           </NavLink>
         </div>
         <div className="navigation_stuff">
-          <img src={stuff} alt="" />
+          <img src={stuff} alt="stuff picture" />
           <NavLink
+            className="navigation__buttons"
             to="/stuff"
             activeClassName="button_active"
-            style={{ color: "#FFFFFF" }}
           >
             Stuff
           </NavLink>
         </div>
         <div className="navigation_alerts">
-          <img src={alerts} alt="" />
+          <img src={alerts} alt="alerts picture" />
           <NavLink
+            className="navigation__buttons"
             to="/alerts"
             activeClassName={"button_active"}
-            style={{ color: "#FFFFFF" }}
           >
             Alerts
           </NavLink>
         </div>
         <div className="navigation_sequence">
-          <img src={sequence} alt="" />
+          <img src={sequence} alt="sequence picture" />
           <NavLink
             to="/sequence"
+            className="navigation__buttons"
             activeClassName={"button_active"}
-            style={{ color: "#FFFFFF" }}
           >
             Sequence
           </NavLink>

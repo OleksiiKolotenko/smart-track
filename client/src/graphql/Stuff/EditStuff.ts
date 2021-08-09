@@ -1,13 +1,5 @@
 import { gql } from "@apollo/client";
-
-export type StuffT = {
-  number: number;
-  id: number;
-  name: string;
-  email: string;
-  role: string;
-  phone: string;
-};
+import { StuffT } from "../../components/Types/Stuff";
 
 export type SendEditUserResponse = { editUser: StuffT[] };
 

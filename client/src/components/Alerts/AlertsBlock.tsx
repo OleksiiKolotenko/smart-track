@@ -2,7 +2,7 @@ import { FC, useState } from "react";
 
 import editPen from "../../img/editPen.svg";
 
-import { AlertT } from "../../graphql/Alerts/GetAlerts";
+import { AlertT } from "../../components/Types/Alerts";
 import { ModalEditAlert } from "./Modals/ModalEditAlerts";
 import "./AlertsBlock.scss";
 

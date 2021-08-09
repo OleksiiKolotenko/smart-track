@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useQuery } from "@apollo/client";
 import StuffCard from "./StuffCard";
 import { ModalCreateStuff } from "./Modals/ModalCreateStuff";
@@ -7,22 +7,19 @@ import { GetByRole, GetByRoleResponse } from "../../graphql/Stuff/GetStuff";
 
 import "./Stuff.scss";
 
-type StuffProps = {
-  activePerson: number;
-  setActivePerson: (arg: number) => void;
-};
+enum availableRoles {
+  Doctor,
+  Assistant,
+  Receptionist,
+}
 
-const availableRoles = [`Doctor`, `Assistant`, `Receptionist`];
+export const Stuff = ({}) => {
+  const [activePerson, setActivePerson] = useState<number>(0);
+  const [modalCreateStuff, setModalCreateStuffActive] = React.useState(false);
 
-export const Stuff: React.FC<StuffProps> = ({
-  activePerson,
-  setActivePerson,
-}) => {
   const { data, loading } = useQuery<GetByRoleResponse>(GetByRole, {
     variables: { role: availableRoles[activePerson] },
   });
-
-  const [modalCreateStuff, setModalCreateStuffActive] = React.useState(false);
 
   const toggleModal = () => {
     setModalCreateStuffActive((store) => !store);
@@ -71,10 +68,10 @@ export const Stuff: React.FC<StuffProps> = ({
                 email={stuff.email}
                 phone={stuff.phone}
                 rooms={stuff.rooms}
-                key={`stuff_${index}`}
+                key={stuff.id}
               />
             ))
-          : ""}
+          : null}
         {activePerson === 1
           ? data?.getByRole &&
             data.getByRole.map((stuff, index) => (
@@ -82,13 +79,13 @@ export const Stuff: React.FC<StuffProps> = ({
                 number={index + 1}
                 id={stuff.id}
                 name={stuff.name}
-                role={stuff.role}
+                role={"Assistant"}
                 email={stuff.email}
                 phone={stuff.phone}
-                key={`stuff_${index}`}
+                key={stuff.id}
               />
             ))
-          : ""}
+          : null}
         {activePerson === 2
           ? data?.getByRole &&
             data.getByRole.map((stuff, index) => (
@@ -96,13 +93,13 @@ export const Stuff: React.FC<StuffProps> = ({
                 number={index + 1}
                 id={stuff.id}
                 name={stuff.name}
-                role={stuff.role}
+                role={"Receptionist"}
                 email={stuff.email}
                 phone={stuff.phone}
-                key={`stuff_${index}`}
+                key={stuff.id}
               />
             ))
-          : ""}
+          : null}
       </div>
       {modalCreateStuff && (
         <ModalCreateStuff

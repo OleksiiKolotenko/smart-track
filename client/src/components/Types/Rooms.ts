@@ -9,7 +9,7 @@ export interface IRooms {
   ownerId: string;
   ownerName: string;
   name: string;
-  statusAlert: IStatusAlert;
+  statusAlert?: IStatusAlert;
 }
 
 export interface getRooms {

@@ -36,12 +36,11 @@ export const ModalDeleteRoom: FC<ModalRoomProps> = ({
 
   const [deleteRoom] = useMutation(DELETE_ROOM);
 
-  const onSubmit = async (obj) => {
+  const onSubmit = () => {
     deleteRoom({
       variables: { id: id },
       refetchQueries: [
         { query: GetAllRooms },
-        { query: getDoctors },
         { query: GetByRole, variables: { role: "Doctor" } },
       ],
     });
@@ -92,3 +91,5 @@ export const ModalDeleteRoom: FC<ModalRoomProps> = ({
     </div>
   );
 };
+
+export default ModalDeleteRoom;

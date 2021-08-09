@@ -2,17 +2,14 @@ import { DragDropContext, Droppable, Draggable } from "aligned-rbd";
 import { useState, useEffect, SetStateAction } from "react";
 
 import { ModalCreateRoom } from "./Modal/ModalCreateRoom";
-import {
-  GetAllSequenceResponse,
-  SequenceT,
-} from "../../graphql/Sequence/GetRooms";
-
+import { GetAllSequenceResponse } from "../../graphql/Sequence/GetRooms";
+import { SequenceT } from "../Types/Sequence";
 import SequenceCard from "./SequenceCard";
 import { ICurrentRooms, IOtherRooms } from "./Sequence";
 import plus from "../../img/plus.svg";
 import add from "../../img/add.svg";
 
-interface SequenceDrag {
+interface SequenceDragProps {
   dataRooms: GetAllSequenceResponse;
   currentDoctor: string | undefined;
   setRoomsCurrent: React.Dispatch<SetStateAction<any>>;
@@ -21,7 +18,7 @@ interface SequenceDrag {
   roomsOther: IOtherRooms;
 }
 
-export const SequenceDrag: React.FC<SequenceDrag> = ({
+export const SequenceDrag: React.FC<SequenceDragProps> = ({
   dataRooms,
   currentDoctor,
   roomsCurrent,
@@ -135,8 +132,8 @@ export const SequenceDrag: React.FC<SequenceDrag> = ({
               {roomsCurrent &&
                 roomsCurrent.currentRooms.map((sequence, index) => (
                   <Draggable
-                    draggableId={sequence.name}
-                    key={sequence.name}
+                    draggableId={sequence.id}
+                    key={sequence.id}
                     index={index}
                   >
                     {(provided) => (
@@ -148,7 +145,7 @@ export const SequenceDrag: React.FC<SequenceDrag> = ({
                       >
                         <SequenceCard
                           name={sequence.name}
-                          key={`sequence_${index}`}
+                          key={sequence.id + index}
                           id={sequence.id}
                           ownerId={sequence.ownerId}
                           ownerName={sequence.ownerName}
@@ -162,22 +159,10 @@ export const SequenceDrag: React.FC<SequenceDrag> = ({
           )}
         </Droppable>
       </div>
-      <h2
-        style={{
-          paddingTop: "40px",
-          fontSize: "18px",
-          paddingBottom: "40px",
-        }}
-      >
-        Drag and Drop rooms to the box
-      </h2>
+      <h2>Drag and Drop rooms to the box</h2>
       <div className="drag_in_lower">
         <div className="rooms">
-          <div
-            className="rooms_creation_block"
-            onClick={toggleCreateModal}
-            style={{ cursor: "pointer" }}
-          >
+          <div className="rooms_creation_block" onClick={toggleCreateModal}>
             <div
               className="add_block"
               style={
@@ -186,13 +171,8 @@ export const SequenceDrag: React.FC<SequenceDrag> = ({
                   : { cursor: "not-allowed", opacity: "0.7" }
               }
             >
-              <img src={add} alt="addCreate" className="addCreate" />
-              <img
-                src={plus}
-                alt="addPlus"
-                className="addPlus"
-                style={{ marginLeft: "-29px" }}
-              />
+              <img src={add} alt="addCreate" className="add_block__create" />
+              <img src={plus} alt="addPlus" className="add_block__plus" />
             </div>
             <span className={currentDoctor ? "create" : "create_disabled"}>
               Add a room
@@ -206,31 +186,30 @@ export const SequenceDrag: React.FC<SequenceDrag> = ({
                 {...provided.droppableProps}
               >
                 <div className="cards_inside">
-                  {roomsOther &&
-                    roomsOther.otherRooms.map((sequence, index) => (
-                      <Draggable
-                        draggableId={sequence.id}
-                        key={sequence.name}
-                        index={index}
-                      >
-                        {(provided) => (
-                          <div
-                            className="active_cards"
-                            {...provided.draggableProps}
-                            {...provided.dragHandleProps}
-                            ref={provided.innerRef}
-                          >
-                            <SequenceCard
-                              name={sequence.name}
-                              key={`sequence_${index}`}
-                              id={sequence.id}
-                              ownerId={sequence.ownerId}
-                              ownerName={sequence.ownerName}
-                            />
-                          </div>
-                        )}
-                      </Draggable>
-                    ))}
+                  {roomsOther?.otherRooms?.map((sequence, index) => (
+                    <Draggable
+                      draggableId={sequence.id}
+                      key={sequence.id}
+                      index={index}
+                    >
+                      {(provided) => (
+                        <div
+                          className="active_cards"
+                          {...provided.draggableProps}
+                          {...provided.dragHandleProps}
+                          ref={provided.innerRef}
+                        >
+                          <SequenceCard
+                            name={sequence.name}
+                            key={sequence.id}
+                            id={sequence.id + index}
+                            ownerId={sequence.ownerId}
+                            ownerName={sequence.ownerName}
+                          />
+                        </div>
+                      )}
+                    </Draggable>
+                  ))}
                 </div>
                 {provided.placeholder}
               </div>
@@ -251,3 +230,5 @@ export const SequenceDrag: React.FC<SequenceDrag> = ({
     </DragDropContext>
   );
 };
+
+export default SequenceDrag;

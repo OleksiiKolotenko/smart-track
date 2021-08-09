@@ -7,7 +7,7 @@
   padding-left: 50px;
   padding-top: 21px;
   margin-bottom: 20px;
-  box-shadow: 0px 4px 10px rgba(32, 43, 93, 0.08);
+  box-shadow: 0 4px 10px rgba(32, 43, 93, 0.08);
 
   .doctor {
     width: 300px;
@@ -40,6 +40,11 @@
       border: 1px solid #c0e7e5;
     }
     .doctor_query {
+      .in_line {
+        font-size: 14px;
+        color: #969696;
+        margin-right: 83px;
+      }
       margin-top: 28px;
       .minus {
         font-weight: 500;

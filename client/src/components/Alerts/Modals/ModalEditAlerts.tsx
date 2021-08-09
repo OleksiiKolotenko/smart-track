@@ -4,6 +4,7 @@ import { Form, Field } from "react-final-form";
 import { EDIT_ALERT } from "../../../graphql/Alerts/EditAlerts";
 import "./ModalAlert.scss";
 import { GetAllAlerts } from "../../../graphql/Alerts/GetAlerts";
+import { colors } from "./ModalCreateAlerts";
 
 interface ModalAlertProps {
   active: boolean;
@@ -13,14 +14,9 @@ interface ModalAlertProps {
   color: string;
 }
 
-const colors = [
-  "#EE589730",
-  "#86E8EE30",
-  "#FA700C30",
-  "#E485F330",
-  "#C4E6E930",
-  "#78F27530",
-];
+interface Errors {
+  name?: string | null;
+}
 
 export const ModalEditAlert: React.FC<ModalAlertProps> = ({
   active,
@@ -29,8 +25,16 @@ export const ModalEditAlert: React.FC<ModalAlertProps> = ({
   status,
   color,
 }) => {
+  const [activeColor, setActiveColor] = useState(0);
+
+  const [editAlert] = useMutation(EDIT_ALERT);
+
   const validate = (e) => {
-    const errors = {};
+    const errors: Errors = {};
+
+    if (!e.name) {
+      errors.name = "Name can't be empty";
+    }
     return errors;
   };
 
@@ -40,17 +44,13 @@ export const ModalEditAlert: React.FC<ModalAlertProps> = ({
     }
   };
 
-  const onSubmit = async (obj) => {
+  const onSubmit = (obj) => {
     editAlert({
       variables: { id: id, status: obj.name, color: colors[activeColor] },
       refetchQueries: [{ query: GetAllAlerts }],
     });
     setModalEditAlertsActive(false);
   };
-
-  const [editAlert] = useMutation(EDIT_ALERT);
-
-  const [activeColor, setActiveColor] = useState(0);
 
   return (
     <div className={active ? "modal active" : "modal"} onClick={outsideClick}>
@@ -81,8 +81,14 @@ export const ModalEditAlert: React.FC<ModalAlertProps> = ({
                             placeholder="Alert"
                           />
                           {meta.touched && meta.error && (
-                            <span>
-                              <br />
+                            <span
+                              style={{
+                                fontSize: "14px",
+                                display: "flex",
+                                marginTop: "18%",
+                                width: "auto",
+                              }}
+                            >
                               {meta.error}
                             </span>
                           )}

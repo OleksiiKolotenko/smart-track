@@ -1,12 +1,5 @@
 import { gql } from "@apollo/client";
-
-export type SequenceT = {
-  id: number;
-  name: string;
-  ownerId?: string;
-  ownerName?: string;
-  statusAlert?: string;
-};
+import { SequenceT } from "../../components/Types/Sequence";
 
 export type GetAllSequenceResponse = { getRooms: SequenceT[] } | undefined;
 

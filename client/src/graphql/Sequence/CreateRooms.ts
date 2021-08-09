@@ -1,10 +1,7 @@
 import { gql } from "@apollo/client";
+import { IRooms } from "../../components/Types/Rooms";
 
-export type RoomT = {
-  name: string;
-};
-
-export type SendRoomResponse = { createRoom: RoomT[] };
+export type SendRoomResponse = { createRoom: [IRooms] };
 
 export const CREATE_ROOM = gql`
   mutation CreateRoom($name: String!) {

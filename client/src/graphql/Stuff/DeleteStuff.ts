@@ -1,8 +1,5 @@
 import { gql } from "@apollo/client";
-
-export type StuffT = {
-  id: number;
-};
+import { StuffT } from "../../components/Types/Stuff";
 
 export type SendDeleteAlertResponse = { deleteUser: StuffT[] };
 

@@ -117,11 +117,9 @@ const resolvers = {
       args: { id: number; color: string; status: string }
     ) => {
       const { id, color, status } = args;
-      alerts = alerts.map((obj) => {
-        if (obj.id === +id) {
-          return { id: +id, status, color };
-        } else return obj;
-      });
+      alerts = alerts.map((obj) =>
+        obj.id === +id ? { id: +id, status, color } : obj
+      );
       return args;
     },
     createRoom: (_: void, args: any) => {
@@ -138,18 +136,14 @@ const resolvers = {
       args: { id: number; name: string; ownerId: string; ownerName: string }
     ) => {
       const { id, name, ownerId, ownerName } = args;
-      rooms = rooms.map((obj) => {
-        if (obj.id === +id) {
-          return { ...obj, id: +id, name, ownerId, ownerName };
-        } else return obj;
-      });
+      rooms = rooms.map((obj) =>
+        obj.id === +id ? { ...obj, id: +id, name, ownerId, ownerName } : obj
+      );
       return args;
     },
     deleteRoom: (_: void, args: { id: number }) => {
       const { id } = args;
-      rooms = rooms.filter((obj) => {
-        return +obj.id !== +id;
-      });
+      rooms = rooms.filter((obj) => +obj.id !== +id);
       return args;
     },
     setRoomOwner: (
@@ -157,23 +151,19 @@ const resolvers = {
       args: { id: number; ownerId: string; ownerName: string }
     ) => {
       const { id, ownerId, ownerName } = args;
-      rooms = rooms.map((obj) => {
-        if (obj.id === +id) {
-          return { ...obj, id: +id, ownerId, ownerName };
-        } else return obj;
-      });
+      rooms = rooms.map((obj) =>
+        obj.id === +id ? { ...obj, id: +id, ownerId, ownerName } : obj
+      );
       return args;
     },
     nullRoomOwner: (
       _: void,
       args: { id: number; ownerId: string; ownerName: string }
     ) => {
-      const { id, ownerId, ownerName } = args;
-      rooms = rooms.map((obj) => {
-        if (obj.id === +id) {
-          return { ...obj, id: +id, ownerId: "", ownerName: "" };
-        } else return obj;
-      });
+      const { id } = args;
+      rooms = rooms.map((obj) =>
+        obj.id === +id ? { ...obj, id: +id, ownerId: "", ownerName: "" } : obj
+      );
       return args;
     },
 
@@ -181,7 +171,6 @@ const resolvers = {
       _: void,
       args: { name: string; role: string; email: string; phone: number }
     ) => {
-      const { name, role, email, phone } = args;
       users.push({ ...args, id: Date.now() });
       return args;
     },
@@ -196,23 +185,17 @@ const resolvers = {
       }
     ) => {
       const { id, name, role, email, phone } = args;
-      users = users.map((obj) => {
-        if (obj.id === +id) {
-          return { id: +id, name, role, email, phone };
-        } else return obj;
-      });
+      users = users.map((obj) =>
+        obj.id === +id ? { id: +id, name, role, email, phone } : obj
+      );
       return args;
     },
     deleteUser: (_: void, args: { id: number }) => {
       const { id } = args;
-      users = users.filter((obj) => {
-        return +obj.id !== +id;
-      });
-      rooms = rooms.map((obj) => {
-        if (+obj.ownerId === +id) {
-          return { ...obj, ownerName: "", ownerId: "" };
-        } else return obj;
-      });
+      users = users.filter((obj) => +obj.id !== +id);
+      rooms = rooms.map((obj) =>
+        +obj.ownerId === +id ? { ...obj, ownerName: "", ownerId: "" } : obj
+      );
       return args;
     },
     setAlert: (
@@ -223,11 +206,9 @@ const resolvers = {
       }
     ) => {
       const { roomId, alert } = args;
-      rooms = rooms.map((obj) => {
-        if (+obj.id === +roomId) {
-          return { ...obj, statusAlert: alert };
-        } else return obj;
-      });
+      rooms = rooms.map((obj) =>
+        +obj.id === +roomId ? { ...obj, statusAlert: alert } : obj
+      );
       return alert;
     },
   },

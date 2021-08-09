@@ -5,7 +5,7 @@ import "./ModalPutAlert.scss";
 import { SET_ALERT } from "../../../graphql/Dashboard/SetAlert";
 import { getDoctors } from "../../../graphql/Dashboard/GetDoctors";
 import { GetByRole } from "../../../graphql/Stuff/GetStuff";
-import { AlertT } from "../../../graphql/Alerts/CreateAlerts";
+import { AlertT } from "../../Types/Alerts";
 import { IRooms } from "../../Types/Rooms";
 
 interface ModalPutAlertProp {
@@ -21,10 +21,7 @@ export const ModalPutAlert: React.FC<ModalPutAlertProp> = ({
   alerts,
   rooms,
 }) => {
-  const validate = (e) => {
-    const errors = {};
-    return errors;
-  };
+  const [activeAlert, setActiveAlert] = useState<AlertT>();
 
   const [setAlert] = useMutation(SET_ALERT);
 
@@ -34,14 +31,13 @@ export const ModalPutAlert: React.FC<ModalPutAlertProp> = ({
     }
   };
 
-  const onSubmit = async (obj) => {
-    obj = activeAlert;
+  const onSubmit = () => {
     setAlert({
       variables: {
         roomId: rooms.id,
-        id: obj.id,
-        color: obj.color,
-        status: obj.status,
+        id: activeAlert?.id,
+        color: activeAlert?.color,
+        status: activeAlert?.status,
       },
       refetchQueries: [
         { query: getDoctors },
@@ -50,7 +46,6 @@ export const ModalPutAlert: React.FC<ModalPutAlertProp> = ({
     });
     setModalPutAlertActive(false);
   };
-  const [activeAlert, setActiveAlert] = useState<AlertT>();
 
   return (
     <div className={active ? "modal active" : "modal"} onClick={outsideClick}>
@@ -61,7 +56,6 @@ export const ModalPutAlert: React.FC<ModalPutAlertProp> = ({
       >
         <Form
           onSubmit={onSubmit}
-          validate={validate}
           render={({ handleSubmit }) => (
             <form onSubmit={handleSubmit}>
               <Field
@@ -75,11 +69,10 @@ export const ModalPutAlert: React.FC<ModalPutAlertProp> = ({
                           {alerts.map((obj, index) => {
                             {
                               return (
-                                <div className="alerts_choice" key={index + 1}>
+                                <div className="alerts_choice" key={obj.id}>
                                   <button
                                     className="block"
                                     onClick={() => setActiveAlert(obj)}
-                                    style={{ cursor: "pointer" }}
                                   >
                                     <div
                                       className="round"

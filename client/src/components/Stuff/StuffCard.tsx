@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import { ModalEditStuff } from "./Modals/ModalEditStuff";
 import { ModalDeleteUser } from "./Modals/ModalDeleteUser";
-import { StuffT } from "../../graphql/Stuff/GetStuff";
+import { StuffT } from "../Types/Stuff";
 
 import "./StuffCard.scss";
 
@@ -34,37 +34,25 @@ export const StuffCard: React.FC<StuffT> = ({
       <div className="doctor_id">
         <span className="id">{number}</span>
       </div>
-      <span className="name" style={{ marginRight: "80px" }}>
-        {name}
-      </span>
-      <span className="email" style={{ marginRight: "80px" }}>
-        {email}
-      </span>
-      <span className="phone" style={{ marginRight: "120px" }}>
-        {`+${phone}`}
-      </span>
+      <span className="name">{name}</span>
+      <span className="email">{email}</span>
+      <span className="phone">{`+${phone}`}</span>
       {role === "Doctor"
         ? rooms && (
-            <div className="colors">
-              {rooms.map((color, index) => {
-                return (
-                  <span
-                    className="colors_round"
-                    key={index}
-                    style={{
-                      background: color.statusAlert?.color,
-                    }}
-                  ></span>
-                );
-              })}
-            </div>
-          )
-        : ""}
-
-      {role === "Doctor" ? (
-        rooms ? (
-          rooms.length >= 1 ? (
             <>
+              <div className="colors">
+                {rooms.map((color) => {
+                  return (
+                    <span
+                      className="colors_round"
+                      key={color.id}
+                      style={{
+                        background: color.statusAlert?.color,
+                      }}
+                    ></span>
+                  );
+                })}
+              </div>
               <div className="rooms_list">
                 <span>
                   Rooms:
@@ -72,15 +60,8 @@ export const StuffCard: React.FC<StuffT> = ({
                 </span>
               </div>
             </>
-          ) : (
-            <span className="rooms_list">Rooms: none</span>
           )
-        ) : (
-          ""
-        )
-      ) : (
-        ""
-      )}
+        : null}
 
       <div className="buttons">
         <button>
@@ -91,6 +72,7 @@ export const StuffCard: React.FC<StuffT> = ({
         </button>
         {modalEditStuff && (
           <ModalEditStuff
+            role={role}
             name={name}
             phone={phone}
             email={email}
@@ -101,6 +83,7 @@ export const StuffCard: React.FC<StuffT> = ({
         )}
         {modalDeleteUser && (
           <ModalDeleteUser
+            role={role}
             id={id}
             active={modalDeleteUser}
             setModalDeleteUserActive={setModalDeleteUserActive}

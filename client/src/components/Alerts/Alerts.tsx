@@ -16,16 +16,16 @@ interface ModalCreateAlert {
 
 export const Alerts = () => {
   const [modalCreateAlerts, setModalCreateAlertsActive] = useState(false);
+  const { data, loading } = useQuery<GetAllAlertsResponse>(GetAllAlerts);
 
   const toggleCreateModal = () => {
     setModalCreateAlertsActive((store) => !store);
   };
 
-  const { data, loading } = useQuery<GetAllAlertsResponse>(GetAllAlerts);
-
   if (loading) {
     return <span>Page is loading...</span>;
   }
+
   return (
     <div className="alerts">
       <button className="add" onClick={toggleCreateModal}>
@@ -39,7 +39,7 @@ export const Alerts = () => {
               index={index}
               status={alert.status}
               color={alert.color}
-              key={`alert_${index}`}
+              key={alert.id}
             />
           ))}
       </div>

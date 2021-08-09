@@ -10,29 +10,29 @@ import {
   getDoctors,
 } from "../../graphql/Dashboard/GetDoctors";
 import "./Dashboard.scss";
+import { GetByRole, GetByRoleResponse } from "../../graphql/Stuff/GetStuff";
 
 export const Dashboard = () => {
   const { data: dataDoctors, loading: loadingDoctors } =
-    useQuery<GetDoctorsResponse>(getDoctors);
+    useQuery<GetByRoleResponse>(GetByRole, {
+      variables: { role: "Doctor" },
+    });
+
   const { data: dataAlerts, loading: loadingAlerts } =
     useQuery<GetAllAlertsResponse>(GetAllAlerts);
 
-  if (loadingAlerts) {
-    return <span>Loading...</span>;
-  }
-  if (loadingDoctors) {
+  if (loadingAlerts || loadingDoctors) {
     return <span>Loading...</span>;
   }
 
   return (
     <div className="dashboard">
-      {dataDoctors?.getDoctors &&
-        dataAlerts &&
-        dataDoctors.getDoctors.map((dashboard, index) => (
+      {dataAlerts &&
+        dataDoctors?.getByRole?.map((dashboard) => (
           <DashboardCard
             name={dashboard.name}
             alerts={dataAlerts.getAlerts}
-            key={`dashboard_${index}`}
+            key={dashboard.id}
             rooms={dashboard.rooms}
           />
         ))}

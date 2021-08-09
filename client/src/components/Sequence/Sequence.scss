@@ -6,6 +6,9 @@
     display: flex;
     flex-direction: row;
     align-items: center;
+    .choose_title {
+      font-size: 18px;
+    }
     .save {
       margin-left: 80%;
       width: 150px;
@@ -36,8 +39,8 @@
     padding-left: 20px;
     margin-right: 100px;
     margin-bottom: 42px;
-    &_name {
-      margin-right: 133px;
+    &__select {
+      font-size: 18px;
     }
   }
   h1 {
@@ -49,6 +52,12 @@
     color: #6ac7be;
     margin-left: 700px;
     margin-bottom: 20px;
+  }
+
+  h2 {
+    padding-top: 40px;
+    font-size: 18px;
+    padding-bottom: 40px;
   }
 
   .rooms {
@@ -64,6 +73,7 @@
     align-items: center;
     margin-right: 24px;
     margin-bottom: 10px;
+    cursor: pointer;
     .create {
       color: #6ac7be;
       font-size: 14px;
@@ -81,12 +91,14 @@
     display: flex;
     align-items: center;
     padding-bottom: 10px;
+    &__plus {
+      margin-left: -29px;
+    }
   }
 
   .cards_inside {
     display: flex;
     flex-wrap: wrap;
-    overflow-x: hidden;
   }
   .drag_in {
     display: flex;

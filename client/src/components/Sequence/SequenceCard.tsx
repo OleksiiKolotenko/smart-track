@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { ModalEditRoom } from "./Modal/ModalEditRoom";
 import { ModalDeleteRoom } from "./Modal/ModalDeleteRoom";
-import { SequenceT } from "../../graphql/Sequence/GetRooms";
+import { SequenceT } from "../Types/Sequence";
 
 import "./SequenceCard.scss";
 import add from "../../img/add.svg";
@@ -30,25 +30,26 @@ export const SequenceCard: React.FC<SequenceT> = ({
     <div className="sequence_card">
       <div className="buttons">
         <img
+          className="buttons__delete"
           src={del}
           alt="delete_item"
           onClick={toggleDeleteModal}
-          style={{ cursor: "pointer" }}
         />
         <img
+          className="buttons__edit"
           src={edit}
           alt="edit_item"
           onClick={toggleEditModal}
-          style={{ cursor: "pointer" }}
         />
       </div>
       <div className="room_number">
-        <img src={add} alt="" />
+        <img src={add} alt="add new room" />
         <span className="number">{name}</span>
       </div>
       <span className="name">{ownerName}</span>
       {modalEditRoom && (
         <ModalEditRoom
+          key={id}
           id={id}
           ownerId={ownerId}
           ownerName={ownerName}
@@ -58,6 +59,7 @@ export const SequenceCard: React.FC<SequenceT> = ({
       )}
       {modalDeleteRoom && (
         <ModalDeleteRoom
+          key={id}
           id={id}
           active={modalDeleteRoom}
           setModalDeleteRoomActive={setModalDeleteRoomActive}

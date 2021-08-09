@@ -1,10 +1,5 @@
 import { gql } from "@apollo/client";
-
-export type AlertT = {
-  index: number;
-  status: string;
-  color: string;
-};
+import { AlertT } from "../../components/Types/Alerts";
 
 export type SendAlertResponse = { editAlert: AlertT[] };
 

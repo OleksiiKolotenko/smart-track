@@ -1,12 +1,7 @@
 import { gql } from "@apollo/client";
+import { IRooms } from "../../components/Types/Rooms";
 
-export type RoomT = {
-  id: number;
-  ownerID: number;
-  ownerName: string;
-};
-
-export type SendEditRoomResponse = { editRoom: RoomT[] };
+export type SendEditRoomResponse = { editRoom: IRooms[] };
 
 export const SET_OWNER = gql`
   mutation setRoomOwner($id: ID!, $ownerId: ID!, $ownerName: String!) {

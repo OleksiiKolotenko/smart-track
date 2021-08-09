@@ -5,7 +5,7 @@ import { Form, Field } from "react-final-form";
 import "./ModalAlert.scss";
 import { GetAllAlerts } from "../../../graphql/Alerts/GetAlerts";
 
-const colors = [
+export const colors = [
   "#EE589730",
   "#86E8EE30",
   "#FA700C30",
@@ -19,12 +19,21 @@ interface ModalAlertCreateProps {
   setModalCreateAlertsActive: Dispatch<boolean>;
 }
 
+interface Errors {
+  name?: string | null;
+}
+
 export const ModalCreateAlert: React.FC<ModalAlertCreateProps> = ({
   active,
   setModalCreateAlertsActive,
 }) => {
+  const [activeColor, setActiveColor] = useState(0);
   const validate = (e) => {
-    const errors = {};
+    const errors: Errors = {};
+
+    if (!e.name) {
+      errors.name = "Name can't be empty";
+    }
     return errors;
   };
   const [CreateAlert] = useMutation(CREATE_ALERT);
@@ -34,15 +43,13 @@ export const ModalCreateAlert: React.FC<ModalAlertCreateProps> = ({
     }
   };
 
-  const onSubmit = async (obj) => {
+  const onSubmit = (obj) => {
     CreateAlert({
       variables: { status: obj.name, color: colors[activeColor] },
       refetchQueries: [{ query: GetAllAlerts }],
     });
     setModalCreateAlertsActive(false);
   };
-
-  const [activeColor, setActiveColor] = useState(0);
 
   return (
     <div className={active ? "modal active" : "modal"} onClick={outsideClick}>
@@ -72,8 +79,14 @@ export const ModalCreateAlert: React.FC<ModalAlertCreateProps> = ({
                             placeholder="Alert"
                           />
                           {meta.touched && meta.error && (
-                            <span>
-                              <br />
+                            <span
+                              style={{
+                                fontSize: "14px",
+                                display: "flex",
+                                marginTop: "24%",
+                                width: "auto",
+                              }}
+                            >
                               {meta.error}
                             </span>
                           )}

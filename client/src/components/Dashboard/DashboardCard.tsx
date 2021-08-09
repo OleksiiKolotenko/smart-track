@@ -1,14 +1,13 @@
 import React from "react";
 import DoctorsRoom from "./DoctorsRooms";
 import { IRooms } from "../Types/Rooms";
-
-import { AlertT } from "../../graphql/Alerts/GetAlerts";
+import { AlertT } from "../../components/Types/Alerts";
 
 import "./DashboardCard.scss";
 
 interface DashboardProps {
   name: string;
-  rooms: IRooms[];
+  rooms: IRooms[] | undefined;
   alerts: AlertT[];
 }
 
@@ -26,21 +25,17 @@ export const DashboardCard: React.FC<DashboardProps> = ({
         <span className="doctor_line"></span>
         <div className="doctor_query">
           <button className="minus">-</button>
-          <span className="state">{rooms.length}</span>
+          <span className="state">{rooms?.length}</span>
           <button className="plus">+</button>
-          <span
-            style={{ fontSize: "14px", color: "#969696", marginRight: "83px" }}
-          >
-            in line
-          </span>
+          <span className="in_line">in line</span>
           <button className="stop">Stop the line</button>
         </div>
       </div>
       <span className="line"></span>
       <div className="rooms_wrap">
         {rooms &&
-          rooms.map((rooms, index) => (
-            <DoctorsRoom alerts={alerts} rooms={rooms} key={`rooms${index}`} />
+          rooms.map((rooms) => (
+            <DoctorsRoom alerts={alerts} rooms={rooms} key={rooms.id} />
           ))}
       </div>
     </div>

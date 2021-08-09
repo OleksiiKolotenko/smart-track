@@ -134,3 +134,5 @@ export const ModalEditRoom: React.FC<ModalRoomProps> = ({
     </div>
   );
 };
+
+export default ModalEditRoom;

@@ -13,6 +13,7 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    cursor: pointer;
     margin-top: 18px;
     &_icon {
       width: 66px;
@@ -46,6 +47,9 @@
     height: 40px;
     background: #fafcff;
     border-radius: 20px 20px 0px 20px;
+    .time {
+      color: #fc7e55;
+    }
   }
   .number_block {
     width: 59px;

@@ -8,8 +8,6 @@ import Stuff from "./components/Stuff/Stuff";
 import "./app.scss";
 
 function App() {
-  const [activePerson, setActivePerson] = useState<number>(0);
-
   return (
     <Router>
       <div className="app">
@@ -21,10 +19,7 @@ function App() {
           <Dashboard />
         </Route>
         <Route path="/stuff">
-          <Stuff
-            activePerson={activePerson}
-            setActivePerson={setActivePerson}
-          />
+          <Stuff />
         </Route>
         <Route path="/alerts">
           <Alerts />

@@ -11,6 +11,7 @@ interface ModalDeleteUserProps {
   active: boolean;
   setModalDeleteUserActive: Dispatch<boolean>;
   id: number;
+  role: string;
 }
 
 interface Errors {
@@ -21,6 +22,7 @@ export const ModalDeleteUser: React.FC<ModalDeleteUserProps> = ({
   active,
   setModalDeleteUserActive,
   id,
+  role,
 }) => {
   const validate = (e) => {
     const errors: Errors = {};
@@ -36,14 +38,11 @@ export const ModalDeleteUser: React.FC<ModalDeleteUserProps> = ({
     }
   };
 
-  const onSubmit = async (obj) => {
+  const onSubmit = () => {
     deleteUser({
       variables: { id: id },
       refetchQueries: [
-        { query: GetByRole, variables: { role: "Doctor" } },
-        { query: GetByRole, variables: { role: "Assistant" } },
-        { query: GetByRole, variables: { role: "Receptionist" } },
-        { query: getDoctors },
+        { query: GetByRole, variables: { role: role } },
         { query: GetAllRooms },
       ],
     });

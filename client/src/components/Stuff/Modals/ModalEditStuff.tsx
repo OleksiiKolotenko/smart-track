@@ -14,6 +14,7 @@ interface ModalStuffProps {
   name: string;
   phone: number;
   email: string;
+  role: string;
 }
 
 interface Errors {
@@ -30,7 +31,10 @@ export const ModalEditStuff: React.FC<ModalStuffProps> = ({
   name,
   email,
   phone,
+  role,
 }) => {
+  console.log(role);
+
   const validate = (e) => {
     const errors: Errors = {};
     let regexPhone = /^\d+$/g;
@@ -83,7 +87,7 @@ export const ModalEditStuff: React.FC<ModalStuffProps> = ({
 
   const [editUser] = useMutation(EDIT_USER);
 
-  const onSubmit = async (obj) => {
+  const onSubmit = (obj) => {
     editUser({
       variables: {
         id: id,
@@ -94,9 +98,7 @@ export const ModalEditStuff: React.FC<ModalStuffProps> = ({
       },
       refetchQueries: [
         { query: GetByRole, variables: { role: "Doctor" } },
-        { query: GetByRole, variables: { role: "Assistant" } },
-        { query: GetByRole, variables: { role: "Receptionist" } },
-        { query: getDoctors },
+        { query: GetByRole, variables: { role: role } },
         { query: GetAllRooms },
       ],
     });

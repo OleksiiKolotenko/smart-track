@@ -1,14 +1,6 @@
 import { gql } from "@apollo/client";
+import { DoctorsT } from "../../components/Types/Doctors";
 
-export type DoctorsT = {
-  number: number;
-  id: number;
-  name: string;
-  email: string;
-  role: string;
-  phone: number;
-  rooms?: string;
-};
 export type GetDoctorsByResponse = { getDoctors: DoctorsT[] };
 
 export const getDoctors = gql`

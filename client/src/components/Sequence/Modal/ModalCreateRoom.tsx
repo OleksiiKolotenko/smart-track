@@ -125,3 +125,5 @@ export const ModalCreateRoom: FC<ModalRoomProps> = ({
     </div>
   );
 };
+
+export default ModalCreateRoom;
