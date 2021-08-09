@@ -6,16 +6,16 @@ cd server => npm start
 
 Technologies used:
 
-HTML
-SCSS
-TypeScript
-ReactJS
-React-Router-Dom
-React-Beautiful DND
-Node JS
-Cors
-Nodemon
-Express
-GraphQL
-Apollo
+- HTML
+- SCSS
+- TypeScript
+- ReactJS
+- React-Router-Dom
+- React-Beautiful DND
+- Node JS
+- Cors
+- Nodemon
+- Express
+- GraphQL
+- Apollo
 
