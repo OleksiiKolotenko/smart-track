@@ -1,5 +1,8 @@
 import { useState, useEffect } from "react";
 import { useQuery, useMutation } from "@apollo/client";
+
+import { SequenceDrag } from "./SequenceDrag";
+
 import { SET_OWNER } from "../../graphql/Sequence/SetOwner";
 import { CLEAR_OWNER } from "../../graphql/Sequence/ClearOwner";
 import {
@@ -7,14 +10,12 @@ import {
   GetAllSequenceResponse,
   SequenceT,
 } from "../../graphql/Sequence/GetRooms";
+import { GetByRole } from "../../graphql/Stuff/GetStuff";
 import {
   getDoctors,
   GetDoctorsByResponse,
 } from "../../graphql/Sequence/GetDoctors";
-
 import "./Sequence.scss";
-import { SequenceDrag } from "./SequenceDrag";
-import { GetByRole } from "../../graphql/Stuff/GetStuff";
 
 export interface ICurrentRooms {
   currentRooms: SequenceT[];
@@ -120,7 +121,6 @@ export const Sequence = () => {
           Save
         </button>
       </div>
-
       <div className="doctor">
         <select
           style={{ fontSize: "18px" }}
@@ -139,9 +139,7 @@ export const Sequence = () => {
             ))}
         </select>
       </div>
-
       <h1>Drag and Drop rooms to the box</h1>
-
       <div className="drag">
         <SequenceDrag
           roomsCurrent={roomsCurrent}

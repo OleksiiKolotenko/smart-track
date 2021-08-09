@@ -1,12 +1,13 @@
 import React, { Dispatch } from "react";
 import { useMutation } from "@apollo/client";
-import { EDIT_ROOM } from "../../../graphql/Sequence/EditRooms";
-
 import { Form, Field } from "react-final-form";
-import "./ModalRoom.scss";
+
+import { EDIT_ROOM } from "../../../graphql/Sequence/EditRooms";
 import { GetAllRooms } from "../../../graphql/Sequence/GetRooms";
 import { getDoctors } from "../../../graphql/Dashboard/GetDoctors";
 import { GetByRole } from "../../../graphql/Stuff/GetStuff";
+
+import "./ModalRoom.scss";
 
 interface ModalRoomProps {
   active: boolean;

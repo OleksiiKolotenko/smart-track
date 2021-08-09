@@ -1,8 +1,11 @@
 import React, { useState } from "react";
-import { StuffT } from "../../graphql/Stuff/GetStuff";
+
 import { ModalEditStuff } from "./Modals/ModalEditStuff";
 import { ModalDeleteUser } from "./Modals/ModalDeleteUser";
+import { StuffT } from "../../graphql/Stuff/GetStuff";
+
 import "./StuffCard.scss";
+
 import edit from "../../img/editPen.svg";
 import del from "../../img/trash.svg";
 

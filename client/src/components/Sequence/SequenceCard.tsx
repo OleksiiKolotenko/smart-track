@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { ModalEditRoom } from "./Modal/ModalEditRoom";
 import { ModalDeleteRoom } from "./Modal/ModalDeleteRoom";
+import { SequenceT } from "../../graphql/Sequence/GetRooms";
+
 import "./SequenceCard.scss";
 import add from "../../img/add.svg";
 import del from "../../img/delete.svg";
 import edit from "../../img/editPen.svg";
-import { SequenceT } from "../../graphql/Sequence/GetRooms";
 
 export const SequenceCard: React.FC<SequenceT> = ({
   name,

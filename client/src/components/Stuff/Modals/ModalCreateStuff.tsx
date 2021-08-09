@@ -71,8 +71,6 @@ export const ModalCreateStuff: React.FC<ModalStuffProps> = ({
   };
 
   const onSubmit = async (obj) => {
-    console.log(obj);
-
     CreateStuff({
       variables: {
         name: obj.name,

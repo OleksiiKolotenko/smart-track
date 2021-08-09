@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useQuery } from "@apollo/client";
 import AlertsBlock from "./AlertsBlock";
+import { ModalCreateAlert } from "./Modals/ModalCreateAlerts";
+
 import {
   GetAllAlerts,
   GetAllAlertsResponse,
 } from "../../graphql/Alerts/GetAlerts";
-import { ModalCreateAlert } from "./Modals/ModalCreateAlerts";
 import "./Alerts.scss";
 
 interface ModalCreateAlert {

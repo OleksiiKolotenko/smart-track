@@ -1,13 +1,17 @@
-import { useMutation } from "@apollo/client";
-import { CREATE_ROOM } from "../../../graphql/Sequence/CreateRooms";
 import { FC, Dispatch } from "react";
+import { useMutation } from "@apollo/client";
 import { Form, Field } from "react-final-form";
+import { CREATE_ROOM } from "../../../graphql/Sequence/CreateRooms";
+import {
+  GetAllRooms,
+  GetAllSequenceResponse,
+} from "../../../graphql/Sequence/GetRooms";
 import "./ModalRoom.scss";
-import { GetAllRooms } from "../../../graphql/Sequence/GetRooms";
 
 interface ModalRoomProps {
   active: boolean;
   setModalCreateRoomActive: Dispatch<boolean>;
+  dataRooms: GetAllSequenceResponse;
 }
 
 interface Errors {
@@ -15,6 +19,7 @@ interface Errors {
 }
 
 export const ModalCreateRoom: FC<ModalRoomProps> = ({
+  dataRooms,
   active,
   setModalCreateRoomActive,
 }) => {
@@ -37,6 +42,10 @@ export const ModalCreateRoom: FC<ModalRoomProps> = ({
 
     if (e.name && e.name.length > 2) {
       errors.name = "Room name should contain 2 letters";
+    }
+
+    if (e.name && dataRooms?.getRooms.find((name) => name.name === e.name)) {
+      errors.name = "Room's name should be unique";
     }
 
     return errors;

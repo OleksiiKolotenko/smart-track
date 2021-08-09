@@ -1,8 +1,10 @@
 import React from "react";
 import { useQuery } from "@apollo/client";
-import { GetByRole, GetByRoleResponse } from "../../graphql/Stuff/GetStuff";
 import StuffCard from "./StuffCard";
 import { ModalCreateStuff } from "./Modals/ModalCreateStuff";
+
+import { GetByRole, GetByRoleResponse } from "../../graphql/Stuff/GetStuff";
+
 import "./Stuff.scss";
 
 type StuffProps = {

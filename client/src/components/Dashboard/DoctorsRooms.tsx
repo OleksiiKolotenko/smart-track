@@ -1,9 +1,10 @@
 import { useState } from "react";
-import "./DoctorsRooms.scss";
-import triangle from "../../img/triangle.svg";
 import { ModalPutAlert } from "./Modals/ModalPutAlert";
 import { IRooms } from "../Types/Rooms";
 import { AlertT } from "../../graphql/Alerts/GetAlerts";
+
+import "./DoctorsRooms.scss";
+import triangle from "../../img/triangle.svg";
 
 interface DoctorsRooms {
   rooms: IRooms;

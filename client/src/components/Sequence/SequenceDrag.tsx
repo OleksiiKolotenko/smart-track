@@ -1,16 +1,16 @@
-import _ from "lodash";
-
-import SequenceCard from "./SequenceCard";
 import { DragDropContext, Droppable, Draggable } from "aligned-rbd";
 import { useState, useEffect, SetStateAction } from "react";
-import add from "../../img/add.svg";
-import plus from "../../img/plus.svg";
+
 import { ModalCreateRoom } from "./Modal/ModalCreateRoom";
 import {
   GetAllSequenceResponse,
   SequenceT,
 } from "../../graphql/Sequence/GetRooms";
+
+import SequenceCard from "./SequenceCard";
 import { ICurrentRooms, IOtherRooms } from "./Sequence";
+import plus from "../../img/plus.svg";
+import add from "../../img/add.svg";
 
 interface SequenceDrag {
   dataRooms: GetAllSequenceResponse;
@@ -61,7 +61,7 @@ export const SequenceDrag: React.FC<SequenceDrag> = ({
     other_sequence: "roomsOther",
   };
 
-  const getList = (id: number) => allRooms[idList[id]];
+  const getList = (id) => allRooms[idList[id]];
 
   function onDragEnd(result) {
     const { source, destination } = result;
@@ -243,6 +243,7 @@ export const SequenceDrag: React.FC<SequenceDrag> = ({
         ? () => setModalCreateRoomActive(false)
         : modalCreateRoom && (
             <ModalCreateRoom
+              dataRooms={dataRooms}
               active={modalCreateRoom}
               setModalCreateRoomActive={setModalCreateRoomActive}
             ></ModalCreateRoom>

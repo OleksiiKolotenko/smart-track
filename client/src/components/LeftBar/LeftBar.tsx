@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom";
+
 import "./LeftBar.scss";
 import dashboard from "../../img/dashboard.svg";
 import stuff from "../../img/stuff.svg";

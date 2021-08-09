@@ -1,5 +1,6 @@
 import { useQuery } from "@apollo/client";
-import React from "react";
+import DashboardCard from "./DashboardCard";
+
 import {
   GetAllAlerts,
   GetAllAlertsResponse,
@@ -9,7 +10,6 @@ import {
   getDoctors,
 } from "../../graphql/Dashboard/GetDoctors";
 import "./Dashboard.scss";
-import DashboardCard from "./DashboardCard";
 
 export const Dashboard = () => {
   const { data: dataDoctors, loading: loadingDoctors } =

@@ -54,11 +54,10 @@
   .rooms {
     display: flex;
     flex-direction: row;
-    overflow-x: hidden;
   }
   .rooms_creation_block {
     height: 110px;
-    width: 147px;
+    min-width: 147px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -87,6 +86,7 @@
   .cards_inside {
     display: flex;
     flex-wrap: wrap;
+    overflow-x: hidden;
   }
   .drag_in {
     display: flex;

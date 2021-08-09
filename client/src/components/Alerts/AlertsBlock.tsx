@@ -1,8 +1,10 @@
 import { FC, useState } from "react";
-import "./AlertsBlock.scss";
+
 import editPen from "../../img/editPen.svg";
+
 import { AlertT } from "../../graphql/Alerts/GetAlerts";
 import { ModalEditAlert } from "./Modals/ModalEditAlerts";
+import "./AlertsBlock.scss";
 
 export const AlertsBlock: FC<AlertT> = ({ index, status, color, id }) => {
   const [modalEditAlerts, setModalEditAlertsActive] = useState(false);

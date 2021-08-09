@@ -1,8 +1,10 @@
 import React from "react";
-import { AlertT } from "../../graphql/Alerts/GetAlerts";
-import "./DashboardCard.scss";
 import DoctorsRoom from "./DoctorsRooms";
 import { IRooms } from "../Types/Rooms";
+
+import { AlertT } from "../../graphql/Alerts/GetAlerts";
+
+import "./DashboardCard.scss";
 
 interface DashboardProps {
   name: string;
