@@ -22,6 +22,8 @@ export const ModalDeleteRoom: FC<ModalRoomProps> = ({
   setModalDeleteRoomActive,
   id,
 }) => {
+  const [deleteRoom] = useMutation(DELETE_ROOM);
+
   const validate = (e) => {
     const errors: Errors = {};
 
@@ -33,8 +35,6 @@ export const ModalDeleteRoom: FC<ModalRoomProps> = ({
       setModalDeleteRoomActive(false);
     }
   };
-
-  const [deleteRoom] = useMutation(DELETE_ROOM);
 
   const onSubmit = () => {
     deleteRoom({

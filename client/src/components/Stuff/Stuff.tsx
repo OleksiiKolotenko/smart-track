@@ -8,9 +8,9 @@ import { GetByRole, GetByRoleResponse } from "../../graphql/Stuff/GetStuff";
 import "./Stuff.scss";
 
 enum availableRoles {
-  Doctor,
-  Assistant,
-  Receptionist,
+  "Doctor",
+  "Assistant",
+  "Receptionist",
 }
 
 export const Stuff = ({}) => {
@@ -28,6 +28,8 @@ export const Stuff = ({}) => {
   if (loading) {
     return <span>Page is loading...</span>;
   }
+  console.log("role: ", availableRoles[activePerson]);
+  console.log("role data:", data?.getByRole);
 
   return (
     <div className="stuff">
@@ -57,49 +59,18 @@ export const Stuff = ({}) => {
       </div>
 
       <div className="info_block">
-        {activePerson === 0
-          ? data?.getByRole &&
-            data.getByRole.map((stuff, index) => (
-              <StuffCard
-                number={index + 1}
-                id={stuff.id}
-                name={stuff.name}
-                role={"Doctor"}
-                email={stuff.email}
-                phone={stuff.phone}
-                rooms={stuff.rooms}
-                key={stuff.id}
-              />
-            ))
-          : null}
-        {activePerson === 1
-          ? data?.getByRole &&
-            data.getByRole.map((stuff, index) => (
-              <StuffCard
-                number={index + 1}
-                id={stuff.id}
-                name={stuff.name}
-                role={"Assistant"}
-                email={stuff.email}
-                phone={stuff.phone}
-                key={stuff.id}
-              />
-            ))
-          : null}
-        {activePerson === 2
-          ? data?.getByRole &&
-            data.getByRole.map((stuff, index) => (
-              <StuffCard
-                number={index + 1}
-                id={stuff.id}
-                name={stuff.name}
-                role={"Receptionist"}
-                email={stuff.email}
-                phone={stuff.phone}
-                key={stuff.id}
-              />
-            ))
-          : null}
+        {data?.getByRole.map((stuff, index) => (
+          <StuffCard
+            number={index + 1}
+            id={stuff.id}
+            name={stuff.name}
+            role={availableRoles[activePerson]}
+            email={stuff.email}
+            phone={stuff.phone}
+            rooms={stuff.rooms}
+            key={stuff.id}
+          />
+        ))}
       </div>
       {modalCreateStuff && (
         <ModalCreateStuff

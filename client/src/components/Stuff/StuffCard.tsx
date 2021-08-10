@@ -18,6 +18,8 @@ export const StuffCard: React.FC<StuffT> = ({
   role,
   id,
 }) => {
+  console.log("stuff render");
+
   const [modalEditStuff, setModalEditStuffActive] = useState(false);
   const [modalDeleteUser, setModalDeleteUserActive] = useState(false);
 

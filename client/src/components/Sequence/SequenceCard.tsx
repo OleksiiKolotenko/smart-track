@@ -16,11 +16,11 @@ export const SequenceCard: React.FC<SequenceT> = ({
 }) => {
   const [modalEditRoom, setModalEditRoomActive] = useState(false);
 
+  const [modalDeleteRoom, setModalDeleteRoomActive] = useState(false);
+
   const toggleEditModal = () => {
     setModalEditRoomActive((store) => !store);
   };
-
-  const [modalDeleteRoom, setModalDeleteRoomActive] = useState(false);
 
   const toggleDeleteModal = () => {
     setModalDeleteRoomActive((store) => !store);

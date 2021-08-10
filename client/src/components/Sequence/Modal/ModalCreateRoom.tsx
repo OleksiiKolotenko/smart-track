@@ -23,6 +23,8 @@ export const ModalCreateRoom: FC<ModalRoomProps> = ({
   active,
   setModalCreateRoomActive,
 }) => {
+  const [CreateRoom] = useMutation(CREATE_ROOM);
+
   const validate = (e) => {
     const errors: Errors = {};
 
@@ -56,8 +58,6 @@ export const ModalCreateRoom: FC<ModalRoomProps> = ({
       setModalCreateRoomActive(false);
     }
   };
-
-  const [CreateRoom] = useMutation(CREATE_ROOM);
 
   const onSubmit = async (obj) => {
     CreateRoom({

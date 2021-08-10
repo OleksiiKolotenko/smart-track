@@ -21,6 +21,8 @@ export const ModalCreateStuff: React.FC<ModalStuffProps> = ({
   active,
   setModalCreateStuffActive,
 }) => {
+  const [CreateStuff] = useMutation(CREATE_STUFF);
+
   const validate = (e) => {
     const errors: Errors = {};
     let regexPhone = /^\d+$/g;
@@ -70,7 +72,7 @@ export const ModalCreateStuff: React.FC<ModalStuffProps> = ({
     }
   };
 
-  const onSubmit = async (obj) => {
+  const onSubmit = (obj) => {
     CreateStuff({
       variables: {
         name: obj.name,
@@ -85,8 +87,6 @@ export const ModalCreateStuff: React.FC<ModalStuffProps> = ({
     });
     setModalCreateStuffActive(false);
   };
-
-  const [CreateStuff] = useMutation(CREATE_STUFF);
 
   return (
     <div className={active ? "modal active" : "modal"} onClick={outsideClick}>
@@ -117,16 +117,7 @@ export const ModalCreateStuff: React.FC<ModalStuffProps> = ({
                             placeholder="name"
                           />
                           {meta.touched && meta.error && (
-                            <span
-                              style={{
-                                fontSize: "14px",
-                                display: "flex",
-                                marginTop: "24%",
-                                width: "auto",
-                              }}
-                            >
-                              {meta.error}
-                            </span>
+                            <span className="errors">{meta.error}</span>
                           )}
                         </div>
                       )}
@@ -142,16 +133,7 @@ export const ModalCreateStuff: React.FC<ModalStuffProps> = ({
                             placeholder="email"
                           />
                           {meta.touched && meta.error && (
-                            <span
-                              style={{
-                                fontSize: "14px",
-                                display: "flex",
-                                marginTop: "24%",
-                                width: "auto",
-                              }}
-                            >
-                              {meta.error}
-                            </span>
+                            <span className="errors">{meta.error}</span>
                           )}
                         </div>
                       )}
@@ -167,16 +149,7 @@ export const ModalCreateStuff: React.FC<ModalStuffProps> = ({
                             placeholder="38000000000"
                           />
                           {meta.touched && meta.error && (
-                            <span
-                              style={{
-                                fontSize: "14px",
-                                display: "flex",
-                                marginTop: "24%",
-                                width: "auto",
-                              }}
-                            >
-                              {meta.error}
-                            </span>
+                            <span className="errors">{meta.error}</span>
                           )}
                         </div>
                       )}

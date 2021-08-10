@@ -28,6 +28,8 @@ export const ModalCreateAlert: React.FC<ModalAlertCreateProps> = ({
   setModalCreateAlertsActive,
 }) => {
   const [activeColor, setActiveColor] = useState(0);
+  const [CreateAlert] = useMutation(CREATE_ALERT);
+
   const validate = (e) => {
     const errors: Errors = {};
 
@@ -36,7 +38,6 @@ export const ModalCreateAlert: React.FC<ModalAlertCreateProps> = ({
     }
     return errors;
   };
-  const [CreateAlert] = useMutation(CREATE_ALERT);
   const outsideClick = (e) => {
     if (e.target.className === "modal active") {
       setModalCreateAlertsActive(false);

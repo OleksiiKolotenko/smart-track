@@ -24,12 +24,6 @@ export const ModalDeleteUser: React.FC<ModalDeleteUserProps> = ({
   id,
   role,
 }) => {
-  const validate = (e) => {
-    const errors: Errors = {};
-
-    return errors;
-  };
-
   const [deleteUser] = useMutation(DELETE_STUFF);
 
   const outsideClick = (e) => {
@@ -58,7 +52,6 @@ export const ModalDeleteUser: React.FC<ModalDeleteUserProps> = ({
       >
         <Form
           onSubmit={onSubmit}
-          validate={validate}
           render={({ handleSubmit }) => (
             <form onSubmit={handleSubmit}>
               <Field
@@ -82,7 +75,6 @@ export const ModalDeleteUser: React.FC<ModalDeleteUserProps> = ({
                         No
                       </button>
                     </div>
-                    {meta.touched && meta.error && <span>{meta.error}</span>}
                   </div>
                 )}
               ></Field>

@@ -33,7 +33,7 @@ export const ModalEditStuff: React.FC<ModalStuffProps> = ({
   phone,
   role,
 }) => {
-  console.log(role);
+  const [editUser] = useMutation(EDIT_USER);
 
   const validate = (e) => {
     const errors: Errors = {};
@@ -85,8 +85,6 @@ export const ModalEditStuff: React.FC<ModalStuffProps> = ({
     }
   };
 
-  const [editUser] = useMutation(EDIT_USER);
-
   const onSubmit = (obj) => {
     editUser({
       variables: {
@@ -134,16 +132,7 @@ export const ModalEditStuff: React.FC<ModalStuffProps> = ({
                             placeholder="name"
                           />
                           {meta.touched && meta.error && (
-                            <span
-                              style={{
-                                fontSize: "14px",
-                                display: "flex",
-                                marginTop: "24%",
-                                width: "auto",
-                              }}
-                            >
-                              {meta.error}
-                            </span>
+                            <span className="errors">{meta.error}</span>
                           )}
                         </div>
                       )}
@@ -159,16 +148,7 @@ export const ModalEditStuff: React.FC<ModalStuffProps> = ({
                             placeholder="email"
                           />
                           {meta.touched && meta.error && (
-                            <span
-                              style={{
-                                fontSize: "14px",
-                                display: "flex",
-                                marginTop: "24%",
-                                width: "auto",
-                              }}
-                            >
-                              {meta.error}
-                            </span>
+                            <span className="errors">{meta.error}</span>
                           )}
                         </div>
                       )}
@@ -184,16 +164,7 @@ export const ModalEditStuff: React.FC<ModalStuffProps> = ({
                             placeholder="380000000000"
                           />
                           {meta.touched && meta.error && (
-                            <span
-                              style={{
-                                fontSize: "14px",
-                                display: "flex",
-                                marginTop: "24%",
-                                width: "auto",
-                              }}
-                            >
-                              {meta.error}
-                            </span>
+                            <span className="errors">{meta.error}</span>
                           )}
                         </div>
                       )}

@@ -31,8 +31,6 @@ export interface IOtherRooms {
 }
 
 export const Sequence = () => {
-  const [currentDoctor, setCurrentDoctor] = useState<string | undefined>();
-
   const { data: dataRooms, loading: loadingRooms } =
     useQuery<GetAllSequenceResponse>(GetAllRooms);
 
@@ -41,9 +39,7 @@ export const Sequence = () => {
       variables: { role: "Doctor" },
     });
 
-  const [setOwner] = useMutation(SET_OWNER);
-
-  const [clearOwner] = useMutation(CLEAR_OWNER);
+  const [currentDoctor, setCurrentDoctor] = useState<string | undefined>();
 
   const [roomsCurrent, setRoomsCurrent] = useState<ICurrentRooms>({
     currentRooms: [],
@@ -52,6 +48,10 @@ export const Sequence = () => {
   const [roomsOther, setRoomsOther] = useState<IOtherRooms | any>({
     otherRooms: dataRooms?.getRooms,
   });
+
+  const [setOwner] = useMutation(SET_OWNER);
+
+  const [clearOwner] = useMutation(CLEAR_OWNER);
 
   const currentDoctorId = dataDoctors?.getByRole.find(
     (id) => id.name === currentDoctor
@@ -130,12 +130,11 @@ export const Sequence = () => {
           }}
         >
           <option hidden>Make a choice</option>
-          {dataDoctors?.getByRole &&
-            dataDoctors.getByRole.map((sequence_doctor, index) => (
-              <>
-                <option key={sequence_doctor.id}>{sequence_doctor.name}</option>
-              </>
-            ))}
+          {dataDoctors?.getByRole?.map((sequence_doctor, index) => (
+            <>
+              <option key={sequence_doctor.id}>{sequence_doctor.name}</option>
+            </>
+          ))}
         </select>
       </div>
       <h1>Drag and Drop rooms to the box</h1>

@@ -28,6 +28,8 @@ export const ModalEditRoom: React.FC<ModalRoomProps> = ({
   ownerId,
   ownerName,
 }) => {
+  const [editRoom] = useMutation(EDIT_ROOM);
+
   const validate = (e) => {
     const errors: Errors = {};
 
@@ -57,7 +59,6 @@ export const ModalEditRoom: React.FC<ModalRoomProps> = ({
       setModalEditRoomActive(false);
     }
   };
-  const [editRoom] = useMutation(EDIT_ROOM);
 
   const onSubmit = async (obj) => {
     editRoom({
